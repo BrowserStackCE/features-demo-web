@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrowserStack Automate — Feature Demos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50:'#f5f3ff',100:'#ede9fe',200:'#ddd6fe',300:'#c4b5fd',400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9',800:'#5b21b6',900:'#4c1d95' }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gray-50 font-sans text-gray-900 antialiased">
+
+  <!-- Nav -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <span class="font-semibold text-gray-900">BrowserStack Automate</span>
+        <span class="text-gray-300">|</span>
+        <span class="text-sm text-gray-500">Feature Demos</span>
+      </div>
+      <a href="https://www.browserstack.com/automate" target="_blank" class="inline-flex items-center gap-2 text-sm font-medium text-brand-600 hover:text-brand-700">
+        Try BrowserStack
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+      <span class="inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-xs font-semibold px-3 py-1 rounded-full mb-6">
+        <span class="w-1.5 h-1.5 bg-brand-500 rounded-full"></span>
+        Static HTML · 11 Live Demos
+      </span>
+      <h1 class="text-5xl font-extrabold text-gray-900 tracking-tight mb-4">
+        BrowserStack Automate<br/>
+        <span class="text-brand-600">Feature Showcase</span>
+      </h1>
+      <p class="text-xl text-gray-500 max-w-2xl mx-auto mb-10">
+        A static HTML test target demonstrating real browser capabilities — from Apple Pay to GPS, camera injection to self-healing selectors.
+      </p>
+      <div class="flex items-center justify-center gap-4">
+        <a href="#features" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold px-5 py-2.5 rounded-lg shadow-sm">
+          Explore demos
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </a>
+        <a href="https://www.browserstack.com/docs/automate" target="_blank" class="inline-flex items-center gap-2 bg-white border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold px-5 py-2.5 rounded-lg shadow-sm">
+          View docs
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Grid -->
+  <section id="features" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-10">
+      <h2 class="text-2xl font-bold text-gray-900">All Feature Demos</h2>
+      <p class="text-gray-500 mt-1">Click any card to open the interactive demo page.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- 1 Apple Pay -->
+      <a href="apple-pay.html" class="feature-card bg-white rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 hover:border-brand-300 cursor-pointer no-underline">
+        <div class="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <h3 class="font-semibold text-gray-900">Apple Pay Testing</h3>
+            <span class="text-xs bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full">Safari</span>
+          </div>
+          <p class="text-sm text-gray-500">Sandbox Apple Pay checkout flow using the Payment Request API.</p>
+        </div>
+        <span class="mt-auto text-sm font-medium text-brand-600 flex items-center gap-1">Open demo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <!-- 2 Camera -->
+      <a href="camera.html" class="feature-card bg-white rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 hover:border-brand-300 cursor-pointer no-underline">
+        <div class="w-12 h-12 bg-violet-600 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.36a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-1">Camera + QR/Barcode</h3>
+          <p class="text-sm text-gray-500">Live camera feed with real-time QR and barcode decoding via ZXing.</p>
+        </div>
+        <span class="mt-auto text-sm font-medium text-brand-600 flex items-center gap-1">Open demo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <!-- 3 Audio -->
+      <a href="audio.html" class="feature-card bg-white rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 hover:border-brand-300 cursor-pointer no-underline">
+        <div class="w-12 h-12 bg-pink-600 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-1">Audio Record & Playback</h3>
+          <p class="text-sm text-gray-500">Record microphone audio and play it back using the MediaRecorder API.</p>
+        </div>
+        <span class="mt-auto text-sm font-medium text-brand-600 flex items-center gap-1">Open demo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <!-- 4 Self-Healing -->
+      <a href="self-healing.html" class="feature-card bg-white rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 hover:border-brand-300 cursor-pointer no-underline">
+        <div class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <h3 class="font-semibold text-gray-900">Self-Healing Selectors</h3>
+            <span class="text-xs bg-orange-50 text-orange-700 border border-orange-200 px-2 py-0.5 rounded-full">AI</span>
+          </div>
+          <p class="text-sm text-gray-500">Toggle between Mode X and Mode Y to simulate DOM selector changes.</p>
+        </div>
+        <span class="mt-auto text-sm font-medium text-brand-600 flex items-center gap-1">Open demo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <!-- 5 File Ops -->
+      <a href="file-ops.html" class="feature-card bg-white rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 hover:border-brand-300 cursor-pointer no-underline">
+        <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-1">File Upload & Download</h3>
+          <p class="text-sm text-gray-500">Upload any file and download a generated PDF — tests file I/O capabilities.</p>
+        </div>
+        <span class="mt-auto text-sm font-medium text-brand-600 flex items-center gap-1">Open demo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <!-- 6 Permissions -->
+      <a href="permissions.html" class="feature-card bg-white rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 hover:border-brand-300 cursor-pointer no-underline">
+        <div class="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-1">Browser Permissions</h3>
+          <p class="text-sm text-gray-500">Request and display camera, microphone, and location permission states.</p>
+        </div>
+        <span class="mt-auto text-sm font-medium text-brand-600 flex items-center gap-1">Open demo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <!-- 7 IP Geo -->
+      <a href="ip-geolocation.html" class="feature-card bg-white rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 hover:border-brand-300 cursor-pointer no-underline">
+        <div class="w-12 h-12 bg-cyan-600 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-1">IP Geolocation</h3>
+          <p class="text-sm text-gray-500">Fetch and display IP-derived location data via ipapi.co.</p>
+        </div>
+        <span class="mt-auto text-sm font-medium text-brand-600 flex items-center gap-1">Open demo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <!-- 8 GPS -->
+      <a href="gps.html" class="feature-card bg-white rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 hover:border-brand-300 cursor-pointer no-underline">
+        <div class="w-12 h-12 bg-teal-600 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-1">GPS Location</h3>
+          <p class="text-sm text-gray-500">Get precise GPS coordinates via the browser Geolocation API.</p>
+        </div>
+        <span class="mt-auto text-sm font-medium text-brand-600 flex items-center gap-1">Open demo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <!-- 9 iframe -->
+      <a href="iframe.html" class="feature-card bg-white rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 hover:border-brand-300 cursor-pointer no-underline">
+        <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-1">Cross-Origin iframe</h3>
+          <p class="text-sm text-gray-500">Render and interact with cross-origin iframes to test CORS handling.</p>
+        </div>
+        <span class="mt-auto text-sm font-medium text-brand-600 flex items-center gap-1">Open demo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <!-- 10 Network Speed -->
+      <a href="network-speed.html" class="feature-card bg-white rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 hover:border-brand-300 cursor-pointer no-underline">
+        <div class="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-1">Network Speed Test</h3>
+          <p class="text-sm text-gray-500">Measure download speed and latency — validates network throttling profiles.</p>
+        </div>
+        <span class="mt-auto text-sm font-medium text-brand-600 flex items-center gap-1">Open demo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <!-- 11 Locale -->
+      <a href="locale.html" class="feature-card bg-white rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 hover:border-brand-300 cursor-pointer no-underline">
+        <div class="w-12 h-12 bg-rose-600 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-1">Language & Timezone</h3>
+          <p class="text-sm text-gray-500">Display browser language, locale, and timezone — validates localization settings.</p>
+        </div>
+        <span class="mt-auto text-sm font-medium text-brand-600 flex items-center gap-1">Open demo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-200 bg-white mt-8">
+    <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-gray-500">BrowserStack Automate Feature Demos — Static HTML showcase</p>
+      <a href="https://www.browserstack.com/automate" target="_blank" class="text-sm font-medium text-brand-600 hover:text-brand-700">browserstack.com/automate →</a>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Audio Record & Playback — BrowserStack Automate</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif']},colors:{brand:{50:'#f5f3ff',600:'#7c3aed',700:'#6d28d9'}}}}}</script><link rel="stylesheet" href="style.css"/></head><body class="bg-gray-50 font-sans antialiased"><nav class="bg-white border-b border-gray-200 sticky top-0 z-50"><div class="max-w-3xl mx-auto px-6 h-16 flex items-center gap-3"><a href="index.html" class="text-gray-500 hover:text-gray-700 text-sm flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>All demos</a><span class="text-gray-300">|</span><span class="font-semibold text-gray-900 text-sm">Audio Record &amp; Playback</span></div></nav>
+<div class="max-w-3xl mx-auto px-6 py-10 space-y-6">
+<div class="flex items-center gap-4"><div class="w-12 h-12 bg-pink-600 rounded-xl flex items-center justify-center shrink-0"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg></div><div><h1 class="text-2xl font-bold text-gray-900">Audio Record &amp; Playback</h1><p class="text-gray-500 text-sm">Record microphone audio and play it back using the MediaRecorder API</p></div></div>
+<div class="bg-white rounded-2xl border border-gray-200 p-6 space-y-5">
+  <div class="flex items-end justify-center gap-1 h-12 bg-gray-50 rounded-xl px-4" id="waveform">
+    <div class="waveform-bar idle" style="height:8px;background:#7c3aed;width:4px;border-radius:2px;display:inline-block;"></div><div class="waveform-bar idle" style="height:8px;background:#7c3aed;width:4px;border-radius:2px;display:inline-block;"></div><div class="waveform-bar idle" style="height:8px;background:#7c3aed;width:4px;border-radius:2px;display:inline-block;"></div><div class="waveform-bar idle" style="height:8px;background:#7c3aed;width:4px;border-radius:2px;display:inline-block;"></div><div class="waveform-bar idle" style="height:8px;background:#7c3aed;width:4px;border-radius:2px;display:inline-block;"></div><div class="waveform-bar idle" style="height:8px;background:#7c3aed;width:4px;border-radius:2px;display:inline-block;"></div><div class="waveform-bar idle" style="height:8px;background:#7c3aed;width:4px;border-radius:2px;display:inline-block;"></div><div class="waveform-bar idle" style="height:8px;background:#7c3aed;width:4px;border-radius:2px;display:inline-block;"></div>
+  </div>
+  <div class="flex items-center justify-between"><span id="audio-status" class="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded-full font-medium">Ready</span><span id="rec-timer" class="text-sm font-mono text-gray-400 hidden">00:00</span></div>
+  <div class="flex gap-3">
+    <button id="record-btn" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold py-2.5 rounded-xl">&#9679; Record</button>
+    <button id="stop-btn" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 rounded-xl" disabled>Stop</button>
+    <button id="play-btn" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 rounded-xl" disabled>Play</button>
+  </div>
+  <audio id="audio-playback" controls class="w-full hidden"></audio>
+  <div id="transcript-section" class="hidden space-y-2">
+    <div class="flex items-center justify-between">
+      <p class="text-sm font-medium text-gray-700">Speech-to-Text Transcript</p>
+      <span id="stt-badge" class="text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full">idle</span>
+    </div>
+    <div id="transcript-box" class="min-h-16 bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm text-gray-700 leading-relaxed">Transcript will appear here...</div>
+  </div>
+</div>
+</div><script>
+let mr=null,chunks=[],ti=null,sec=0,recognition=null,transcript='';
+const bars=document.querySelectorAll('#waveform div');
+
+function setStatus(t,c){const s=document.getElementById('audio-status');s.textContent=t;s.className='text-xs px-3 py-1 rounded-full font-medium '+c;}
+function animBars(on){bars.forEach((b,i)=>{if(on){b.style.animation='wave 1s ease-in-out '+(i*0.1)+'s infinite';}else{b.style.animation='none';b.style.height='8px';}});}
+function startTimer(){sec=0;document.getElementById('rec-timer').classList.remove('hidden');ti=setInterval(()=>{sec++;const m=String(Math.floor(sec/60)).padStart(2,'0'),s=String(sec%60).padStart(2,'0');document.getElementById('rec-timer').textContent=m+':'+s;},1000);}
+function stopTimer(){clearInterval(ti);document.getElementById('rec-timer').classList.add('hidden');}
+
+function startSTT(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){document.getElementById('stt-badge').textContent='not supported';return;}
+  transcript='';
+  recognition=new SR();
+  recognition.continuous=true;
+  recognition.interimResults=true;
+  recognition.lang=navigator.language||'en-US';
+  const box=document.getElementById('transcript-box');
+  const badge=document.getElementById('stt-badge');
+  badge.textContent='listening';
+  badge.className='text-xs bg-red-100 text-red-700 px-2.5 py-1 rounded-full';
+  recognition.onresult=e=>{
+    let interim='',final='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal)final+=e.results[i][0].transcript+' ';
+      else interim+=e.results[i][0].transcript;
+    }
+    transcript+=final;
+    box.textContent=(transcript+interim)||'Listening...';
+  };
+  recognition.onerror=e=>{badge.textContent='STT error: '+e.error;badge.className='text-xs bg-red-100 text-red-700 px-2.5 py-1 rounded-full';};
+  recognition.onend=()=>{badge.textContent='done';badge.className='text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full';if(transcript.trim())box.textContent=transcript.trim();};
+  recognition.start();
+  document.getElementById('transcript-section').classList.remove('hidden');
+}
+
+function stopSTT(){if(recognition)try{recognition.stop();}catch(e){}}
+
+document.getElementById('record-btn').addEventListener('click',async()=>{
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    chunks=[];mr=new MediaRecorder(stream);
+    mr.ondataavailable=e=>chunks.push(e.data);
+    mr.onstop=()=>{
+      const blob=new Blob(chunks,{type:'audio/webm'});
+      const ap=document.getElementById('audio-playback');
+      ap.src=URL.createObjectURL(blob);ap.classList.remove('hidden');
+      document.getElementById('play-btn').disabled=false;
+      setStatus('Saved','bg-green-100 text-green-700');
+      animBars(false);stopTimer();stopSTT();
+      stream.getTracks().forEach(t=>t.stop());
+    };
+    mr.start();
+    document.getElementById('record-btn').disabled=true;
+    document.getElementById('stop-btn').disabled=false;
+    setStatus('Recording...','bg-red-100 text-red-700');
+    animBars(true);startTimer();startSTT();
+  }catch(e){alert('Mic error: '+e.message);}
+});
+document.getElementById('stop-btn').addEventListener('click',()=>{if(mr&&mr.state!=='inactive')mr.stop();document.getElementById('record-btn').disabled=false;document.getElementById('stop-btn').disabled=true;});
+document.getElementById('play-btn').addEventListener('click',()=>document.getElementById('audio-playback').play());
+</script></body></html>

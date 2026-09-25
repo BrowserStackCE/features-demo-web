@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Apple Pay Testing — BrowserStack Automate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif']},colors:{brand:{50:'#f5f3ff',100:'#ede9fe',500:'#8b5cf6',600:'#7c3aed',700:'#6d28d9'}}}}}</script>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+
+<!-- Nav -->
+<nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="index.html" class="flex items-center gap-2 text-gray-500 hover:text-gray-700 text-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        All demos
+      </a>
+      <span class="text-gray-300">|</span>
+      <span class="font-semibold text-gray-900 text-sm">Apple Pay Testing</span>
+    </div>
+    <span class="text-xs bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-1 rounded-full font-medium">Safari only</span>
+  </div>
+</nav>
+
+<!-- Page header -->
+<div class="bg-white border-b border-gray-100">
+  <div class="max-w-3xl mx-auto px-6 py-10">
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">Apple Pay Sandbox Testing</h1>
+        <p class="text-gray-500 text-sm mt-0.5">End-to-end checkout flow using the Payment Request API</p>
+      </div>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <span class="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full">Payment Request API</span>
+      <span class="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full">Safari iOS / macOS</span>
+      <span class="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full">BrowserStack Real Device</span>
+    </div>
+  </div>
+</div>
+
+<div class="max-w-3xl mx-auto px-6 py-10 space-y-6">
+
+  <!-- Browser notice -->
+  <div id="browser-notice" class="hidden bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
+    <svg class="w-5 h-5 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+    <div>
+      <p class="text-sm font-medium text-amber-800">Apple Pay requires Safari</p>
+      <p class="text-sm text-amber-700 mt-0.5">This demo is fully functional on Safari (iOS or macOS). On other browsers the Payment Request API fallback is shown. Use BrowserStack with a real Safari iOS device to test Apple Pay end-to-end.</p>
+    </div>
+  </div>
+
+  <!-- Checkout card -->
+  <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+    <div class="px-6 py-5 border-b border-gray-100">
+      <h2 class="font-semibold text-gray-900">Order Summary</h2>
+    </div>
+    <div class="px-6 py-5 space-y-3">
+      <div class="flex items-center gap-4">
+        <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center shrink-0">
+          <svg class="w-7 h-7 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="flex-1">
+          <p class="font-medium text-gray-900">BrowserStack Pro Plan</p>
+          <p class="text-sm text-gray-500">1 month · Automate + App Automate</p>
+        </div>
+        <span class="font-semibold text-gray-900">$39.00</span>
+      </div>
+      <div class="border-t border-gray-100 pt-3 space-y-2">
+        <div class="flex justify-between text-sm text-gray-500"><span>Subtotal</span><span>$39.00</span></div>
+        <div class="flex justify-between text-sm text-gray-500"><span>Tax (8%)</span><span>$3.12</span></div>
+        <div class="flex justify-between font-semibold text-gray-900 pt-2 border-t border-gray-100"><span>Total</span><span>$42.12</span></div>
+      </div>
+    </div>
+    <div class="px-6 pb-6 space-y-3">
+      <!-- Apple Pay button -->
+      <button id="apple-pay-btn" class="w-full bg-black hover:bg-gray-900 text-white font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Pay with Apple Pay
+      </button>
+      <button id="card-pay-btn" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 px-4 rounded-xl transition-colors">
+        Pay with Card (fallback)
+      </button>
+    </div>
+  </div>
+
+  <!-- Payment status -->
+  <div id="payment-status" class="hidden rounded-xl p-4 border"></div>
+
+  <!-- BrowserStack capability hint -->
+  </div>
+
+<script>
+// Detect non-Safari
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+if (!isSafari) document.getElementById('browser-notice').classList.remove('hidden');
+
+function showStatus(type, msg) {
+  const el = document.getElementById('payment-status');
+  el.className = 'rounded-xl p-4 border flex items-start gap-3';
+  if (type === 'success') {
+    el.classList.add('bg-green-50','border-green-200');
+    el.innerHTML = `<svg class="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><div><p class="font-medium text-green-800">Payment successful</p><p class="text-sm text-green-700 mt-0.5">${msg}</p></div>`;
+  } else if (type === 'error') {
+    el.classList.add('bg-red-50','border-red-200');
+    el.innerHTML = `<svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><div><p class="font-medium text-red-800">Payment failed</p><p class="text-sm text-red-700 mt-0.5">${msg}</p></div>`;
+  } else {
+    el.classList.add('bg-blue-50','border-blue-200');
+    el.innerHTML = `<svg class="w-5 h-5 text-blue-500 shrink-0 mt-0.5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg><p class="text-sm text-blue-700">${msg}</p>`;
+  }
+  el.classList.remove('hidden');
+}
+
+document.getElementById('apple-pay-btn').addEventListener('click', async () => {
+  if (!window.PaymentRequest) {
+    showStatus('error', 'PaymentRequest API not supported in this browser. Use Safari on iOS or macOS.');
+    return;
+  }
+  const methods = [{ supportedMethods: 'https://apple.com/apple-pay', data: { version: 3, merchantIdentifier: 'merchant.com.example.demo', merchantCapabilities: ['supports3DS'], supportedNetworks: ['visa','masterCard','amex'], countryCode: 'US' } }];
+  const details = { total: { label: 'BrowserStack Pro Plan', amount: { currency: 'USD', value: '42.12' } } };
+  try {
+    showStatus('info', 'Opening Apple Pay sheet…');
+    const request = new PaymentRequest(methods, details);
+    const canPay = await request.canMakePayment();
+    if (!canPay) { showStatus('error', 'Apple Pay is not available. Ensure you are on Safari with a configured Apple Pay wallet.'); return; }
+    const response = await request.show();
+    await response.complete('success');
+    showStatus('success', `Transaction ID: ${Date.now()} · $42.12 charged to sandbox wallet`);
+  } catch(e) {
+    if (e.name === 'AbortError') showStatus('error', 'Payment cancelled by user.');
+    else showStatus('error', e.message);
+  }
+});
+
+document.getElementById('card-pay-btn').addEventListener('click', async () => {
+  if (!window.PaymentRequest) { showStatus('error', 'PaymentRequest API not supported.'); return; }
+  const methods = [{ supportedMethods: 'basic-card', data: { supportedNetworks: ['visa','mastercard','amex'] } }];
+  const details = { total: { label: 'BrowserStack Pro Plan', amount: { currency: 'USD', value: '42.12' } } };
+  try {
+    showStatus('info', 'Opening card payment sheet…');
+    const request = new PaymentRequest(methods, details);
+    const response = await request.show();
+    await response.complete('success');
+    showStatus('success', `Card payment accepted · $42.12`);
+  } catch(e) {
+    if (e.name === 'AbortError') showStatus('error', 'Payment cancelled by user.');
+    else showStatus('error', e.message);
+  }
+});
+</script>
+</body>
+</html>

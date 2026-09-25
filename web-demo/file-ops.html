@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>File Upload & Download — BrowserStack Automate</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif']},colors:{brand:{50:'#f5f3ff',600:'#7c3aed',700:'#6d28d9'}}}}}</script><script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script><link rel="stylesheet" href="style.css"/></head><body class="bg-gray-50 font-sans antialiased"><nav class="bg-white border-b border-gray-200 sticky top-0 z-50"><div class="max-w-3xl mx-auto px-6 h-16 flex items-center gap-3"><a href="index.html" class="text-gray-500 hover:text-gray-700 text-sm flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>All demos</a><span class="text-gray-300">|</span><span class="font-semibold text-gray-900 text-sm">File Upload &amp; Download</span></div></nav>
+<div class="max-w-3xl mx-auto px-6 py-10 space-y-6">
+<div class="flex items-center gap-4"><div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shrink-0"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div><div><h1 class="text-2xl font-bold text-gray-900">File Upload &amp; Download</h1><p class="text-gray-500 text-sm">Upload any file and download a dynamically generated PDF</p></div></div>
+<div class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+  <h2 class="font-semibold text-gray-900">File Upload</h2>
+  <label class="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-colors">
+    <svg class="w-8 h-8 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+    <span class="text-sm font-medium text-gray-600">Click to upload or drag &amp; drop</span>
+    <span class="text-xs text-gray-400 mt-1">Any file type accepted</span>
+    <input type="file" id="file-upload" class="hidden"/>
+  </label>
+  <div id="upload-result" class="hidden bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm"><p class="font-medium text-blue-800">File uploaded successfully</p><p id="upload-details" class="text-blue-700 mt-0.5"></p></div>
+</div>
+<div class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+  <h2 class="font-semibold text-gray-900">PDF Download</h2>
+  <p class="text-sm text-gray-500">Generates a timestamped PDF report client-side using pdf-lib.</p>
+  <button id="generate-pdf-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl">Generate &amp; Download PDF</button>
+  <a id="download-pdf" class="hidden w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 rounded-xl flex items-center justify-center" download="browserstack-report.pdf">&#8595; Download PDF</a>
+</div>
+</div><script>
+
+document.getElementById('file-upload').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;document.getElementById('upload-details').textContent=f.name+' · '+(f.size/1024).toFixed(1)+' KB';document.getElementById('upload-result').classList.remove('hidden');});
+document.getElementById('generate-pdf-btn').addEventListener('click',async()=>{
+  const btn=document.getElementById('generate-pdf-btn');btn.textContent='Generating…';btn.disabled=true;
+  try{const {PDFDocument,rgb,StandardFonts}=PDFLib;const doc=await PDFDocument.create();const page=doc.addPage([595,842]);const font=await doc.embedFont(StandardFonts.Helvetica);const bold=await doc.embedFont(StandardFonts.HelveticaBold);page.drawRectangle({x:0,y:792,width:595,height:50,color:rgb(0.486,0.227,0.929)});page.drawText('BrowserStack Automate',{x:40,y:812,size:18,font:bold,color:rgb(1,1,1)});page.drawText('Test Report - '+new Date().toLocaleString(),{x:40,y:750,size:12,font,color:rgb(0.2,0.2,0.2)});page.drawText('Status: All tests passed [OK]',{x:40,y:720,size:12,font,color:rgb(0.1,0.6,0.2)});page.drawText('Sessions: 42  |  Passed: 40  |  Failed: 2',{x:40,y:695,size:11,font,color:rgb(0.3,0.3,0.3)});const bytes=await doc.save();const blob=new Blob([bytes],{type:'application/pdf'});const a=document.getElementById('download-pdf');a.href=URL.createObjectURL(blob);a.classList.remove('hidden');btn.textContent='PDF Ready';}catch(e){btn.textContent='Error: '+e.message;}
+});
+
+</script></body></html>

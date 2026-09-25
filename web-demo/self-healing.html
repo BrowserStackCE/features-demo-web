@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Self-Healing Selectors — BrowserStack Automate</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif']},colors:{brand:{50:'#f5f3ff',600:'#7c3aed',700:'#6d28d9'}}}}}</script>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+<nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-6 h-16 flex items-center gap-3">
+    <a href="index.html" class="text-gray-500 hover:text-gray-700 text-sm flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>All demos</a>
+    <span class="text-gray-300">|</span><span class="font-semibold text-gray-900 text-sm">Self-Healing Selectors</span>
+  </div>
+</nav>
+<div class="max-w-5xl mx-auto px-6 py-10 space-y-6">
+  <div class="flex items-center gap-4">
+    <div class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center shrink-0">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+    </div>
+    <div><h1 class="text-2xl font-bold text-gray-900">Self-Healing Selectors Demo</h1><p class="text-gray-500 text-sm">Toggle between Mode X (stable IDs) and Mode Y (changed data-qa attrs) to simulate a DOM refactor</p></div>
+  </div>
+
+  <!-- Mode toggle banner -->
+  <div id="selector-mode-banner" class="rounded-2xl border-2 border-violet-200 bg-violet-50 px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span id="mode-x-label" class="mode-x-label text-sm font-semibold px-3 py-1 rounded-full bg-violet-100 text-violet-700">Mode X — Stable IDs</span>
+      <span class="text-gray-400 text-sm">→</span>
+      <span id="mode-y-label" class="mode-y-label text-sm font-semibold px-3 py-1 rounded-full bg-gray-100 text-gray-400">Mode Y — Changed attrs</span>
+    </div>
+    <button id="mode-toggle" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-xl text-sm">Switch to Mode Y</button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Live form -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+      <h2 class="font-semibold text-gray-900">Login Form</h2>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+        <input id="username" data-qa="user-field" type="text" placeholder="Enter username" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-transparent"/>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <input id="password" data-qa="pass-field" type="password" placeholder="Enter password" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-transparent"/>
+      </div>
+      <button id="login-btn" data-qa="submit-btn" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 rounded-xl">Sign In</button>
+      <div id="login-result" class="hidden text-sm text-center py-2 rounded-xl"></div>
+    </div>
+
+    <!-- Selector diff panel -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+      <h2 class="font-semibold text-gray-900">Selector Diff</h2>
+      <p class="text-sm text-gray-500">Your automation script targets Mode X selectors. When the DOM switches to Mode Y, BrowserStack Self-Healing detects the change and repairs the locators automatically.</p>
+      <div class="rounded-xl overflow-hidden border border-gray-200 text-sm font-mono">
+        <div class="bg-gray-800 text-gray-300 px-4 py-2 text-xs font-semibold">login.spec.js</div>
+        <div id="code-panel" class="p-4 bg-gray-900 text-gray-100 space-y-1 overflow-x-auto">
+          <div class="code-mode-x"><span class="text-green-400">// Mode X — works</span></div>
+          <div class="code-mode-x"><span class="text-blue-300">page</span><span class="text-gray-300">.locator(</span><span class="text-yellow-300">'#username'</span><span class="text-gray-300">)</span></div>
+          <div class="code-mode-x"><span class="text-blue-300">page</span><span class="text-gray-300">.locator(</span><span class="text-yellow-300">'#password'</span><span class="text-gray-300">)</span></div>
+          <div class="code-mode-x"><span class="text-blue-300">page</span><span class="text-gray-300">.locator(</span><span class="text-yellow-300">'#login-btn'</span><span class="text-gray-300">)</span></div>
+          <div class="code-mode-y hidden"><span class="text-red-400">// Mode Y — broken without self-healing</span></div>
+          <div class="code-mode-y hidden"><span class="text-red-400 line-through">'#username'</span><span class="text-gray-400"> → </span><span class="text-green-400">'[data-qa="user-field"]'</span></div>
+          <div class="code-mode-y hidden"><span class="text-red-400 line-through">'#password'</span><span class="text-gray-400"> → </span><span class="text-green-400">'[data-qa="pass-field"]'</span></div>
+          <div class="code-mode-y hidden"><span class="text-red-400 line-through">'#login-btn'</span><span class="text-gray-400"> → </span><span class="text-green-400">'[data-qa="submit-btn"]'</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+<script>
+let modeX=true;
+document.getElementById('mode-toggle').addEventListener('click',()=>{
+  modeX=!modeX;
+  const banner=document.getElementById('selector-mode-banner');
+  const toggle=document.getElementById('mode-toggle');
+  const xl=document.getElementById('mode-x-label');
+  const yl=document.getElementById('mode-y-label');
+  document.querySelectorAll('.code-mode-x').forEach(el=>el.classList.toggle('hidden',!modeX));
+  document.querySelectorAll('.code-mode-y').forEach(el=>el.classList.toggle('hidden',modeX));
+  if(modeX){
+    banner.className='rounded-2xl border-2 border-violet-200 bg-violet-50 px-6 py-4 flex items-center justify-between';
+    xl.className='mode-x-label text-sm font-semibold px-3 py-1 rounded-full bg-violet-100 text-violet-700';
+    yl.className='mode-y-label text-sm font-semibold px-3 py-1 rounded-full bg-gray-100 text-gray-400';
+    toggle.textContent='Switch to Mode Y';toggle.className='bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-xl text-sm';
+  } else {
+    banner.className='rounded-2xl border-2 border-orange-200 bg-orange-50 px-6 py-4 flex items-center justify-between';
+    xl.className='mode-x-label text-sm font-semibold px-3 py-1 rounded-full bg-gray-100 text-gray-400';
+    yl.className='mode-y-label text-sm font-semibold px-3 py-1 rounded-full bg-orange-100 text-orange-700';
+    toggle.textContent='Switch to Mode X';toggle.className='bg-violet-600 hover:bg-violet-700 text-white font-semibold px-4 py-2 rounded-xl text-sm';
+  }
+});
+document.getElementById('login-btn').addEventListener('click',()=>{
+  const u=document.getElementById('username').value;
+  const p=document.getElementById('password').value;
+  const r=document.getElementById('login-result');
+  r.classList.remove('hidden');
+  if(u&&p){r.textContent='✓ Login successful (demo)';r.className='text-sm text-center py-2 rounded-xl bg-green-50 text-green-700';}
+  else{r.textContent='Please enter username and password';r.className='text-sm text-center py-2 rounded-xl bg-red-50 text-red-700';}
+});
+</script>
+</body>
+</html>

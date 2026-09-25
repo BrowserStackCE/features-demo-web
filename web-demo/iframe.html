@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Cross-Origin iframe — BrowserStack Automate</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+<nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-6 h-16 flex items-center gap-3">
+    <a href="index.html" class="text-gray-500 hover:text-gray-700 text-sm">&#8592; All demos</a>
+    <span class="text-gray-300">|</span>
+    <span class="font-semibold text-gray-900 text-sm">Cross-Origin iframe</span>
+  </div>
+</nav>
+<div class="max-w-4xl mx-auto px-6 py-10 space-y-6">
+  <h1 class="text-2xl font-bold text-gray-900">Cross-Origin iframe</h1>
+  <p class="text-gray-500 text-sm">Render cross-origin iframes to test CORS and iframe handling capabilities</p>
+  <div class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <div class="flex items-center gap-3">
+      <label class="text-sm font-medium text-gray-700 shrink-0">Load URL:</label>
+      <select id="iframe-url-select" class="flex-1 border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <option value="https://example.com">example.com</option>
+        <option value="https://en.wikipedia.org/wiki/Main_Page">wikipedia.org</option>
+        <option value="https://www.iana.org/domains/reserved">iana.org</option>
+      </select>
+      <span id="iframe-load-status" class="text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full shrink-0">loading...</span>
+    </div>
+    <div class="rounded-xl overflow-hidden border border-gray-200">
+      <iframe id="cross-origin-frame" src="https://example.com" style="width:100%;height:460px;border:none;display:block;"></iframe>
+    </div>
+  </div>
+  </div>
+<script>
+const frame = document.getElementById("cross-origin-frame");
+const badge = document.getElementById("iframe-load-status");
+frame.addEventListener("load", () => { badge.textContent = "loaded"; badge.className = "text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full shrink-0"; });
+document.getElementById("iframe-url-select").addEventListener("change", e => {
+  badge.textContent = "loading..."; badge.className = "text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full shrink-0";
+  frame.src = e.target.value;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Language and Timezone — BrowserStack Automate</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+<nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <div class="max-w-3xl mx-auto px-6 h-16 flex items-center gap-3">
+    <a href="index.html" class="text-gray-500 hover:text-gray-700 text-sm">&#8592; All demos</a>
+    <span class="text-gray-300">|</span>
+    <span class="font-semibold text-gray-900 text-sm">Language &amp; Timezone</span>
+  </div>
+</nav>
+<div class="max-w-3xl mx-auto px-6 py-10 space-y-6">
+  <h1 class="text-2xl font-bold text-gray-900">Device Language &amp; Timezone</h1>
+  <p class="text-gray-500 text-sm">Displays browser language, locale, and timezone — validates BrowserStack localization capabilities</p>
+  <div class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <div class="text-center py-4 bg-rose-50 rounded-xl">
+      <p class="text-xs text-rose-400 mb-2">Current Time</p>
+      <p id="device-time" class="text-4xl font-bold tracking-wider text-rose-900" style="font-family:'JetBrains Mono',monospace"></p>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div class="bg-rose-50 rounded-xl p-4"><p class="text-xs text-rose-500 mb-1">Language</p><p id="device-language" class="font-semibold font-mono text-rose-900"></p></div>
+      <div class="bg-rose-50 rounded-xl p-4"><p class="text-xs text-rose-500 mb-1">All Languages</p><p id="device-languages" class="font-semibold font-mono text-rose-900 text-sm truncate"></p></div>
+      <div class="bg-gray-50 rounded-xl p-4"><p class="text-xs text-gray-400 mb-1">Timezone</p><p id="device-timezone" class="font-semibold font-mono text-gray-900 text-sm"></p></div>
+      <div class="bg-gray-50 rounded-xl p-4"><p class="text-xs text-gray-400 mb-1">Locale</p><p id="device-locale" class="font-semibold font-mono text-gray-900"></p></div>
+      <div class="bg-gray-50 rounded-xl p-4"><p class="text-xs text-gray-400 mb-1">UTC Offset</p><p id="device-offset" class="font-semibold font-mono text-gray-900"></p></div>
+      <div class="bg-gray-50 rounded-xl p-4"><p class="text-xs text-gray-400 mb-1">Date Format</p><p id="device-date" class="font-semibold font-mono text-gray-900 text-sm"></p></div>
+    </div>
+  </div>
+  </div>
+<script>
+document.getElementById("device-language").textContent = navigator.language || "--";
+document.getElementById("device-languages").textContent = (navigator.languages || [navigator.language]).join(", ") || "--";
+const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+document.getElementById("device-timezone").textContent = tz || "--";
+document.getElementById("device-locale").textContent = Intl.NumberFormat().resolvedOptions().locale || "--";
+const off = -(new Date().getTimezoneOffset());
+document.getElementById("device-offset").textContent = "UTC" + (off >= 0 ? "+" : "") + Math.floor(off/60) + ":" + (Math.abs(off)%60).toString().padStart(2,"0");
+document.getElementById("device-date").textContent = new Date().toLocaleDateString(navigator.language, {year:"numeric",month:"long",day:"numeric"});
+function tick() { document.getElementById("device-time").textContent = new Date().toLocaleTimeString(navigator.language, {hour:"2-digit",minute:"2-digit",second:"2-digit"}); }
+tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
