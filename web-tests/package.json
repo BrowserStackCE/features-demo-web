@@ -4,12 +4,7 @@
   "description": "Jest + BrowserStack Node SDK test suite",
   "scripts": {
     "test": "jest",
-    "test:browserstack": "BROWSERSTACK_CONFIG_FILE='config/default.yml' browserstack-node-sdk jest",
-    "test:apple-pay": "BROWSERSTACK_CONFIG_FILE='config/apple-pay.yml' browserstack-node-sdk jest --testPathPattern=tests/apple-pay",
-    "test:geolocation": "BROWSERSTACK_CONFIG_FILE='config/geolocation.yml' browserstack-node-sdk jest --testPathPattern=\"tests/(gps|ip-geolocation)\"",
-    "test:locale": "BROWSERSTACK_CONFIG_FILE='config/locale.yml' browserstack-node-sdk jest --testPathPattern=tests/locale",
-    "test:camera": "BROWSERSTACK_CONFIG_FILE='config/camera.yml' browserstack-node-sdk jest --testPathPattern=tests/camera",
-    "test:network": "BROWSERSTACK_CONFIG_FILE='config/network.yml' browserstack-node-sdk jest --testPathPattern=tests/network-speed"
+    "test:apple-pay": "BROWSERSTACK_CONFIG_FILE='config/apple-pay.yml' browserstack-node-sdk jest --testPathPattern=tests/apple-pay"
   },
   "devDependencies": {
     "browserstack-node-sdk": "latest",

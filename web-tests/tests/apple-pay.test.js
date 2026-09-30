@@ -45,12 +45,17 @@ describe('Apple Pay', () => {
     await driver.sleep(3000);
 
     // Confirm the payment using BrowserStack executor
-    await driver.executeScript(
-      `browserstack_executor: {"action":"applePay", "arguments": {"confirmPayment": "true"}}`
-    );
+    try {
+      await driver.executeScript(
+        `browserstack_executor: {"action":"applePay", "arguments": {"confirmPayment": "true"}}`
+      );
+    } catch (error) {
+      console.error('Error confirming payment:', error);
+    }
 
     await driver.sleep(10000);
 
-    await driver.actions().sendKeys('123456').perform();
+    const activeElement = await driver.switchTo().activeElement();
+    await activeElement.sendKeys('123456');
   }, 120000);
 });

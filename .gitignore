@@ -6,3 +6,6 @@ node_modules/
 # Test Companion onboarding (local, per-machine)
 .test-companion/
 .DS_Store
+web-tests/node_modules/
+web-tests/.env
+web-tests/log
