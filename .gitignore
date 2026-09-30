@@ -9,3 +9,5 @@ node_modules/
 web-tests/node_modules/
 web-tests/.env
 web-tests/log
+browserstack.err
+local.log
