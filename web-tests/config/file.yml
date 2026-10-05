@@ -1,0 +1,23 @@
+# File Upload & Download — BrowserStack config
+# Run: BROWSERSTACK_CONFIG_FILE='config/file.yml' browserstack-node-sdk jest --testPathPattern=tests/file
+
+userName: ${BROWSERSTACK_USERNAME}
+accessKey: ${BROWSERSTACK_ACCESS_KEY}
+
+projectName: demo-pipeline
+buildName: jest-bstack-file-ops
+buildIdentifier: "#${BUILD_NUMBER}"
+
+platforms:
+  - browser: chrome
+    browser_version: latest
+    os: Windows
+    os_version: 10
+  - browser: firefox
+    browser_version: latest
+    os: OS X
+    os_version: Monterey
+
+parallelsPerPlatform: 1
+browserstackLocal: false
+idleTimeout: 300

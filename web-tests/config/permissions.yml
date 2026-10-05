@@ -1,11 +1,11 @@
-# Camera Injection — uses BrowserStack cameraInjection capability
-# Run: npx browserstack-node-sdk jest --config-file config/camera.yml --testPathPattern="tests/camera"
+# Browser Permissions — BrowserStack config
+# Run: BROWSERSTACK_CONFIG_FILE='config/permissions.yml' browserstack-node-sdk jest --testPathPattern=tests/permissions
 
 userName: ${BROWSERSTACK_USERNAME}
 accessKey: ${BROWSERSTACK_ACCESS_KEY}
 
 projectName: demo-pipeline
-buildName: jest-bstack-camera
+buildName: jest-bstack-permissions
 buildIdentifier: "#${BUILD_NUMBER}"
 
 platforms:
@@ -16,9 +16,14 @@ platforms:
     goog:chromeOptions:
       args:
         - "--use-fake-device-for-media-stream"
-        - "--use-fake-ui-for-media-stream"
-    capabilities:
-      cameraInjection: true
+  - browserName: chrome
+    browser_version: latest
+    os: Windows
+    os_version: 10
+    goog:chromeOptions:
+      args:
+        - "--use-fake-device-for-media-stream"
+ 
 
 parallelsPerPlatform: 1
 browserstackLocal: false
