@@ -1,0 +1,26 @@
+# Camera Injection — uses BrowserStack cameraInjection capability
+# Run: npm run test:camera
+# Uploads fixtures/sample-video.mp4 first, then sets BROWSERSTACK_CAMERA_URL for the SDK.
+
+userName: ${BROWSERSTACK_USERNAME}
+accessKey: ${BROWSERSTACK_ACCESS_KEY}
+
+projectName: BrowserStack Demo
+buildName: Camera Injection Demo
+buildIdentifier: "#${BUILD_NUMBER}"
+
+platforms:
+  - browserName: chrome
+    browser_version: latest
+    os: Windows
+    os_version: 10
+    goog:chromeOptions:
+      args:
+        - "--use-fake-ui-for-media-stream"
+
+cameraInjection: true
+cameraInjectionUrl: ${BROWSERSTACK_CAMERA_URL}
+
+parallelsPerPlatform: 1
+browserstackLocal: ${BROWSERSTACK_LOCAL}
+idleTimeout: 300

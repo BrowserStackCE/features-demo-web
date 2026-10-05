@@ -1,0 +1,49 @@
+name: Test Audio Injection
+on:
+  workflow_dispatch:
+    inputs:
+      username:
+        description: BrowserStack username
+        required: true
+        type: string
+      accessKey:
+        description: BrowserStack access key
+        required: true
+        type: string
+      localTesting:
+        description: Serve docs on localhost:3000 and use BrowserStack Local
+        required: false
+        type: boolean
+        default: false
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web-tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: web-tests/package-lock.json
+      - run: npm ci
+      - name: Serve docs locally
+        if: inputs.localTesting == true
+        working-directory: ${{ github.workspace }}
+        run: |
+          npx --yes serve docs -l 3000 &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:3000/ >/dev/null && exit 0
+            sleep 1
+          done
+          echo "docs server failed to start" >&2
+          exit 1
+      - run: npm run test:audio
+        env:
+          BROWSERSTACK_USERNAME: ${{ inputs.username }}
+          BROWSERSTACK_ACCESS_KEY: ${{ inputs.accessKey }}
+          BUILD_NUMBER: ${{ github.run_number }}
+          BASE_URL: ${{ inputs.localTesting && 'http://localhost:3000' || 'https://browserstackce.github.io/features-demo-web' }}
+          BROWSERSTACK_LOCAL: ${{ inputs.localTesting }}

@@ -4,11 +4,16 @@
   "description": "Jest + BrowserStack Node SDK test suite",
   "scripts": {
     "test": "jest",
-    "test:apple-pay": "BROWSERSTACK_CONFIG_FILE='config/apple-pay.yml' browserstack-node-sdk jest --testPathPattern=tests/apple-pay"
+    "test:apple-pay": "BROWSERSTACK_CONFIG_FILE='config/apple-pay.yml' browserstack-node-sdk jest --testPathPattern=tests/apple-pay",
+    "test:camera": "BROWSERSTACK_CAMERA_URL=$(node scripts/upload-camera-media.js) BROWSERSTACK_CONFIG_FILE='config/camera-injection.yml' browserstack-node-sdk jest --testPathPattern=tests/camera",
+    "test:audio": "BROWSERSTACK_AUDIO_URL=$(node scripts/upload-audio-media.js) BROWSERSTACK_CONFIG_FILE='config/audio-injection.yml' browserstack-node-sdk jest --testPathPattern=tests/audio-injection",
+    "test:self-healing": "BROWSERSTACK_CONFIG_FILE='config/self-healing.yml' browserstack-node-sdk jest --testPathPattern=tests/self-healing",
+    "test:network": "BROWSERSTACK_CONFIG_FILE='config/network.yml' browserstack-node-sdk jest --testPathPattern=tests/network-speed"
   },
   "devDependencies": {
     "browserstack-node-sdk": "latest",
     "jest": "^29.0.0",
+    "qrcode": "^1.5.4",
     "selenium-webdriver": "^4.0.0"
   }
 }

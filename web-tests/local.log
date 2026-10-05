@@ -1,76 +1,435 @@
 
-Sat Sep 26 2026 04:02:16:477 GMT+0530 (IST) -- Binary semantic version is v8.9.22
-Sat Sep 26 2026 04:02:16:478 GMT+0530 (IST) -- Setting output as extra verbose with request parsing
-Sat Sep 26 2026 04:02:16:479 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:60286
-Sat Sep 26 2026 04:02:16:479 GMT+0530 (IST) -- Proxy is configured
-Sat Sep 26 2026 04:02:17:204 GMT+0530 (IST) -- [WARNING] Skipping initialisation of configuration console because: port already in use by another Binary
-Sat Sep 26 2026 04:02:20:234 GMT+0530 (IST) -- [SUCCESS] You can now access your local server(s) in our remote browser
+Mon Oct 05 2026 13:42:27:768 GMT+0530 (IST) -- Binary semantic version is v8.9.22
+Mon Oct 05 2026 13:42:27:770 GMT+0530 (IST) -- Setting output as extra verbose with request parsing
+Mon Oct 05 2026 13:42:27:770 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:60552
+Mon Oct 05 2026 13:42:27:771 GMT+0530 (IST) -- Proxy is configured
+Mon Oct 05 2026 13:42:28:434 GMT+0530 (IST) -- Starting configuration console on http://localhost:45454
+Mon Oct 05 2026 13:42:31:184 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:60552
+Mon Oct 05 2026 13:42:31:197 GMT+0530 (IST) -- Proxy is configured
+Mon Oct 05 2026 13:42:31:200 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:60552
+Mon Oct 05 2026 13:42:31:212 GMT+0530 (IST) -- Proxy is configured
+Mon Oct 05 2026 13:42:31:206 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:60552
+Mon Oct 05 2026 13:42:31:218 GMT+0530 (IST) -- Proxy is configured
+Mon Oct 05 2026 13:42:31:825 GMT+0530 (IST) -- [SUCCESS] You can now access your local server(s) in our remote browser
 
-Sat Sep 26 2026 04:02:21:632 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:02:21:632 GMT+0530 (IST) -- Platform supports WebSocket connections.
+Mon Oct 05 2026 13:42:34:14 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Mon Oct 05 2026 13:42:34:15 GMT+0530 (IST) -- Platform supports WebSocket connections.
 
-Sat Sep 26 2026 04:02:21:732 GMT+0530 (IST) -- Press Ctrl-C to exit
+Mon Oct 05 2026 13:42:34:126 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Mon Oct 05 2026 13:42:34:126 GMT+0530 (IST) -- Platform supports WebSocket connections.
 
+Mon Oct 05 2026 13:42:34:368 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Mon Oct 05 2026 13:42:34:369 GMT+0530 (IST) -- Platform supports WebSocket connections.
 
-Sat Sep 26 2026 04:18:05:10 GMT+0530 (IST) -- 10 repeaters connected out of 11
-Sat Sep 26 2026 04:18:05:11 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:18:05:263 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:18:05:264 GMT+0530 (IST) -- Platform supports WebSocket connections.
+Mon Oct 05 2026 13:42:34:975 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Mon Oct 05 2026 13:42:34:975 GMT+0530 (IST) -- Platform supports WebSocket connections.
 
-Sat Sep 26 2026 04:18:05:367 GMT+0530 (IST) -- Press Ctrl-C to exit
-
-
-Sat Sep 26 2026 04:18:06:5 GMT+0530 (IST) -- 10 repeaters connected out of 11
-Sat Sep 26 2026 04:18:06:6 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:18:06:165 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:18:06:165 GMT+0530 (IST) -- Platform supports WebSocket connections.
-
-Sat Sep 26 2026 04:18:06:267 GMT+0530 (IST) -- Press Ctrl-C to exit
-
-
-Sat Sep 26 2026 04:18:12:958 GMT+0530 (IST) -- 10 repeaters connected out of 11
-Sat Sep 26 2026 04:18:12:971 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:18:13:346 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:18:13:347 GMT+0530 (IST) -- Platform supports WebSocket connections.
-
-Sat Sep 26 2026 04:18:13:449 GMT+0530 (IST) -- Press Ctrl-C to exit
+Mon Oct 05 2026 13:42:34:978 GMT+0530 (IST) -- Press Ctrl-C to exit
 
 
-Sat Sep 26 2026 04:18:20:492 GMT+0530 (IST) -- 10 repeaters connected out of 11
-Sat Sep 26 2026 04:18:20:495 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:18:20:671 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:18:20:672 GMT+0530 (IST) -- Platform supports WebSocket connections.
-
-Sat Sep 26 2026 04:18:20:774 GMT+0530 (IST) -- Press Ctrl-C to exit
-
-
-Sat Sep 26 2026 04:33:49:385 GMT+0530 (IST) -- 10 repeaters connected out of 11
-Sat Sep 26 2026 04:33:49:387 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:33:51:28 GMT+0530 (IST) -- 9 repeaters connected out of 11
-Sat Sep 26 2026 04:33:51:29 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:33:53:424 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:33:53:425 GMT+0530 (IST) -- Platform supports WebSocket connections.
-
-Sat Sep 26 2026 04:33:53:527 GMT+0530 (IST) -- Press Ctrl-C to exit
-
-
-Sat Sep 26 2026 04:33:53:786 GMT+0530 (IST) -- 11 repeaters connected out of 11
-Sat Sep 26 2026 04:33:53:787 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:33:53:974 GMT+0530 (IST) -- 10 repeaters connected out of 11
-Sat Sep 26 2026 04:33:53:974 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:33:54:579 GMT+0530 (IST) -- 9 repeaters connected out of 11
-Sat Sep 26 2026 04:33:54:579 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:33:54:782 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:33:54:782 GMT+0530 (IST) -- Platform supports WebSocket connections.
-
-Sat Sep 26 2026 04:33:54:884 GMT+0530 (IST) -- Press Ctrl-C to exit
+Mon Oct 05 2026 13:42:51:291 GMT+0530 (IST) -- ID-0 Request to: localhost:3000
+Mon Oct 05 2026 13:42:51:292 GMT+0530 (IST) -- ID-0 [PARSING HANDSHAKE][16][69121169] Handshake request to localhost:3000
+Mon Oct 05 2026 13:42:51:292 GMT+0530 (IST) -- ID-0 Connecting to: localhost:3000
+Mon Oct 05 2026 13:42:51:300 GMT+0530 (IST) -- localhost:3000 socket connected.
+Mon Oct 05 2026 13:42:51:302 GMT+0530 (IST) -- ID-0 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:42:51:570 GMT+0530 (IST) -- ID-0 [PARSING REQUEST][16][69121169] GET /self-healing.html HTTP/1.1
+Host: localhost:3000
+sec-ch-ua: "Chromium";v="154", "Google Chrome";v="154", "Not A(Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
 
 
-Sat Sep 26 2026 04:33:56:262 GMT+0530 (IST) -- 12 repeaters connected out of 11
-Sat Sep 26 2026 04:33:56:262 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:34:21:515 GMT+0530 (IST) -- 12 repeaters connected out of 11
-Sat Sep 26 2026 04:34:21:516 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:34:34:604 GMT+0530 (IST) -- 12 repeaters connected out of 11
-Sat Sep 26 2026 04:34:34:604 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:50:19:650 GMT+0530 (IST) -- 13 repeaters connected out of 11
-Sat Sep 26 2026 04:50:19:650 GMT+0530 (IST) -- Connection closed by remote host.
+Mon Oct 05 2026 13:42:51:578 GMT+0530 (IST) -- ID-0 [PARSING RESPONSE (500chars)][16][69121169] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:12:51 GMT
+Content-type: text/html
+Content-Length: 8472
+Last-Modified: Mon, 05 Oct 2026 08:10:40 GMT
+
+ FROM localhost:3000
+Mon Oct 05 2026 13:42:51:578 GMT+0530 (IST) -- ID-0 Writing 186 bytes response from: localhost:3000
+Mon Oct 05 2026 13:42:51:589 GMT+0530 (IST) -- ID-0 Writing 8472 bytes response from: localhost:3000
+Mon Oct 05 2026 13:42:52:32 GMT+0530 (IST) -- ID-0 Request to: localhost:3000
+Mon Oct 05 2026 13:42:52:38 GMT+0530 (IST) -- ID-0 [PARSING HANDSHAKE][16][69121195] Handshake request to localhost:3000
+Mon Oct 05 2026 13:42:52:38 GMT+0530 (IST) -- ID-0 Connecting to: localhost:3000
+Mon Oct 05 2026 13:42:52:44 GMT+0530 (IST) -- localhost:3000 socket connected.
+Mon Oct 05 2026 13:42:52:45 GMT+0530 (IST) -- ID-0 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:42:52:310 GMT+0530 (IST) -- ID-0 [PARSING REQUEST][16][69121195] GET /style.css HTTP/1.1
+Host: localhost:3000
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+sec-ch-ua: "Chromium";v="154", "Google Chrome";v="154", "Not A(Brand";v="99"
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:3000/self-healing.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+
+
+Mon Oct 05 2026 13:42:52:314 GMT+0530 (IST) -- ID-0 [PARSING RESPONSE (500chars)][16][69121195] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:12:52 GMT
+Content-type: text/css
+Content-Length: 2679
+Last-Modified: Fri, 25 Sep 2026 17:04:08 GMT
+
+ FROM localhost:3000
+Mon Oct 05 2026 13:42:52:314 GMT+0530 (IST) -- ID-0 Writing 185 bytes response from: localhost:3000
+Mon Oct 05 2026 13:42:52:315 GMT+0530 (IST) -- ID-0 Writing 2679 bytes response from: localhost:3000
+Mon Oct 05 2026 13:42:52:677 GMT+0530 (IST) -- ID-0 Request to: localhost:3000
+Mon Oct 05 2026 13:42:52:678 GMT+0530 (IST) -- ID-0 [PARSING HANDSHAKE][16][69121213] Handshake request to localhost:3000
+Mon Oct 05 2026 13:42:52:678 GMT+0530 (IST) -- ID-0 Connecting to: localhost:3000
+Mon Oct 05 2026 13:42:52:686 GMT+0530 (IST) -- localhost:3000 socket connected.
+Mon Oct 05 2026 13:42:52:687 GMT+0530 (IST) -- ID-0 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:42:52:937 GMT+0530 (IST) -- ID-0 [PARSING REQUEST][16][69121213] GET /favicon.ico HTTP/1.1
+Host: localhost:3000
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+sec-ch-ua: "Chromium";v="154", "Google Chrome";v="154", "Not A(Brand";v="99"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:3000/self-healing.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+
+
+Mon Oct 05 2026 13:42:52:938 GMT+0530 (IST) -- ID-0 [PARSING RESPONSE (500chars)][16][69121213] HTTP/1.0 404 File not found
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:12:52 GMT
+Connection: close
+Content-Type: text/html;charset=utf-8
+Content-Length: 469
+
+ FROM localhost:3000
+Mon Oct 05 2026 13:42:52:938 GMT+0530 (IST) -- ID-0 Writing 184 bytes response from: localhost:3000
+Mon Oct 05 2026 13:42:52:938 GMT+0530 (IST) -- ID-0 Writing 469 bytes response from: localhost:3000
+Mon Oct 05 2026 13:42:53:884 GMT+0530 (IST) -- ID-0 Request to: localhost:3000
+Mon Oct 05 2026 13:42:53:884 GMT+0530 (IST) -- ID-0 [PARSING HANDSHAKE][16][69121232] Handshake request to localhost:3000
+Mon Oct 05 2026 13:42:53:884 GMT+0530 (IST) -- ID-0 Connecting to: localhost:3000
+Mon Oct 05 2026 13:42:53:886 GMT+0530 (IST) -- localhost:3000 socket connected.
+Mon Oct 05 2026 13:42:53:886 GMT+0530 (IST) -- ID-0 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:42:54:136 GMT+0530 (IST) -- ID-0 [PARSING REQUEST][16][69121232] HEAD /self-healing.html HTTP/1.1
+Host: localhost:3000
+Accept: */*
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:30.0) Gecko/20100101 Firefox/30.0
+Connection: keep-alive
+
+
+Mon Oct 05 2026 13:42:54:137 GMT+0530 (IST) -- ID-0 [PARSING RESPONSE (500chars)][16][69121232] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:12:54 GMT
+Content-type: text/html
+Content-Length: 8472
+Last-Modified: Mon, 05 Oct 2026 08:10:40 GMT
+
+ FROM localhost:3000
+Mon Oct 05 2026 13:42:54:137 GMT+0530 (IST) -- ID-0 Writing 186 bytes response from: localhost:3000
+Mon Oct 05 2026 13:42:58:392 GMT+0530 (IST) -- ID-0 Request to: localhost:3000
+Mon Oct 05 2026 13:42:58:393 GMT+0530 (IST) -- ID-0 [PARSING HANDSHAKE][15][191049044] Handshake request to localhost:3000
+Mon Oct 05 2026 13:42:58:393 GMT+0530 (IST) -- ID-0 Connecting to: localhost:3000
+Mon Oct 05 2026 13:42:58:395 GMT+0530 (IST) -- localhost:3000 socket connected.
+Mon Oct 05 2026 13:42:58:395 GMT+0530 (IST) -- ID-0 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:42:58:648 GMT+0530 (IST) -- ID-0 [PARSING REQUEST][15][191049044] GET /self-healing.html HTTP/1.1
+Host: localhost:3000
+sec-ch-ua: "Google Chrome";v="149", "Chromium";v="149", "Not)A;Brand";v="24"
+sec-ch-ua-mobile: ?1
+sec-ch-ua-platform: "Android"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+Mon Oct 05 2026 13:42:58:650 GMT+0530 (IST) -- ID-0 [PARSING RESPONSE (500chars)][15][191049044] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:12:58 GMT
+Content-type: text/html
+Content-Length: 8472
+Last-Modified: Mon, 05 Oct 2026 08:10:40 GMT
+
+ FROM localhost:3000
+Mon Oct 05 2026 13:42:58:650 GMT+0530 (IST) -- ID-0 Writing 186 bytes response from: localhost:3000
+Mon Oct 05 2026 13:42:58:651 GMT+0530 (IST) -- ID-0 Writing 8472 bytes response from: localhost:3000
+Mon Oct 05 2026 13:42:58:982 GMT+0530 (IST) -- ID-0 Request to: localhost:3000
+Mon Oct 05 2026 13:42:58:983 GMT+0530 (IST) -- ID-0 [PARSING HANDSHAKE][15][191049104] Handshake request to localhost:3000
+Mon Oct 05 2026 13:42:58:983 GMT+0530 (IST) -- ID-0 Connecting to: localhost:3000
+Mon Oct 05 2026 13:42:58:986 GMT+0530 (IST) -- localhost:3000 socket connected.
+Mon Oct 05 2026 13:42:58:986 GMT+0530 (IST) -- ID-0 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:42:59:269 GMT+0530 (IST) -- ID-0 [PARSING REQUEST][15][191049104] GET /style.css HTTP/1.1
+Host: localhost:3000
+sec-ch-ua-platform: "Android"
+User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36
+sec-ch-ua: "Google Chrome";v="149", "Chromium";v="149", "Not)A;Brand";v="24"
+sec-ch-ua-mobile: ?1
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:3000/self-healing.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+Mon Oct 05 2026 13:42:59:270 GMT+0530 (IST) -- ID-0 [PARSING RESPONSE (500chars)][15][191049104] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:12:59 GMT
+Content-type: text/css
+Content-Length: 2679
+Last-Modified: Fri, 25 Sep 2026 17:04:08 GMT
+
+ FROM localhost:3000
+Mon Oct 05 2026 13:42:59:270 GMT+0530 (IST) -- ID-0 Writing 185 bytes response from: localhost:3000
+Mon Oct 05 2026 13:42:59:271 GMT+0530 (IST) -- ID-0 Writing 2679 bytes response from: localhost:3000
+Mon Oct 05 2026 13:42:59:578 GMT+0530 (IST) -- ID-0 Request to: localhost:3000
+Mon Oct 05 2026 13:42:59:579 GMT+0530 (IST) -- ID-0 [PARSING HANDSHAKE][15][191049148] Handshake request to localhost:3000
+Mon Oct 05 2026 13:42:59:579 GMT+0530 (IST) -- ID-0 Connecting to: localhost:3000
+Mon Oct 05 2026 13:42:59:581 GMT+0530 (IST) -- localhost:3000 socket connected.
+Mon Oct 05 2026 13:42:59:581 GMT+0530 (IST) -- ID-0 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:42:59:844 GMT+0530 (IST) -- ID-0 [PARSING REQUEST][15][191049148] GET /favicon.ico HTTP/1.1
+Host: localhost:3000
+sec-ch-ua-platform: "Android"
+User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36
+sec-ch-ua: "Google Chrome";v="149", "Chromium";v="149", "Not)A;Brand";v="24"
+sec-ch-ua-mobile: ?1
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:3000/self-healing.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+Mon Oct 05 2026 13:42:59:845 GMT+0530 (IST) -- ID-0 [PARSING RESPONSE (500chars)][15][191049148] HTTP/1.0 404 File not found
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:12:59 GMT
+Connection: close
+Content-Type: text/html;charset=utf-8
+Content-Length: 469
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <title>Error response</title>
+    </head>
+    <body>
+        <h1>Error response</h1>
+        <p>Error code: 404</p>
+ FROM localhost:3000
+Mon Oct 05 2026 13:42:59:845 GMT+0530 (IST) -- ID-0 Writing 653 bytes response from: localhost:3000
+Mon Oct 05 2026 13:43:08:303 GMT+0530 (IST) -- ID-1 Request to: 127.0.0.1:3000
+Mon Oct 05 2026 13:43:08:305 GMT+0530 (IST) -- ID-1 [PARSING HANDSHAKE][17][84771749] Handshake request to 127.0.0.1:3000
+Mon Oct 05 2026 13:43:08:306 GMT+0530 (IST) -- ID-1 Connecting to: 127.0.0.1:3000
+Mon Oct 05 2026 13:43:08:311 GMT+0530 (IST) -- 127.0.0.1:3000 socket connected.
+Mon Oct 05 2026 13:43:08:316 GMT+0530 (IST) -- ID-1 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:43:08:573 GMT+0530 (IST) -- ID-1 [PARSING REQUEST][17][84771749] GET /self-healing.html HTTP/1.1
+Host: bs-local.com:3000
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Mobile/15E148 Safari/604.1
+Referer: http://appium.io/
+Accept-Language: en-US,en;q=0.9
+Accept-Encoding: gzip, deflate
+
+
+Mon Oct 05 2026 13:43:08:583 GMT+0530 (IST) -- ID-1 [PARSING RESPONSE (500chars)][17][84771749] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:13:08 GMT
+Content-type: text/html
+Content-Length: 8472
+Last-Modified: Mon, 05 Oct 2026 08:10:40 GMT
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Self-Healing Selectors â BrowserStack Automate</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<sc FROM 127.0.0.1:3000
+Mon Oct 05 2026 13:43:08:585 GMT+0530 (IST) -- ID-1 Writing 8658 bytes response from: 127.0.0.1:3000
+Mon Oct 05 2026 13:43:08:882 GMT+0530 (IST) -- ID-1 Request to: 127.0.0.1:3000
+Mon Oct 05 2026 13:43:08:883 GMT+0530 (IST) -- ID-1 [PARSING HANDSHAKE][17][84771770] Handshake request to 127.0.0.1:3000
+Mon Oct 05 2026 13:43:08:883 GMT+0530 (IST) -- ID-1 Connecting to: 127.0.0.1:3000
+Mon Oct 05 2026 13:43:08:884 GMT+0530 (IST) -- 127.0.0.1:3000 socket connected.
+Mon Oct 05 2026 13:43:08:885 GMT+0530 (IST) -- ID-1 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:43:09:132 GMT+0530 (IST) -- ID-1 [PARSING REQUEST][17][84771770] GET /style.css HTTP/1.1
+Host: bs-local.com:3000
+Connection: keep-alive
+Accept: text/css,*/*;q=0.1
+User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Mobile/15E148 Safari/604.1
+Accept-Language: en-US,en;q=0.9
+Referer: http://bs-local.com:3000/self-healing.html
+Accept-Encoding: gzip, deflate
+
+
+Mon Oct 05 2026 13:43:09:134 GMT+0530 (IST) -- ID-1 [PARSING RESPONSE (500chars)][17][84771770] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:13:09 GMT
+Content-type: text/css
+Content-Length: 2679
+Last-Modified: Fri, 25 Sep 2026 17:04:08 GMT
+
+ FROM 127.0.0.1:3000
+Mon Oct 05 2026 13:43:09:134 GMT+0530 (IST) -- ID-1 Writing 185 bytes response from: 127.0.0.1:3000
+Mon Oct 05 2026 13:43:09:134 GMT+0530 (IST) -- ID-1 Writing 2679 bytes response from: 127.0.0.1:3000
+Mon Oct 05 2026 13:43:09:466 GMT+0530 (IST) -- ID-0 Request to: localhost:3000
+Mon Oct 05 2026 13:43:09:467 GMT+0530 (IST) -- ID-0 [PARSING HANDSHAKE][16][69121575] Handshake request to localhost:3000
+Mon Oct 05 2026 13:43:09:467 GMT+0530 (IST) -- ID-0 Connecting to: localhost:3000
+Mon Oct 05 2026 13:43:09:471 GMT+0530 (IST) -- ID-1 Request to: 127.0.0.1:3000
+Mon Oct 05 2026 13:43:09:471 GMT+0530 (IST) -- ID-1 [PARSING HANDSHAKE][17][84771796] Handshake request to 127.0.0.1:3000
+Mon Oct 05 2026 13:43:09:471 GMT+0530 (IST) -- ID-1 Connecting to: 127.0.0.1:3000
+Mon Oct 05 2026 13:43:09:471 GMT+0530 (IST) -- 127.0.0.1:3000 socket connected.
+Mon Oct 05 2026 13:43:09:472 GMT+0530 (IST) -- ID-1 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:43:09:472 GMT+0530 (IST) -- localhost:3000 socket connected.
+Mon Oct 05 2026 13:43:09:472 GMT+0530 (IST) -- ID-0 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:43:09:721 GMT+0530 (IST) -- ID-1 [PARSING REQUEST][17][84771796] GET /favicon.ico HTTP/1.1
+Host: bs-local.com:3000
+Connection: keep-alive
+Accept: */*
+User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Mobile/15E148 Safari/604.1
+Accept-Language: en-US,en;q=0.9
+Referer: http://bs-local.com:3000/self-healing.html
+Accept-Encoding: gzip, deflate
+
+
+Mon Oct 05 2026 13:43:09:722 GMT+0530 (IST) -- ID-0 [PARSING REQUEST][16][69121575] GET /self-healing.html HTTP/1.1
+Host: localhost:3000
+sec-ch-ua: "Chromium";v="154", "Google Chrome";v="154", "Not A(Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+If-Modified-Since: Mon, 05 Oct 2026 08:10:40 GMT
+Connection: keep-alive
+
+
+Mon Oct 05 2026 13:43:09:723 GMT+0530 (IST) -- ID-1 [PARSING RESPONSE (500chars)][17][84771796] HTTP/1.0 404 File not found
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:13:09 GMT
+Connection: close
+Content-Type: text/html;charset=utf-8
+Content-Length: 469
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <title>Error response</title>
+    </head>
+    <body>
+        <h1>Error response</h1>
+        <p>Error code: 404</p>
+ FROM 127.0.0.1:3000
+Mon Oct 05 2026 13:43:09:723 GMT+0530 (IST) -- ID-1 Writing 653 bytes response from: 127.0.0.1:3000
+Mon Oct 05 2026 13:43:09:728 GMT+0530 (IST) -- ID-0 [PARSING RESPONSE (500chars)][16][69121575] HTTP/1.0 304 Not Modified
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:13:09 GMT
+
+ FROM localhost:3000
+Mon Oct 05 2026 13:43:09:728 GMT+0530 (IST) -- ID-0 Writing 103 bytes response from: localhost:3000
+Mon Oct 05 2026 13:43:11:597 GMT+0530 (IST) -- ID-0 Request to: localhost:3000
+Mon Oct 05 2026 13:43:11:597 GMT+0530 (IST) -- ID-0 [PARSING HANDSHAKE][16][69121621] Handshake request to localhost:3000
+Mon Oct 05 2026 13:43:11:597 GMT+0530 (IST) -- ID-0 Connecting to: localhost:3000
+Mon Oct 05 2026 13:43:11:599 GMT+0530 (IST) -- localhost:3000 socket connected.
+Mon Oct 05 2026 13:43:11:600 GMT+0530 (IST) -- ID-0 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:43:11:879 GMT+0530 (IST) -- ID-0 [PARSING REQUEST][16][69121621] HEAD /self-healing.html HTTP/1.1
+Host: localhost:3000
+Accept: */*
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:30.0) Gecko/20100101 Firefox/30.0
+Connection: keep-alive
+
+
+Mon Oct 05 2026 13:43:11:881 GMT+0530 (IST) -- ID-0 [PARSING RESPONSE (500chars)][16][69121621] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:13:11 GMT
+Content-type: text/html
+Content-Length: 8472
+Last-Modified: Mon, 05 Oct 2026 08:10:40 GMT
+
+ FROM localhost:3000
+Mon Oct 05 2026 13:43:11:881 GMT+0530 (IST) -- ID-0 Writing 186 bytes response from: localhost:3000
+Mon Oct 05 2026 13:43:25:524 GMT+0530 (IST) -- ID-1 Request to: 127.0.0.1:3000
+Mon Oct 05 2026 13:43:25:525 GMT+0530 (IST) -- ID-1 [PARSING HANDSHAKE][17][84772233] Handshake request to 127.0.0.1:3000
+Mon Oct 05 2026 13:43:25:526 GMT+0530 (IST) -- ID-1 Connecting to: 127.0.0.1:3000
+Mon Oct 05 2026 13:43:25:530 GMT+0530 (IST) -- 127.0.0.1:3000 socket connected.
+Mon Oct 05 2026 13:43:25:531 GMT+0530 (IST) -- ID-1 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:43:25:621 GMT+0530 (IST) -- ID-0 Request to: localhost:3000
+Mon Oct 05 2026 13:43:25:622 GMT+0530 (IST) -- ID-0 [PARSING HANDSHAKE][15][191051020] Handshake request to localhost:3000
+Mon Oct 05 2026 13:43:25:622 GMT+0530 (IST) -- ID-0 Connecting to: localhost:3000
+Mon Oct 05 2026 13:43:25:624 GMT+0530 (IST) -- localhost:3000 socket connected.
+Mon Oct 05 2026 13:43:25:624 GMT+0530 (IST) -- ID-0 Connected to: 127.0.0.1
+Mon Oct 05 2026 13:43:25:784 GMT+0530 (IST) -- ID-1 [PARSING REQUEST][17][84772233] GET /self-healing.html HTTP/1.1
+Host: bs-local.com:3000
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+If-Modified-Since: Mon, 05 Oct 2026 08:10:40 GMT
+User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Mobile/15E148 Safari/604.1
+Referer: http://bs-local.com:3000/self-healing.html
+Accept-Language: en-US,en;q=0.9
+Accept-Encoding: gzip, deflate
+
+
+Mon Oct 05 2026 13:43:25:790 GMT+0530 (IST) -- ID-1 [PARSING RESPONSE (500chars)][17][84772233] HTTP/1.0 304 Not Modified
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:13:25 GMT
+
+ FROM 127.0.0.1:3000
+Mon Oct 05 2026 13:43:25:790 GMT+0530 (IST) -- ID-1 Writing 103 bytes response from: 127.0.0.1:3000
+Mon Oct 05 2026 13:43:25:882 GMT+0530 (IST) -- ID-0 [PARSING REQUEST][15][191051020] GET /self-healing.html HTTP/1.1
+Host: localhost:3000
+sec-ch-ua: "Google Chrome";v="149", "Chromium";v="149", "Not)A;Brand";v="24"
+sec-ch-ua-mobile: ?1
+sec-ch-ua-platform: "Android"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+If-Modified-Since: Mon, 05 Oct 2026 08:10:40 GMT
+
+
+Mon Oct 05 2026 13:43:25:884 GMT+0530 (IST) -- ID-0 [PARSING RESPONSE (500chars)][15][191051020] HTTP/1.0 304 Not Modified
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 05 Oct 2026 08:13:25 GMT
+
+ FROM localhost:3000
+Mon Oct 05 2026 13:43:25:884 GMT+0530 (IST) -- ID-0 Writing 103 bytes response from: localhost:3000

@@ -1,13 +1,12 @@
-# Network Speed — uses BrowserStack networkProfile capability for throttling
-# Run: npm run test:network
-# Docs: https://www.browserstack.com/docs/automate/selenium/simulate-network-conditions
-# networkProfile is supported on Android/iOS real devices only (not desktop).
+# Self-Healing Selectors — enables BrowserStack AI Self-Heal Agent
+# Run: npx browserstack-node-sdk --config-file config/self-healing.yml jest --testPathPattern="tests/self-healing"
+# Docs: https://www.browserstack.com/docs/automate/selenium/self-healing
 
 userName: ${BROWSERSTACK_USERNAME}
 accessKey: ${BROWSERSTACK_ACCESS_KEY}
 
 projectName: BrowserStack Demo
-buildName: Network Simulation Demo
+buildName: AI Self-Healing Demo
 buildIdentifier: "#${BUILD_NUMBER}"
 
 platforms:
@@ -22,10 +21,7 @@ platforms:
     osVersion: 16
     deviceName: iPhone *
 
-
-# 4g-lte-advanced-good: 25000 kbps down / 18000 kbps up / 80 ms latency
-networkProfile: 4g-lte-advanced-good
-
 parallelsPerPlatform: 1
 browserstackLocal: ${BROWSERSTACK_LOCAL}
 idleTimeout: 300
+selfHeal: true

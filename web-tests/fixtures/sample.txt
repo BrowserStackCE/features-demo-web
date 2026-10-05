@@ -1,1 +1,0 @@
-BrowserStack test fixture file

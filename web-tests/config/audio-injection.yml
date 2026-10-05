@@ -1,0 +1,28 @@
+# Audio Injection — uses BrowserStack enableAudioInjection capability
+# Run: npm run test:audio
+# Uploads fixtures/audio_sample.mp3 first, then sets BROWSERSTACK_AUDIO_URL for the SDK.
+
+userName: ${BROWSERSTACK_USERNAME}
+accessKey: ${BROWSERSTACK_ACCESS_KEY}
+
+projectName: BrowserStack Demo
+buildName: Audio Injection Demo
+buildIdentifier: "#${BUILD_NUMBER}"
+
+platforms:
+  # Audio injection works reliably on Android 11+ real devices:
+  # https://www.browserstack.com/docs/automate/selenium/audio-injection
+  - deviceName: Samsung Galaxy *
+    osVersion: "12.0"
+    browserName: chrome
+
+# Root-level caps per BrowserStack SDK docs:
+# https://www.browserstack.com/docs/automate/selenium/audio-injection
+enableAudioInjection: true
+audioInjectionURL: ${BROWSERSTACK_AUDIO_URL}
+autoAcceptAlerts: true
+appium:autoGrantPermissions: true
+
+parallelsPerPlatform: 1
+browserstackLocal: ${BROWSERSTACK_LOCAL}
+idleTimeout: 300

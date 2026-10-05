@@ -31,25 +31,103 @@
 <script>
 const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 if (conn) document.getElementById("effective-type").textContent = conn.effectiveType || "--";
-document.getElementById("run-speed-test").addEventListener("click", async () => {
-  const btn = document.getElementById("run-speed-test"), status = document.getElementById("speed-status"), bar = document.getElementById("speed-progress-bar");
-  btn.disabled = true; btn.textContent = "Testing...";
-  status.textContent = "Measuring latency..."; status.classList.remove("hidden"); bar.style.width = "10%";
+
+// Cloudflare generates uncompressed bytes on the fly (not CDN-cached), so throughput
+// reflects BrowserStack networkProfile throttling instead of a cached/tiny transfer.
+const DOWN_URL = "https://speed.cloudflare.com/__down";
+const LATENCY_BYTES = 1000;
+const MEASURE_BYTES = 5_000_000; // 5 MB — large enough that TTFB noise doesn't dominate
+const SAMPLES = 3;
+
+let requestSeq = 0;
+function downloadUrl(bytes) {
+  return DOWN_URL + "?bytes=" + bytes + "&_=" + Date.now() + "-" + (++requestSeq);
+}
+
+/** Full round-trip time for a tiny download (includes TTFB — good latency proxy). */
+async function measureLatencyMs() {
   const t0 = performance.now();
-  try { await fetch("https://www.cloudflare.com/cdn-cgi/trace", {method:"HEAD",cache:"no-store"}); } catch(e) {}
-  document.getElementById("speed-latency").textContent = Math.round(performance.now() - t0);
-  bar.style.width = "30%"; status.textContent = "Measuring download speed...";
-  try {
-    const url = "https://speed.cloudflare.com/__down?bytes=1000000&_=" + Date.now();
+  const resp = await fetch(downloadUrl(LATENCY_BYTES), { cache: "no-store", mode: "cors" });
+  if (!resp.ok) throw new Error("Latency probe failed (HTTP " + resp.status + ")");
+  await resp.arrayBuffer();
+  return performance.now() - t0;
+}
+
+/** Throughput sample: bytes and ms from first body byte → last byte (excludes TTFB). */
+async function measureThroughput() {
+  const resp = await fetch(downloadUrl(MEASURE_BYTES), { cache: "no-store", mode: "cors" });
+  if (!resp.ok) throw new Error("Download failed (HTTP " + resp.status + ")");
+  if (!resp.body) {
     const start = performance.now();
-    const resp = await fetch(url, {cache:"no-store"});
     const buf = await resp.arrayBuffer();
-    const elapsed = (performance.now() - start) / 1000;
-    document.getElementById("speed-result").textContent = ((buf.byteLength * 8) / elapsed / 1e6).toFixed(2);
-    bar.style.width = "100%"; status.textContent = "Test complete";
-  } catch(e) { status.textContent = "Error: " + e.message; }
+    return { bytes: buf.byteLength, transferMs: performance.now() - start };
+  }
+  const reader = resp.body.getReader();
+  let received = 0;
+  let firstByte = null;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (firstByte === null) firstByte = performance.now();
+    received += value.byteLength;
+  }
+  if (firstByte === null || received === 0) throw new Error("Empty download response");
+  return { bytes: received, transferMs: performance.now() - firstByte };
+}
+
+function mbpsFrom(sample) {
+  const seconds = sample.transferMs / 1000;
+  if (seconds < 0.05) throw new Error("Transfer too fast to measure reliably");
+  return (sample.bytes * 8) / seconds / 1e6;
+}
+
+function median(values) {
+  const sorted = values.slice().sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+}
+
+document.getElementById("run-speed-test").addEventListener("click", async () => {
+  const btn = document.getElementById("run-speed-test");
+  const status = document.getElementById("speed-status");
+  const bar = document.getElementById("speed-progress-bar");
+  btn.disabled = true;
+  btn.textContent = "Testing...";
+  status.classList.remove("hidden");
+  document.getElementById("speed-result").textContent = "--";
+  document.getElementById("speed-latency").textContent = "--";
+
+  try {
+    status.textContent = "Warming up connection...";
+    bar.style.width = "5%";
+    // Discarded: primes TCP/TLS so real samples aren't skewed by handshake cost
+    await measureLatencyMs();
+
+    status.textContent = "Measuring latency...";
+    bar.style.width = "15%";
+    const latencySamples = [];
+    for (let i = 0; i < SAMPLES; i++) {
+      latencySamples.push(await measureLatencyMs());
+      bar.style.width = (15 + ((i + 1) / SAMPLES) * 15) + "%";
+    }
+    document.getElementById("speed-latency").textContent = Math.round(median(latencySamples));
+
+    status.textContent = "Measuring download speed...";
+    const speedSamples = [];
+    for (let i = 0; i < SAMPLES; i++) {
+      status.textContent = "Measuring download speed... (" + (i + 1) + "/" + SAMPLES + ")";
+      speedSamples.push(mbpsFrom(await measureThroughput()));
+      bar.style.width = (30 + ((i + 1) / SAMPLES) * 70) + "%";
+    }
+    document.getElementById("speed-result").textContent = median(speedSamples).toFixed(2);
+    status.textContent = "Test complete";
+  } catch (e) {
+    status.textContent = "Error: " + e.message;
+  }
+
   if (conn) document.getElementById("effective-type").textContent = conn.effectiveType || "--";
-  btn.disabled = false; btn.textContent = "Run Speed Test";
+  btn.disabled = false;
+  btn.textContent = "Run Speed Test";
 });
 </script>
 </body>

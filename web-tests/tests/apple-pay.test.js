@@ -1,4 +1,29 @@
 const { Builder, By, until } = require('selenium-webdriver');
+const { Command } = require('selenium-webdriver/lib/command');
+
+/**
+ * Apple Pay button clicks often fail in webview on iOS Safari.
+ * BrowserStack recommends switching to NATIVE_APP and clicking by accessibility name:
+ * https://www.browserstack.com/docs/automate/selenium/apple-pay
+ */
+function ensureAppiumContextCommands(driver) {
+  driver.getExecutor().defineCommand('switchContext', 'POST', '/session/:sessionId/context');
+}
+
+async function switchContext(driver, name) {
+  await driver.execute(new Command('switchContext').setParameter('name', name));
+}
+
+async function clickApplePayButton(driver) {
+  ensureAppiumContextCommands(driver);
+  await switchContext(driver, 'NATIVE_APP');
+
+  const applePayBtn = await driver.wait(
+    until.elementLocated(By.xpath("//*[@name='Apple Pay']")),
+    15000
+  );
+  await applePayBtn.click();
+}
 
 describe('Apple Pay', () => {
   let driver;
@@ -15,47 +40,31 @@ describe('Apple Pay', () => {
     await driver.get('https://applepaydemo.apple.com');
     await driver.wait(until.titleContains('Apple Pay'), 15000);
 
-    const applePayBtn = await driver.findElement(
-      By.css('apple-pay-button, [type="apple-pay-button"], button.apple-pay-button, [data-testid="apple-pay-button"]')
-    );
-
-    // 1. Calculate viewport-relative center coordinates
-    const coords = await driver.executeScript(`
-      const rect = arguments[0].getBoundingClientRect();
-      return {
-        x: Math.round(rect.left + rect.width / 2),
-        y: Math.round(rect.top + rect.height / 2)
-      };
-    `, applePayBtn);
-
-    // 2. Add iOS Status Bar / Browser Chrome offset
-    // iPhone 15 status bar is typically ~47px. Adjust this value depending on 
-    // whether Safari's address bar is expanded or collapsed.
-    const STATUS_BAR_OFFSET = 47; 
-    
-    const finalX = coords.x;
-    const finalY = coords.y + STATUS_BAR_OFFSET;
-
-    console.log(`Adjusted Screen Coordinates -> X: ${finalX}, Y: ${finalY}`);
-
-    // 3. Execute 'mobile: tap' with absolute screen coordinates
-    await driver.executeScript('mobile: tap', { x: finalX, y: finalY });
-
-    // Wait for the native Apple Pay sheet to appear
+    // Give the demo page time to render the Apple Pay button
     await driver.sleep(3000);
 
+    // Click via NATIVE_APP — web clicks / coordinate taps often miss the button
+    await clickApplePayButton(driver);
+
+    // Wait for the native Apple Pay sheet to appear
+    await driver.sleep(5000);
+
+    // Optional shipping/billing/contact details for the sheet
+    // await driver.executeScript(
+    //   `browserstack_executor: {"action":"applePayDetails","arguments":{"billingDetails":{"firstName":"Some","lastName":"User","state":"CA","city":"San Francisco","street":"1 Infinite Loop","zip":"95014","country":"United States"},"shippingDetails":{"firstName":"Some","lastName":"User","state":"CA","city":"San Francisco","street":"1 Infinite Loop","zip":"95014","country":"United States"},"contact":{"email":"test@example.com","phone":"+14155552671"}}}`
+    // );
+
+    await driver.sleep(2000);
+
     // Confirm the payment using BrowserStack executor
-    try {
-      await driver.executeScript(
-        `browserstack_executor: {"action":"applePay", "arguments": {"confirmPayment": "true"}}`
-      );
-    } catch (error) {
-      console.error('Error confirming payment:', error);
-    }
+    await driver.executeScript(
+      `browserstack_executor: {"action":"applePay", "arguments": {"confirmPayment": "true"}}`
+    );
 
-    await driver.sleep(10000);
+    await driver.sleep(3000);
 
+    // Enter device passcode to complete payment (BrowserStack Apple Pay docs)
     const activeElement = await driver.switchTo().activeElement();
     await activeElement.sendKeys('123456');
-  }, 120000);
+  }, 180000);
 });
