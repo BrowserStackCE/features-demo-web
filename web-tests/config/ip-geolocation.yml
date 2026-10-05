@@ -21,3 +21,4 @@ platforms:
 parallelsPerPlatform: 1
 browserstackLocal: false
 idleTimeout: 300
+geoLocation: US
