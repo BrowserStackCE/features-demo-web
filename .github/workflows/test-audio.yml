@@ -1,4 +1,4 @@
-name: Test Audio Injection
+name: Audio Injection Demo
 on:
   workflow_dispatch:
     inputs:

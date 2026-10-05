@@ -1,4 +1,4 @@
-name: Test Camera Injection
+name: Camera Injection Demo
 on:
   workflow_dispatch:
     inputs:

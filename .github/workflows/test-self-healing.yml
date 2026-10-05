@@ -1,4 +1,4 @@
-name: Test Self-Healing
+name: AI Self-Healing Demo
 on:
   workflow_dispatch:
     inputs:

@@ -1,4 +1,4 @@
-name: Test Network Speed
+name: Network Simulation Demo
 on:
   workflow_dispatch:
     inputs:
