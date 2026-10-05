@@ -7,6 +7,12 @@ export const WORKFLOW_FILES: Record<string, string> = {
   audio: "test-audio.yml",
   network: "test-network.yml",
   "self-healing": "test-self-healing.yml",
+  "file-upload": "test-file-upload.yml",
+  gps: "test-gps.yml",
+  "ip-geolocation": "test-ip-geolocation.yml",
+  timezone: "test-timezone.yml",
+  iframe: "test-iframe.yml",
+  permissions: "test-permissions.yml",
 };
 
 export type DispatchInputs = {

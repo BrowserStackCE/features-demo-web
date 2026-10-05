@@ -39,7 +39,7 @@ Response:
 }
 ```
 
-Allowed workflow aliases: `apple-pay`, `camera`, `audio`, `network`, `self-healing`.
+Allowed workflow aliases: `apple-pay`, `camera`, `audio`, `network`, `self-healing`, `file-upload`, `gps`, `ip-geolocation`, `timezone`, `iframe`, `permissions`.
 
 ### Status
 
