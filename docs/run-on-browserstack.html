@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Run on BrowserStack — BrowserStack Automate</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif']},colors:{brand:{50:'#f5f3ff',600:'#7c3aed',700:'#6d28d9'}}}}}</script>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+<nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <div class="max-w-3xl mx-auto px-6 h-16 flex items-center gap-3">
+    <a href="index.html" class="text-gray-500 hover:text-gray-700 text-sm flex items-center gap-1">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>All demos
+    </a>
+    <span class="text-gray-300">|</span>
+    <span class="font-semibold text-gray-900 text-sm">Run on BrowserStack</span>
+  </div>
+</nav>
+<div class="max-w-3xl mx-auto px-6 py-10 space-y-6">
+  <div class="flex items-center gap-4">
+    <div class="w-12 h-12 bg-brand-600 rounded-xl flex items-center justify-center shrink-0">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    </div>
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">Run on BrowserStack</h1>
+      <p class="text-gray-500 text-sm">Trigger Automate demo pipelines with your BrowserStack credentials</p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <h2 class="font-semibold text-gray-900">Credentials</h2>
+    <div>
+      <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+      <input id="username" type="text" autocomplete="username" placeholder="BrowserStack username"
+        class="w-full border border-gray-300 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-transparent"/>
+    </div>
+    <div>
+      <label for="accessKey" class="block text-sm font-medium text-gray-700 mb-1">Access Key</label>
+      <input id="accessKey" type="password" autocomplete="current-password" placeholder="BrowserStack access key"
+        class="w-full border border-gray-300 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-transparent"/>
+    </div>
+    <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+      <input id="localTesting" type="checkbox" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+      Local testing (serve docs on localhost and use BrowserStack Local)
+    </label>
+  </div>
+
+  <div class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <h2 class="font-semibold text-gray-900">Features</h2>
+    <p class="text-sm text-gray-500">Select one or more features to dispatch.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="workflow-list">
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="workflow" value="apple-pay" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        Apple Pay
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="workflow" value="camera" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        Camera
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="workflow" value="audio" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        Audio
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="workflow" value="network" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        Network
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="workflow" value="self-healing" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        Self-Healing
+      </label>
+    </div>
+  </div>
+
+  <div class="flex flex-col sm:flex-row gap-3">
+    <button id="trigger-btn" type="button" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed">
+      Trigger pipeline(s)
+    </button>
+    <a id="view-bs-btn" href="https://automate.browserstack.com/projects/BrowserStack+Demo" target="_blank" rel="noopener"
+      class="flex-1 inline-flex items-center justify-center gap-2 bg-white border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-2.5 rounded-xl">
+      View on BrowserStack
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+    </a>
+  </div>
+
+  <div id="error-box" class="hidden bg-red-50 border border-red-200 rounded-2xl p-5 text-sm text-red-800"></div>
+
+  <div id="status-card" class="hidden bg-white rounded-2xl border border-gray-200 overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+      <h2 class="font-semibold text-gray-900">Run status</h2>
+      <span id="poll-badge" class="text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full">Idle</span>
+    </div>
+    <ul id="run-list" class="divide-y divide-gray-100"></ul>
+  </div>
+</div>
+
+<script>
+(function () {
+  const API_BASE = 'https://features-demo-api.vercel.app';
+  const POLL_MS = 4000;
+
+  const usernameEl = document.getElementById('username');
+  const accessKeyEl = document.getElementById('accessKey');
+  const localTestingEl = document.getElementById('localTesting');
+  const triggerBtn = document.getElementById('trigger-btn');
+  const errorBox = document.getElementById('error-box');
+  const statusCard = document.getElementById('status-card');
+  const runList = document.getElementById('run-list');
+  const pollBadge = document.getElementById('poll-badge');
+
+  let pollTimer = null;
+
+  function selectedWorkflows() {
+    return Array.from(document.querySelectorAll('input[name="workflow"]:checked')).map(function (el) {
+      return el.value;
+    });
+  }
+
+  function showError(message) {
+    errorBox.textContent = message;
+    errorBox.classList.remove('hidden');
+  }
+
+  function clearError() {
+    errorBox.textContent = '';
+    errorBox.classList.add('hidden');
+  }
+
+  function stopPolling() {
+    if (pollTimer) {
+      clearInterval(pollTimer);
+      pollTimer = null;
+    }
+  }
+
+  function statusLabel(run) {
+    if (run.error) return run.error;
+    if (run.status === 'completed') return run.conclusion || 'completed';
+    return run.status || 'queued';
+  }
+
+  function badgeClass(run) {
+    if (run.error) return 'bg-red-50 text-red-700';
+    if (run.status === 'completed' && run.conclusion === 'success') return 'bg-green-50 text-green-700';
+    if (run.status === 'completed') return 'bg-red-50 text-red-700';
+    if (run.status === 'in_progress') return 'bg-amber-50 text-amber-700';
+    return 'bg-gray-100 text-gray-600';
+  }
+
+  function renderRuns(runs) {
+    statusCard.classList.remove('hidden');
+    runList.innerHTML = '';
+    runs.forEach(function (run) {
+      var li = document.createElement('li');
+      li.className = 'px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2';
+      var left = document.createElement('div');
+      left.innerHTML = '<p class="font-medium text-gray-900 text-sm">' + escapeHtml(run.workflow || 'unknown') + '</p>';
+      if (run.htmlUrl) {
+        left.innerHTML += '<a href="' + escapeAttr(run.htmlUrl) + '" target="_blank" rel="noopener" class="text-xs text-brand-600 hover:text-brand-700">View on GitHub Actions →</a>';
+      }
+      var badge = document.createElement('span');
+      badge.className = 'text-xs font-medium px-2.5 py-1 rounded-full self-start ' + badgeClass(run);
+      badge.textContent = statusLabel(run);
+      li.appendChild(left);
+      li.appendChild(badge);
+      runList.appendChild(li);
+    });
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function escapeAttr(str) {
+    return escapeHtml(str).replace(/'/g, '&#39;');
+  }
+
+  function allDone(runs) {
+    return runs.every(function (run) {
+      return run.error || run.status === 'completed';
+    });
+  }
+
+  async function pollStatus(tokens) {
+    pollBadge.textContent = 'Polling…';
+    pollBadge.className = 'text-xs bg-amber-50 text-amber-700 px-2.5 py-1 rounded-full';
+
+    async function tick() {
+      try {
+        var res = await fetch(API_BASE + '/api/status?tokens=' + encodeURIComponent(tokens.join(',')));
+        var data = await res.json();
+        if (!res.ok) {
+          showError(data.error || 'Status poll failed');
+          stopPolling();
+          pollBadge.textContent = 'Error';
+          pollBadge.className = 'text-xs bg-red-50 text-red-700 px-2.5 py-1 rounded-full';
+          return;
+        }
+        clearError();
+        renderRuns(data.runs || []);
+        if (allDone(data.runs || [])) {
+          stopPolling();
+          pollBadge.textContent = 'Done';
+          pollBadge.className = 'text-xs bg-green-50 text-green-700 px-2.5 py-1 rounded-full';
+        }
+      } catch (err) {
+        showError(err.message || String(err));
+        stopPolling();
+        pollBadge.textContent = 'Error';
+        pollBadge.className = 'text-xs bg-red-50 text-red-700 px-2.5 py-1 rounded-full';
+      }
+    }
+
+    await tick();
+    stopPolling();
+    pollTimer = setInterval(tick, POLL_MS);
+  }
+
+  triggerBtn.addEventListener('click', async function () {
+    clearError();
+    stopPolling();
+
+    var username = usernameEl.value.trim();
+    var accessKey = accessKeyEl.value.trim();
+    var workflows = selectedWorkflows();
+
+    if (!username || !accessKey) {
+      showError('Username and access key are required.');
+      return;
+    }
+    if (workflows.length === 0) {
+      showError('Select at least one pipeline.');
+      return;
+    }
+
+    triggerBtn.disabled = true;
+    triggerBtn.textContent = 'Triggering…';
+    pollBadge.textContent = 'Starting…';
+    pollBadge.className = 'text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full';
+    statusCard.classList.remove('hidden');
+    runList.innerHTML = '<li class="px-6 py-4 text-sm text-gray-500">Dispatching workflows…</li>';
+
+    try {
+      var res = await fetch(API_BASE + '/api/trigger', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          workflows: workflows,
+          username: username,
+          accessKey: accessKey,
+          localTesting: localTestingEl.checked,
+          ref: 'main'
+        })
+      });
+      var data = await res.json();
+      if (!res.ok) {
+        showError(data.error || 'Trigger failed');
+        runList.innerHTML = '';
+        statusCard.classList.add('hidden');
+        return;
+      }
+
+      var runs = data.runs || [];
+      renderRuns(runs);
+
+      var tokens = runs.filter(function (r) { return r.token; }).map(function (r) { return r.token; });
+      if (tokens.length > 0) {
+        await pollStatus(tokens);
+      } else {
+        pollBadge.textContent = 'Failed';
+        pollBadge.className = 'text-xs bg-red-50 text-red-700 px-2.5 py-1 rounded-full';
+      }
+    } catch (err) {
+      showError(err.message || String(err));
+      runList.innerHTML = '';
+      statusCard.classList.add('hidden');
+    } finally {
+      triggerBtn.disabled = false;
+      triggerBtn.textContent = 'Trigger pipeline(s)';
+    }
+  });
+})();
+</script>
+</body>
+</html>

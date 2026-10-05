@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import {
   dispatchWorkflow,
   getWorkflowRun,
@@ -8,6 +9,14 @@ import {
 import { mintPollToken, verifyPollToken } from "./token.js";
 
 export const app = new Hono().basePath("/api");
+
+app.use(
+  "*",
+  cors({
+    origin: "*",
+    allowMethods: ["GET", "POST", "OPTIONS"],
+  })
+);
 
 type TriggerBody = {
   workflow?: string;
