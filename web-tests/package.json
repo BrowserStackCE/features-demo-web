@@ -8,7 +8,13 @@
     "test:camera": "BROWSERSTACK_CAMERA_URL=$(node scripts/upload-camera-media.js) BROWSERSTACK_CONFIG_FILE='config/camera-injection.yml' browserstack-node-sdk jest --testPathPattern=tests/camera",
     "test:audio": "BROWSERSTACK_AUDIO_URL=$(node scripts/upload-audio-media.js) BROWSERSTACK_CONFIG_FILE='config/audio-injection.yml' browserstack-node-sdk jest --testPathPattern=tests/audio-injection",
     "test:self-healing": "BROWSERSTACK_CONFIG_FILE='config/self-healing.yml' browserstack-node-sdk jest --testPathPattern=tests/self-healing",
-    "test:network": "BROWSERSTACK_CONFIG_FILE='config/network.yml' browserstack-node-sdk jest --testPathPattern=tests/network-speed"
+    "test:network": "BROWSERSTACK_CONFIG_FILE='config/network.yml' browserstack-node-sdk jest --testPathPattern=tests/network-speed",
+    "test:file-upload": "BROWSERSTACK_CONFIG_FILE='config/file.yml' browserstack-node-sdk jest --testPathPattern=tests/file",
+    "test:gps": "BROWSERSTACK_CONFIG_FILE='config/gps.yml' browserstack-node-sdk jest --testPathPattern=tests/gps",
+    "test:ip-geolocation": "BROWSERSTACK_CONFIG_FILE='config/ip-geolocation.yml' browserstack-node-sdk jest --testPathPattern=tests/ip-geolocation",
+    "test:timezone": "BROWSERSTACK_CONFIG_FILE='config/timezone.yml' browserstack-node-sdk jest --testPathPattern=tests/timezone",
+    "test:iframe":"BROWSERSTACK_CONFIG_FILE='config/iframe.yml' browserstack-node-sdk jest --testPathPattern=tests/iframe",
+    "test:permissions":"BROWSERSTACK_CONFIG_FILE='config/permissions.yml' browserstack-node-sdk jest --testPathPattern=tests/permissions"
   },
   "devDependencies": {
     "browserstack-node-sdk": "latest",
