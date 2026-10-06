@@ -4,8 +4,8 @@
 userName: ${BROWSERSTACK_USERNAME}
 accessKey: ${BROWSERSTACK_ACCESS_KEY}
 
-projectName: demo-pipeline
-buildName: jest-bstack-iframe
+projectName: BrowserStack Demo
+buildName: iframe-demo
 buildIdentifier: "#${BUILD_NUMBER}"
 
 platforms:

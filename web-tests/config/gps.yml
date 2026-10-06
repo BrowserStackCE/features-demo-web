@@ -4,8 +4,8 @@
 userName: ${BROWSERSTACK_USERNAME}
 accessKey: ${BROWSERSTACK_ACCESS_KEY}
 
-projectName: demo-pipeline
-buildName: jest-bstack-gps
+projectName: BrowserStack Demo
+buildName: gps-demo
 buildIdentifier: "#${BUILD_NUMBER}"
 
 platforms:

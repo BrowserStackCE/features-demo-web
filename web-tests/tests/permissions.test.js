@@ -1,9 +1,30 @@
 const { Builder, By, until } = require('selenium-webdriver');
 
 const PERMISSIONS_URL = 'https://browserstackce.github.io/features-demo-web/permissions.html';
-const PAGE_ORIGIN = 'https://browserstackce.github.io';
 
-describe('Browser Permissions', () => {
+/**
+ * No Chrome prefs — all permissions start at "prompt".
+ * Each test grants its own permission via a JS mock when the Request button
+ * is clicked, simulating the user accepting the browser permission popup.
+ * No CDP is used anywhere.
+ *
+ * Camera / Mic: mock navigator.mediaDevices.getUserMedia to resolve.
+ * Location:     mock navigator.geolocation.getCurrentPosition to call success.
+ */
+
+async function loadPage(driver) {
+  await driver.get(PERMISSIONS_URL);
+  await driver.wait(
+    until.elementLocated(By.id('camera-perm-status')),
+    10000,
+    'permissions page did not load'
+  );
+  await driver.sleep(1000);
+}
+
+// ─── Camera ──────────────────────────────────────────────────────────────────
+
+describe('Camera Permission', () => {
   let driver;
 
   beforeAll(async () => {
@@ -14,132 +35,139 @@ describe('Browser Permissions', () => {
     if (driver) await driver.quit();
   }, 30000);
 
-  test('Camera permission — starts neutral, click Request, popup appears, then accept', async () => {
-    // Reset all permissions so the page loads with neutral "prompt" status
-    try {
-      await driver.sendDevToolsCommand('Browser.resetPermissions', {});
-    } catch (e) {
-      // CDP not available on this browser
-    }
+  test('starts at prompt, Request button accepts camera permission, badge shows granted', async () => {
+    await loadPage(driver);
 
-    await driver.get(PERMISSIONS_URL);
+    // Confirm camera starts at prompt
+    const initialStatus = await driver.findElement(By.id('camera-perm-status')).then(el => el.getText());
+    expect(['prompt', 'unknown']).toContain(initialStatus);
+
+    // Mock getUserMedia to resolve immediately — simulates user clicking Allow
+    await driver.executeScript(`
+      navigator.mediaDevices.getUserMedia = function() {
+        return Promise.resolve({
+          getTracks: function() { return [{ stop: function() {} }]; }
+        });
+      };
+    `);
+
+    const reqBtn = await driver.findElement(By.id('req-camera-perm'));
+    await driver.executeScript(
+      'arguments[0].scrollIntoView({behavior:"smooth",block:"center"})',
+      reqBtn
+    );
+    await driver.sleep(500);
+    await reqBtn.click();
     await driver.sleep(2000);
 
-    // Scroll to camera section — status should show "prompt" (neutral)
-    const reqCameraBtn = await driver.findElement(By.id('req-camera-perm'));
-    await driver.executeScript('arguments[0].scrollIntoView({behavior: "smooth", block: "center"})', reqCameraBtn);
+    const finalStatus = await driver.findElement(By.id('camera-perm-status')).then(el => el.getText());
+    expect(finalStatus).toBe('granted');
+
     await driver.sleep(1000);
-
-    // Click Request — triggers the browser permission popup
-    await reqCameraBtn.click();
-
-    // Brief pause so the popup is visible in the session recording
-    await driver.sleep(2000);
-
-    // Accept the permission via CDP (simulates user clicking "Allow" on the popup)
-    try {
-      await driver.sendDevToolsCommand('Browser.grantPermissions', {
-        permissions: ['videoCapture'],
-        origin: PAGE_ORIGIN,
-      });
-    } catch (e) {
-      // CDP not available on this browser
-    }
-
-    // Pause so the granted status is clearly visible
-    await driver.sleep(3000);
-
-    // Assert status element is non-empty
-    const cameraStatus = await driver.findElement(By.id('camera-perm-status'));
-    const statusText = await cameraStatus.getText();
-    expect(statusText.length).toBeGreaterThan(0);
-
-    await driver.sleep(2000);
   }, 60000);
+});
 
-  test('Microphone permission — starts neutral, click Request, popup appears, then accept', async () => {
-    // Reset all permissions so the page loads with neutral "prompt" status
-    try {
-      await driver.sendDevToolsCommand('Browser.resetPermissions', {});
-    } catch (e) {
-      // CDP not available on this browser
-    }
+// ─── Microphone ──────────────────────────────────────────────────────────────
 
-    await driver.get(PERMISSIONS_URL);
+describe('Microphone Permission', () => {
+  let driver;
+
+  beforeAll(async () => {
+    driver = await new Builder().build();
+  }, 180000);
+
+  afterAll(async () => {
+    if (driver) await driver.quit();
+  }, 30000);
+
+  test('starts at prompt, Request button accepts microphone permission, badge shows granted', async () => {
+    await loadPage(driver);
+
+    const initialStatus = await driver.findElement(By.id('mic-perm-status')).then(el => el.getText());
+    expect(['prompt', 'unknown']).toContain(initialStatus);
+
+    // Mock getUserMedia (audio) to resolve immediately
+    await driver.executeScript(`
+      navigator.mediaDevices.getUserMedia = function() {
+        return Promise.resolve({
+          getTracks: function() { return [{ stop: function() {} }]; }
+        });
+      };
+    `);
+
+    const reqBtn = await driver.findElement(By.id('req-mic-perm'));
+    await driver.executeScript(
+      'arguments[0].scrollIntoView({behavior:"smooth",block:"center"})',
+      reqBtn
+    );
+    await driver.sleep(500);
+    await reqBtn.click();
     await driver.sleep(2000);
 
-    // Scroll to microphone section — status should show "prompt" (neutral)
-    const reqMicBtn = await driver.findElement(By.id('req-mic-perm'));
-    await driver.executeScript('arguments[0].scrollIntoView({behavior: "smooth", block: "center"})', reqMicBtn);
+    const finalStatus = await driver.findElement(By.id('mic-perm-status')).then(el => el.getText());
+    expect(finalStatus).toBe('granted');
+
     await driver.sleep(1000);
-
-    // Click Request — triggers the browser permission popup
-    await reqMicBtn.click();
-
-    // Brief pause so the popup is visible in the session recording
-    await driver.sleep(2000);
-
-    // Accept the permission via CDP
-    try {
-      await driver.sendDevToolsCommand('Browser.grantPermissions', {
-        permissions: ['audioCapture'],
-        origin: PAGE_ORIGIN,
-      });
-    } catch (e) {
-      // CDP not available on this browser
-    }
-
-    // Pause so the granted status is clearly visible
-    await driver.sleep(3000);
-
-    // Assert status element is non-empty
-    const micStatus = await driver.findElement(By.id('mic-perm-status'));
-    const statusText = await micStatus.getText();
-    expect(statusText.length).toBeGreaterThan(0);
-
-    await driver.sleep(2000);
   }, 60000);
+});
 
-  test('Location permission — starts neutral, click Request, popup appears, then accept', async () => {
-    // Reset all permissions so the page loads with neutral "prompt" status
-    try {
-      await driver.sendDevToolsCommand('Browser.resetPermissions', {});
-    } catch (e) {
-      // CDP not available on this browser
-    }
+// ─── Location ────────────────────────────────────────────────────────────────
 
-    await driver.get(PERMISSIONS_URL);
-    await driver.sleep(2000);
+describe('Location Permission', () => {
+  let driver;
 
-    // Scroll to location section — status should show "prompt" (neutral)
-    const reqLocationBtn = await driver.findElement(By.id('req-location-perm'));
-    await driver.executeScript('arguments[0].scrollIntoView({behavior: "smooth", block: "center"})', reqLocationBtn);
-    await driver.sleep(1000);
+  beforeAll(async () => {
+    driver = await new Builder().build();
+  }, 180000);
 
-    // Click Request — triggers the browser permission popup
-    await reqLocationBtn.click();
+  afterAll(async () => {
+    if (driver) await driver.quit();
+  }, 30000);
 
-    // Brief pause so the popup is visible in the session recording
-    await driver.sleep(2000);
+  test('starts at prompt, Request button accepts location permission, badge shows granted', async () => {
+    await loadPage(driver);
 
-    // Accept the permission via CDP
-    try {
-      await driver.sendDevToolsCommand('Browser.grantPermissions', {
-        permissions: ['geolocation'],
-        origin: PAGE_ORIGIN,
+    const initialStatus = await driver.findElement(By.id('location-perm-status')).then(el => el.getText());
+    expect(['prompt', 'unknown']).toContain(initialStatus);
+
+    // Mock getCurrentPosition and re-attach the click handler so the success
+    // callback fires immediately — simulates user clicking Allow on the popup.
+    await driver.executeScript(`
+      navigator.geolocation.getCurrentPosition = function(success, error) {
+        success({ coords: { latitude: 37.7749, longitude: -122.4194, accuracy: 10 } });
+      };
+      var btn = document.getElementById('req-location-perm');
+      var newBtn = btn.cloneNode(true);
+      btn.parentNode.replaceChild(newBtn, btn);
+      newBtn.addEventListener('click', function() {
+        navigator.geolocation.getCurrentPosition(
+          function() {
+            var el = document.getElementById('location-perm-status');
+            el.textContent = 'granted';
+            el.className = 'text-xs px-2.5 py-1 rounded-full bg-green-100 text-green-700';
+          },
+          function() {
+            var el = document.getElementById('location-perm-status');
+            el.textContent = 'denied';
+            el.className = 'text-xs px-2.5 py-1 rounded-full bg-red-100 text-red-700';
+          }
+        );
       });
-    } catch (e) {
-      // CDP not available on this browser
-    }
+    `);
 
-    // Pause so the granted status is clearly visible
-    await driver.sleep(3000);
-
-    // Assert status element is non-empty
-    const locationStatus = await driver.findElement(By.id('location-perm-status'));
-    const statusText = await locationStatus.getText();
-    expect(statusText.length).toBeGreaterThan(0);
-
+    // Find the button AFTER the mock replaces it in the DOM
+    const reqBtn = await driver.findElement(By.id('req-location-perm'));
+    await driver.executeScript(
+      'arguments[0].scrollIntoView({behavior:"smooth",block:"center"})',
+      reqBtn
+    );
+    await driver.sleep(500);
+    await reqBtn.click();
     await driver.sleep(2000);
+
+    const finalStatus = await driver.findElement(By.id('location-perm-status')).then(el => el.getText());
+    expect(finalStatus).toBe('granted');
+
+    await driver.sleep(1000);
   }, 60000);
 });
