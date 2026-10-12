@@ -14,7 +14,8 @@
     "test:ip-geolocation": "BROWSERSTACK_CONFIG_FILE='config/ip-geolocation.yml' browserstack-node-sdk jest --testPathPattern=tests/ip-geolocation",
     "test:timezone": "BROWSERSTACK_CONFIG_FILE='config/timezone.yml' browserstack-node-sdk jest --testPathPattern=tests/timezone",
     "test:iframe":"BROWSERSTACK_CONFIG_FILE='config/iframe.yml' browserstack-node-sdk jest --testPathPattern=tests/iframe",
-    "test:permissions":"BROWSERSTACK_CONFIG_FILE='config/permissions.yml' browserstack-node-sdk jest --testPathPattern=tests/permissions"
+    "test:permissions":"BROWSERSTACK_CONFIG_FILE='config/permissions.yml' browserstack-node-sdk jest --testPathPattern=tests/permissions",
+    "test:accessibility":"BROWSERSTACK_CONFIG_FILE='config/accessibility.yml' browserstack-node-sdk jest --testPathPattern=tests/accessibility"
   },
   "devDependencies": {
     "browserstack-node-sdk": "latest",

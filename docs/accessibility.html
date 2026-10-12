@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Accessibility — BrowserStack Automate</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif']},colors:{brand:{50:'#f5f3ff',600:'#7c3aed',700:'#6d28d9'}}}}}</script><link rel="stylesheet" href="style.css"/></head><body class="bg-gray-50 font-sans antialiased"><nav class="bg-white border-b border-gray-200 sticky top-0 z-50"><div class="max-w-3xl mx-auto px-6 h-16 flex items-center gap-3"><a href="index.html" class="text-gray-500 hover:text-gray-700 text-sm flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>All demos</a><span class="text-gray-300">|</span><span class="font-semibold text-gray-900 text-sm">Accessibility</span></div></nav>
+<main class="max-w-3xl mx-auto px-6 py-10 space-y-6">
+  <div class="flex items-center gap-4">
+    <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shrink-0"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div>
+    <div><h1 class="text-2xl font-bold text-gray-900">Accessibility</h1><p class="text-gray-500 text-sm">A sample page for running accessibility scans</p></div>
+  </div>
+
+  <section id="images-section" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <h2 class="font-semibold text-gray-900">Images</h2>
+    <div class="flex gap-4">
+      <img id="img-one" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect width='80' height='80' fill='%237c3aed'/%3E%3C/svg%3E" width="80" height="80"/>
+      <img id="img-two" alt="Purple square logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect width='80' height='80' fill='%237c3aed'/%3E%3C/svg%3E" width="80" height="80"/>
+    </div>
+  </section>
+
+  <section id="forms-section" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <h2 class="font-semibold text-gray-900">Form</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <input id="input-one" type="text" autocomplete="off" placeholder="Email" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"/>
+      <div>
+        <label for="input-two" class="block text-sm text-gray-700 mb-1">Email</label>
+        <input id="input-two" type="email" autocomplete="email" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"/>
+      </div>
+    </div>
+  </section>
+
+  <section id="buttons-section" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <h2 class="font-semibold text-gray-900">Buttons</h2>
+    <div class="flex items-center gap-4">
+      <button id="btn-one" type="button" class="w-10 h-10 bg-brand-600 rounded-lg flex items-center justify-center"><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg></button>
+      <button id="btn-two" type="button" aria-label="Add item" class="w-10 h-10 bg-brand-600 rounded-lg flex items-center justify-center"><svg class="w-5 h-5 text-white" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg></button>
+    </div>
+  </section>
+
+  <section id="text-section" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <h2 class="font-semibold text-gray-900">Text</h2>
+    <p id="text-one" style="color:#bbbbbb" class="text-sm">Welcome to the BrowserStack accessibility sample page.</p>
+    <p id="text-two" style="color:#374151" class="text-sm">Use this page to review how scans report on common page elements.</p>
+  </section>
+
+  <section id="links-section" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <h2 class="font-semibold text-gray-900">Links</h2>
+    <p class="text-sm text-gray-700"><a id="link-one" href="https://www.browserstack.com/accessibility" class="text-brand-600"></a></p>
+    <p class="text-sm text-gray-700"><a id="link-two" href="https://www.browserstack.com/accessibility" class="text-brand-600 underline">BrowserStack Accessibility Testing</a></p>
+  </section>
+
+  <section id="headings-section" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-2">
+    <h4 id="heading-one" class="text-sm font-semibold text-gray-900">Summary</h4>
+    <h3 id="heading-two" class="text-sm font-semibold text-gray-900">Details</h3>
+  </section>
+  <section id="table-section" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <h2 class="font-semibold text-gray-900">Table</h2>
+    <table id="table-one" class="w-full text-sm text-left text-gray-700">
+      <tr><td class="font-semibold">Plan</td><td class="font-semibold">Users</td><td class="font-semibold">Price</td></tr>
+      <tr><td>Starter</td><td>5</td><td>$10</td></tr>
+      <tr><td>Team</td><td>25</td><td>$40</td></tr>
+    </table>
+    <table id="table-two" class="w-full text-sm text-left text-gray-700">
+      <caption class="text-left font-medium text-gray-900 mb-1">Browser support</caption>
+      <thead><tr><th scope="col">Browser</th><th scope="col">Version</th></tr></thead>
+      <tbody><tr><td>Chrome</td><td>120</td></tr><tr><td>Firefox</td><td>121</td></tr></tbody>
+    </table>
+  </section>
+
+  <section id="controls-section" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <h2 class="font-semibold text-gray-900">Form controls</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <select id="select-one" class="border border-gray-300 rounded-lg px-3 py-2 text-sm"><option>Chrome</option><option>Firefox</option><option>Safari</option></select>
+      <div>
+        <label for="select-two" class="block text-sm text-gray-700 mb-1">Browser</label>
+        <select id="select-two" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"><option>Chrome</option><option>Firefox</option><option>Safari</option></select>
+      </div>
+    </div>
+    <div class="flex items-center gap-2"><input id="check-one" type="checkbox"/><span class="text-sm text-gray-700">Subscribe to updates</span></div>
+    <div class="flex items-center gap-2"><input id="check-two" type="checkbox"/><label for="check-two" class="text-sm text-gray-700">Accept terms</label></div>
+    <fieldset class="border border-gray-200 rounded-lg p-3">
+      <legend class="text-sm font-medium text-gray-900 px-1">Contact preference</legend>
+      <div class="flex gap-4 text-sm text-gray-700">
+        <label><input type="radio" name="contact" value="email"/> Email</label>
+        <label><input type="radio" name="contact" value="phone"/> Phone</label>
+      </div>
+    </fieldset>
+    <textarea id="textarea-one" rows="3" placeholder="Comments" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></textarea>
+  </section>
+
+  <section id="media-section" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <h2 class="font-semibold text-gray-900">Media and frames</h2>
+    <video id="video-one" controls width="320" class="rounded-lg bg-gray-100"></video>
+    <iframe id="frame-one" src="about:blank" width="320" height="80" class="border border-gray-200 rounded-lg"></iframe>
+    <iframe id="frame-two" title="Empty sample frame" src="about:blank" width="320" height="80" class="border border-gray-200 rounded-lg"></iframe>
+  </section>
+
+  <section id="widgets-section" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <h2 class="font-semibold text-gray-900">Widgets</h2>
+    <div id="tabs-one" role="tablist" class="flex gap-2">
+      <button id="tab-a" type="button" role="tab" aria-selected="true" aria-controls="panel-a" class="px-3 py-1.5 text-sm rounded-lg bg-brand-600 text-white">Overview</button>
+      <button id="tab-b" type="button" role="tab" aria-selected="false" aria-controls="panel-b" class="px-3 py-1.5 text-sm rounded-lg bg-gray-100 text-gray-700">Settings</button>
+    </div>
+    <div id="panel-a" role="tabpanel" class="text-sm text-gray-700">Overview content</div>
+    <div id="panel-b" role="tabpanel" hidden class="text-sm text-gray-700">Settings content</div>
+    <div id="clickable-one" class="inline-block px-3 py-1.5 text-sm rounded-lg bg-gray-100 text-gray-700 cursor-pointer" onclick="document.getElementById('status-one').textContent='Clicked'">Click me</div>
+    <p id="status-one" aria-live="polite" class="text-sm text-gray-500"></p>
+    <details id="details-one" class="text-sm text-gray-700"><summary class="cursor-pointer font-medium">More information</summary><p class="mt-2">Additional content shown when expanded.</p></details>
+    <button id="modal-open" type="button" class="px-3 py-1.5 text-sm rounded-lg bg-brand-600 text-white" onclick="document.getElementById('dialog-one').showModal()">Open dialog</button>
+    <dialog id="dialog-one" aria-labelledby="dialog-title" class="rounded-2xl p-6">
+      <h3 id="dialog-title" class="font-semibold text-gray-900 mb-2">Sample dialog</h3>
+      <p class="text-sm text-gray-700 mb-4">This is a sample modal dialog.</p>
+      <button id="modal-close" type="button" class="px-3 py-1.5 text-sm rounded-lg bg-gray-100 text-gray-700" onclick="document.getElementById('dialog-one').close()">Close</button>
+    </dialog>
+  </section>
+
+  <section id="language-section" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-2">
+    <h2 class="font-semibold text-gray-900">Language and navigation</h2>
+    <p class="text-sm text-gray-700">Greeting in French: <span lang="fr">Bonjour tout le monde</span></p>
+    <p class="text-sm text-gray-700">Greeting in Spanish: Hola a todos</p>
+    <nav id="nav-one" class="text-sm text-gray-700 flex gap-4"><a href="index.html" class="underline">Home</a><a href="permissions.html" class="underline">Permissions</a><a href="gps.html" class="underline">GPS</a></nav>
+    <a id="link-three" href="index.html" class="text-sm text-brand-600 underline">Click here</a>
+  </section>
+</main></body></html>
