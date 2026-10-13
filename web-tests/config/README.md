@@ -13,6 +13,7 @@ Pass it to the SDK with `--config-file config/<name>.yml`.
 | `audio.yml`        | Audio Injection                | `npx browserstack-node-sdk --config-file config/audio.yml jest --testPathPattern="tests/audio"` |
 | `network.yml`      | Network Speed Throttling       | `npx browserstack-node-sdk --config-file config/network.yml jest --testPathPattern="tests/network-speed"` |
 | `self-healing.yml` | Self-Healing Selectors         | `npx browserstack-node-sdk --config-file config/self-healing.yml jest --testPathPattern="tests/self-healing"` |
+| `visual-regression.yml` | Percy visual regression   | `VISUAL_DIFF=0|1 npm run test:visual-regression` |
 
 ## Running all tests with the default config
 

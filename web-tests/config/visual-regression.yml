@@ -1,0 +1,23 @@
+# Visual Regression / Percy — BrowserStack config
+# Baseline: VISUAL_DIFF=0 npm run test:visual-regression
+# Diffs:    VISUAL_DIFF=1 npm run test:visual-regression
+
+userName: ${BROWSERSTACK_USERNAME}
+accessKey: ${BROWSERSTACK_ACCESS_KEY}
+
+projectName: BrowserStack Demo
+buildName: visual-regression-percy
+buildIdentifier: "#${BUILD_NUMBER}"
+
+platforms:
+  - browserName: chrome
+    browserVersion: latest
+    os: Windows
+    osVersion: 10
+
+parallelsPerPlatform: 1
+browserstackLocal: false
+idleTimeout: 300
+
+percy: true
+percyCaptureMode: manual

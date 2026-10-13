@@ -15,9 +15,11 @@
     "test:timezone": "BROWSERSTACK_CONFIG_FILE='config/timezone.yml' browserstack-node-sdk jest --testPathPattern=tests/timezone",
     "test:iframe":"BROWSERSTACK_CONFIG_FILE='config/iframe.yml' browserstack-node-sdk jest --testPathPattern=tests/iframe",
     "test:permissions":"BROWSERSTACK_CONFIG_FILE='config/permissions.yml' browserstack-node-sdk jest --testPathPattern=tests/permissions",
-    "test:accessibility":"BROWSERSTACK_CONFIG_FILE='config/accessibility.yml' browserstack-node-sdk jest --testPathPattern=tests/accessibility"
+    "test:accessibility":"BROWSERSTACK_CONFIG_FILE='config/accessibility.yml' browserstack-node-sdk jest --testPathPattern=tests/accessibility",
+    "test:visual-regression": "BROWSERSTACK_CONFIG_FILE='config/visual-regression.yml' browserstack-node-sdk jest --testPathPattern=tests/visual-regression"
   },
   "devDependencies": {
+    "@percy/selenium-webdriver": "^2.2.7",
     "browserstack-node-sdk": "latest",
     "jest": "^29.0.0",
     "qrcode": "^1.5.4",
