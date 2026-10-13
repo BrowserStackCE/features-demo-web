@@ -1,107 +1,58 @@
-const dns = require('dns').promises;
+const fs = require('fs');
 const http = require('http');
-const net = require('net');
+const path = require('path');
 const { Builder, By, until } = require('selenium-webdriver');
 const { percyScreenshot, createRegion } = require('@percy/selenium-webdriver');
 const { pageUrl } = require('../helpers/baseUrl');
 
-function agentLog(hypothesisId, location, message, data) {
-  // #region agent log
-  fetch('http://127.0.0.1:7917/ingest/e831e398-393d-4109-bd15-dfafb42d91c1',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'38d3cb'},body:JSON.stringify({sessionId:'38d3cb',runId:'pre-fix',hypothesisId,location,message,data,timestamp:Date.now()})}).catch(()=>{});
-  // #endregion
-}
-
-function sanitizeUrl(value) {
-  if (!value || typeof value !== 'string') return null;
-  try {
-    const u = new URL(value);
-    return {
-      protocol: u.protocol,
-      hostname: u.hostname,
-      port: u.port || (u.protocol === 'https:' ? '443' : '80'),
-      hasAuth: Boolean(u.username),
-    };
-  } catch {
-    return { unparseable: true };
-  }
-}
-
-function tcpProbe(host, port, timeoutMs = 4000) {
-  return new Promise((resolve) => {
-    const socket = net.connect({ host, port: Number(port) });
-    const timer = setTimeout(() => {
-      socket.destroy();
-      resolve({ ok: false, error: 'timeout' });
-    }, timeoutMs);
-    socket.on('connect', () => {
-      clearTimeout(timer);
-      socket.end();
-      resolve({ ok: true });
-    });
-    socket.on('error', (err) => {
-      clearTimeout(timer);
-      resolve({ ok: false, error: err.code || err.message });
-    });
-  });
-}
-
-function percyHealth() {
-  return new Promise((resolve) => {
-    const req = http.get('http://127.0.0.1:5338/percy/healthcheck', { timeout: 3000 }, (res) => {
-      let body = '';
-      res.on('data', (chunk) => { body += chunk; });
-      res.on('end', () => resolve({ status: res.statusCode, body: body.slice(0, 180) }));
-    });
-    req.on('error', (err) => resolve({ error: err.code || err.message }));
-    req.on('timeout', () => {
-      req.destroy();
-      resolve({ error: 'timeout' });
-    });
-  });
-}
+const BUILD_ID_FILE = path.join(__dirname, '..', '.percy-baseline-build-id');
 
 // VISUAL_DIFF=0 (default) → baseline; VISUAL_DIFF=1 → intentional UI diffs
 const DIFF_ON = process.env.VISUAL_DIFF === '1' || process.env.VISUAL_DIFF === 'on';
 const PAGE_URL = `${pageUrl('visual-regression.html')}?diff=${DIFF_ON ? 'on' : 'off'}`;
+
+/** Full JSON from local Percy CLI healthcheck (includes build.id while Percy is running). */
+function fetchPercyHealthcheck() {
+  return new Promise((resolve, reject) => {
+    const req = http.get('http://127.0.0.1:5338/percy/healthcheck', { timeout: 5000 }, (res) => {
+      let body = '';
+      res.on('data', (chunk) => { body += chunk; });
+      res.on('end', () => {
+        try {
+          resolve({ status: res.statusCode, data: JSON.parse(body) });
+        } catch (err) {
+          reject(new Error(`Invalid healthcheck JSON: ${err.message}`));
+        }
+      });
+    });
+    req.on('error', reject);
+    req.on('timeout', () => {
+      req.destroy();
+      reject(new Error('Percy healthcheck timeout'));
+    });
+  });
+}
+
+/** Persist build.id from healthcheck for the CI approve step (baseline run only). */
+async function saveBaselineBuildId() {
+  if (DIFF_ON) return;
+  const { status, data } = await fetchPercyHealthcheck();
+  const buildId = data && data.build && data.build.id;
+  if (status !== 200 || !buildId) {
+    throw new Error(
+      `Percy healthcheck did not return build.id (status=${status}, build=${JSON.stringify(data && data.build)})`
+    );
+  }
+  fs.writeFileSync(BUILD_ID_FILE, String(buildId), 'utf8');
+  // eslint-disable-next-line no-console
+  console.log(`[percy] baseline build id=${buildId} url=${(data.build && data.build.url) || 'n/a'} → ${BUILD_ID_FILE}`);
+}
 
 describe('Visual Regression / Percy', () => {
   let driver;
 
   beforeAll(async () => {
     driver = await new Builder().build();
-    const session = await driver.getSession();
-    const caps = Object.fromEntries(session.getCapabilities().map_);
-    const urlCaps = {};
-    for (const [key, value] of Object.entries(caps)) {
-      if (typeof value === 'string' && /https?:|wss?:/i.test(value)) {
-        urlCaps[key] = sanitizeUrl(value);
-      }
-    }
-    const hub = urlCaps['se:cdp'] || urlCaps.webSocketUrl || null;
-    let dnsResult = null;
-    let directTcp = null;
-    if (hub && hub.hostname) {
-      try {
-        dnsResult = await dns.lookup(hub.hostname, { all: true });
-      } catch (err) {
-        dnsResult = { error: err.code || err.message };
-      }
-      directTcp = await tcpProbe(hub.hostname, hub.port);
-    }
-    const health = await percyHealth();
-    agentLog('H1', 'visual-regression.test.js:beforeAll', 'proxy env, hub url, direct tcp', {
-      node: process.version,
-      httpProxy: sanitizeUrl(process.env.HTTP_PROXY || process.env.http_proxy),
-      httpsProxy: sanitizeUrl(process.env.HTTPS_PROXY || process.env.https_proxy),
-      noProxy: process.env.NO_PROXY || process.env.no_proxy || null,
-      percyTokenSet: Boolean(process.env.PERCY_TOKEN),
-      browserstackLocal: process.env.BROWSERSTACK_LOCAL || null,
-      baseUrl: process.env.BASE_URL || null,
-      urlCaps,
-      dnsResult,
-      directTcp,
-      health,
-    });
   }, 180000);
 
   afterAll(async () => {
@@ -117,24 +68,8 @@ describe('Visual Regression / Percy', () => {
     const diffState = await driver.executeScript('return document.body.dataset.diff');
     expect(diffState).toBe(DIFF_ON ? 'on' : 'off');
 
-    process.env.PERCY_RAISE_ERROR = 'true';
-    const shoot = async (name, options) => {
-      try {
-        const data = await percyScreenshot(driver, name, options);
-        agentLog('H5', 'visual-regression.test.js:shoot', 'screenshot returned', {
-          name,
-          hasData: Boolean(data),
-        });
-      } catch (error) {
-        agentLog('H1', 'visual-regression.test.js:shoot', 'screenshot failed', {
-          name,
-          error: String(error && error.message || error).slice(0, 400),
-        });
-      }
-    };
-
     // 1) Full-page capture — freeze animations, responsive-style widths metadata via options
-    await shoot('VR — Full page', {
+    await percyScreenshot(driver, 'VR — Full page', {
       fullPage: true,
       freezeAnimatedImage: true,
       percyCSS: '.hide-in-percy { visibility: hidden !important; }',
@@ -145,18 +80,21 @@ describe('Visual Regression / Percy', () => {
       testCase: 'percy-feature-showcase',
     });
 
+    // Capture build.id while Percy CLI is still running (needed for CI approve)
+    await saveBaselineBuildId();
+
     // 2) Scoped element — product card only
     await driver.findElement(By.id('scoped-card')).then((el) =>
       driver.executeScript('arguments[0].scrollIntoView({block:"center"})', el)
     );
-    await shoot('VR — Scoped card', {
+    await percyScreenshot(driver, 'VR — Scoped card', {
       scope: '#scoped-card',
       fullPage: false,
       labels: 'visual-regression,scope',
     });
 
     // 3) Ignore dynamic clock + ad banner; hide noise with percyCSS
-    await shoot('VR — Ignore dynamic', {
+    await percyScreenshot(driver, 'VR — Ignore dynamic', {
       fullPage: true,
       ignoreRegionSelectors: ['#dynamic-clock', '#ad-banner'],
       percyCSS: `
@@ -167,7 +105,7 @@ describe('Visual Regression / Percy', () => {
     });
 
     // 4) Region algorithms — layout on grid, ignore on ad, intelliignore on clock
-    await shoot('VR — Layout region', {
+    await percyScreenshot(driver, 'VR — Layout region', {
       fullPage: true,
       regions: [
         createRegion({
@@ -195,7 +133,7 @@ describe('Visual Regression / Percy', () => {
     await driver.findElement(By.id('animated-banner')).then((el) =>
       driver.executeScript('arguments[0].scrollIntoView({block:"center"})', el)
     );
-    await shoot('VR — JS animation', {
+    await percyScreenshot(driver, 'VR — JS animation', {
       scope: '#animated-banner',
       enableJavaScript: true,
       freezeAnimatedImage: true,
@@ -208,5 +146,5 @@ describe('Visual Regression / Percy', () => {
       `,
       labels: 'visual-regression,enable-javascript',
     });
-  }, 580000);
+  }, 180000);
 });
