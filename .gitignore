@@ -10,6 +10,7 @@ web-tests/.env
 web-tests/node_modules/
 web-tests/.env
 web-tests/log
+web-tests/.percy-baseline-build-id
 browserstack.err
 local.log
 .cursor
