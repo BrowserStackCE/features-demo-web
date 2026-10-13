@@ -48,6 +48,7 @@ jobs:
           BUILD_NUMBER: ${{ github.run_number }}-baseline
           BASE_URL: ${{ inputs.localTesting && 'http://localhost:3000' || 'https://browserstackce.github.io/features-demo-web' }}
           BROWSERSTACK_LOCAL: ${{ inputs.localTesting }}
+          PERCY_BRANCH: master
           VISUAL_DIFF: "0"
       - name: Percy with visual diffs (diff on)
         run: npm run test:visual-regression
@@ -58,3 +59,4 @@ jobs:
           BASE_URL: ${{ inputs.localTesting && 'http://localhost:3000' || 'https://browserstackce.github.io/features-demo-web' }}
           BROWSERSTACK_LOCAL: ${{ inputs.localTesting }}
           VISUAL_DIFF: "1"
+          PERCY_BRANCH: diff-on
