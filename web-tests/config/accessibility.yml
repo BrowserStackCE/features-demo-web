@@ -1,0 +1,28 @@
+# Accessibility — BrowserStack config
+# Runs the accessibility test on Automate with BrowserStack Accessibility Testing enabled.
+# Run: BROWSERSTACK_CONFIG_FILE='config/accessibility.yml' browserstack-node-sdk jest --testPathPattern=tests/accessibility
+
+userName: ${BROWSERSTACK_USERNAME}
+accessKey: ${BROWSERSTACK_ACCESS_KEY}
+
+projectName: BrowserStack Demo
+buildName: Accessibility Demo
+buildIdentifier: "#${BUILD_NUMBER}"
+
+platforms:
+  - browserName: chrome
+    browser_version: latest
+    os: Windows
+    os_version: 10
+
+# Accessibility Testing
+accessibility: true
+accessibilityOptions:
+  wcagVersion: wcag21aa
+  includeIssueType:
+    bestPractice: true
+    needsReview: true
+
+parallelsPerPlatform: 1
+browserstackLocal: false
+idleTimeout: 300

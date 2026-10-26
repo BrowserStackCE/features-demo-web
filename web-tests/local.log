@@ -1,76 +1,572 @@
 
-Sat Sep 26 2026 04:02:16:477 GMT+0530 (IST) -- Binary semantic version is v8.9.22
-Sat Sep 26 2026 04:02:16:478 GMT+0530 (IST) -- Setting output as extra verbose with request parsing
-Sat Sep 26 2026 04:02:16:479 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:60286
-Sat Sep 26 2026 04:02:16:479 GMT+0530 (IST) -- Proxy is configured
-Sat Sep 26 2026 04:02:17:204 GMT+0530 (IST) -- [WARNING] Skipping initialisation of configuration console because: port already in use by another Binary
-Sat Sep 26 2026 04:02:20:234 GMT+0530 (IST) -- [SUCCESS] You can now access your local server(s) in our remote browser
+Mon Oct 26 2026 13:08:55:147 GMT+0530 (IST) -- Binary semantic version is v8.9.36
+Mon Oct 26 2026 13:08:55:150 GMT+0530 (IST) -- Setting output as extra verbose with request parsing
+Mon Oct 26 2026 13:08:55:150 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:59943
+Mon Oct 26 2026 13:08:55:153 GMT+0530 (IST) -- Proxy is configured
+Mon Oct 26 2026 13:08:55:512 GMT+0530 (IST) -- Starting configuration console on http://localhost:45454
+Mon Oct 26 2026 13:08:58:227 GMT+0530 (IST) -- [SUCCESS] You can now access your local server(s) in our remote browser
 
-Sat Sep 26 2026 04:02:21:632 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:02:21:632 GMT+0530 (IST) -- Platform supports WebSocket connections.
+Mon Oct 26 2026 13:08:58:458 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:59943
+Mon Oct 26 2026 13:08:58:456 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:59943
+Mon Oct 26 2026 13:08:58:465 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:59943
+Mon Oct 26 2026 13:08:58:464 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:59943
+Mon Oct 26 2026 13:08:58:556 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:59943
+Mon Oct 26 2026 13:08:58:479 GMT+0530 (IST) -- Proxy is configured
+Mon Oct 26 2026 13:08:58:480 GMT+0530 (IST) -- Proxy is configured
+Mon Oct 26 2026 13:08:58:487 GMT+0530 (IST) -- Proxy is configured
+Mon Oct 26 2026 13:08:58:487 GMT+0530 (IST) -- Proxy is configured
+Mon Oct 26 2026 13:08:58:586 GMT+0530 (IST) -- Proxy is configured
+Mon Oct 26 2026 13:08:58:704 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Mon Oct 26 2026 13:08:58:704 GMT+0530 (IST) -- Platform supports WebSocket connections.
 
-Sat Sep 26 2026 04:02:21:732 GMT+0530 (IST) -- Press Ctrl-C to exit
+Mon Oct 26 2026 13:09:00:81 GMT+0530 (IST) -- Error in establishing connection.
+Mon Oct 26 2026 13:09:00:81 GMT+0530 (IST) -- Unexpected server response: 502
+Mon Oct 26 2026 13:09:00:267 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Mon Oct 26 2026 13:09:00:267 GMT+0530 (IST) -- Platform supports WebSocket connections.
 
+Mon Oct 26 2026 13:09:00:598 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Mon Oct 26 2026 13:09:00:601 GMT+0530 (IST) -- Platform supports WebSocket connections.
 
-Sat Sep 26 2026 04:18:05:10 GMT+0530 (IST) -- 10 repeaters connected out of 11
-Sat Sep 26 2026 04:18:05:11 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:18:05:263 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:18:05:264 GMT+0530 (IST) -- Platform supports WebSocket connections.
+Mon Oct 26 2026 13:09:02:605 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Mon Oct 26 2026 13:09:02:606 GMT+0530 (IST) -- Platform supports WebSocket connections.
 
-Sat Sep 26 2026 04:18:05:367 GMT+0530 (IST) -- Press Ctrl-C to exit
+Mon Oct 26 2026 13:09:03:688 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Mon Oct 26 2026 13:09:03:689 GMT+0530 (IST) -- Platform supports WebSocket connections.
 
+Mon Oct 26 2026 13:09:19:418 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Mon Oct 26 2026 13:09:19:420 GMT+0530 (IST) -- Platform supports WebSocket connections.
 
-Sat Sep 26 2026 04:18:06:5 GMT+0530 (IST) -- 10 repeaters connected out of 11
-Sat Sep 26 2026 04:18:06:6 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:18:06:165 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:18:06:165 GMT+0530 (IST) -- Platform supports WebSocket connections.
-
-Sat Sep 26 2026 04:18:06:267 GMT+0530 (IST) -- Press Ctrl-C to exit
-
-
-Sat Sep 26 2026 04:18:12:958 GMT+0530 (IST) -- 10 repeaters connected out of 11
-Sat Sep 26 2026 04:18:12:971 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:18:13:346 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:18:13:347 GMT+0530 (IST) -- Platform supports WebSocket connections.
-
-Sat Sep 26 2026 04:18:13:449 GMT+0530 (IST) -- Press Ctrl-C to exit
-
-
-Sat Sep 26 2026 04:18:20:492 GMT+0530 (IST) -- 10 repeaters connected out of 11
-Sat Sep 26 2026 04:18:20:495 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:18:20:671 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:18:20:672 GMT+0530 (IST) -- Platform supports WebSocket connections.
-
-Sat Sep 26 2026 04:18:20:774 GMT+0530 (IST) -- Press Ctrl-C to exit
+Mon Oct 26 2026 13:09:19:427 GMT+0530 (IST) -- Press Ctrl-C to exit
 
 
-Sat Sep 26 2026 04:33:49:385 GMT+0530 (IST) -- 10 repeaters connected out of 11
-Sat Sep 26 2026 04:33:49:387 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:33:51:28 GMT+0530 (IST) -- 9 repeaters connected out of 11
-Sat Sep 26 2026 04:33:51:29 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:33:53:424 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:33:53:425 GMT+0530 (IST) -- Platform supports WebSocket connections.
+Mon Oct 26 2026 13:09:39:935 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:39:935 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800336] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:39:935 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:39:963 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:39:969 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:39:998 GMT+0530 (IST) -- [PARSING REQUEST][11][24800336] GET /accessibility.html HTTP/1.1
+Host: localhost:8765
+sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
 
-Sat Sep 26 2026 04:33:53:527 GMT+0530 (IST) -- Press Ctrl-C to exit
+
+Mon Oct 26 2026 13:09:40:12 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800336] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:40 GMT
+Content-type: text/html
+Content-Length: 10600
+Last-Modified: Mon, 26 Oct 2026 07:38:37 GMT
+
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:40:14 GMT+0530 (IST) -- Writing 187 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:40:16 GMT+0530 (IST) -- Writing 10600 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:40:92 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:40:93 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800337] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:40:93 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:40:96 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:40:96 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:40:106 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:40:106 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800339] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:40:106 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:40:106 GMT+0530 (IST) -- [PARSING REQUEST][11][24800337] GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1
+Host: localhost:8765
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: empty
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
 
 
-Sat Sep 26 2026 04:33:53:786 GMT+0530 (IST) -- 11 repeaters connected out of 11
-Sat Sep 26 2026 04:33:53:787 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:33:53:974 GMT+0530 (IST) -- 10 repeaters connected out of 11
-Sat Sep 26 2026 04:33:53:974 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:33:54:579 GMT+0530 (IST) -- 9 repeaters connected out of 11
-Sat Sep 26 2026 04:33:54:579 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:33:54:782 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
-Sat Sep 26 2026 04:33:54:782 GMT+0530 (IST) -- Platform supports WebSocket connections.
+Mon Oct 26 2026 13:09:40:107 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:40:107 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:40:108 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800337] HTTP/1.0 404 File not found
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:40 GMT
+Connection: close
+Content-Type: text/html;charset=utf-8
+Content-Length: 469
 
-Sat Sep 26 2026 04:33:54:884 GMT+0530 (IST) -- Press Ctrl-C to exit
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <title>Error response</title>
+    </head>
+    <body>
+        <h1>Error response</h1>
+        <p>Error code: 404</p>
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:40:108 GMT+0530 (IST) -- Writing 653 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:40:116 GMT+0530 (IST) -- [PARSING REQUEST][11][24800339] GET /style.css HTTP/1.1
+Host: localhost:8765
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:8765/accessibility.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
 
 
-Sat Sep 26 2026 04:33:56:262 GMT+0530 (IST) -- 12 repeaters connected out of 11
-Sat Sep 26 2026 04:33:56:262 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:34:21:515 GMT+0530 (IST) -- 12 repeaters connected out of 11
-Sat Sep 26 2026 04:34:21:516 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:34:34:604 GMT+0530 (IST) -- 12 repeaters connected out of 11
-Sat Sep 26 2026 04:34:34:604 GMT+0530 (IST) -- Connection closed by remote host.
-Sat Sep 26 2026 04:50:19:650 GMT+0530 (IST) -- 13 repeaters connected out of 11
-Sat Sep 26 2026 04:50:19:650 GMT+0530 (IST) -- Connection closed by remote host.
+Mon Oct 26 2026 13:09:40:117 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800339] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:40 GMT
+Content-type: text/css
+Content-Length: 2679
+Last-Modified: Wed, 30 Sep 2026 12:08:22 GMT
+
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:40:117 GMT+0530 (IST) -- Writing 185 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:40:117 GMT+0530 (IST) -- Writing 2679 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:40:410 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:40:411 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800347] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:40:411 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:40:414 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:40:415 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:40:428 GMT+0530 (IST) -- [PARSING REQUEST][11][24800347] GET /assets/a11y-chart.svg HTTP/1.1
+Host: localhost:8765
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:8765/accessibility.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:40:430 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800347] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:40 GMT
+Content-type: image/svg+xml
+Content-Length: 481
+Last-Modified: Thu, 22 Oct 2026 12:42:18 GMT
+
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:40:430 GMT+0530 (IST) -- Writing 189 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:40:431 GMT+0530 (IST) -- Writing 481 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:40:455 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:40:455 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800350] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:40:455 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:40:456 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:40:457 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:40:478 GMT+0530 (IST) -- [PARSING REQUEST][11][24800350] GET /assets/a11y-logo.svg HTTP/1.1
+Host: localhost:8765
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:8765/accessibility.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:40:482 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800350] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:40 GMT
+Content-type: image/svg+xml
+Content-Length: 357
+Last-Modified: Thu, 22 Oct 2026 12:42:24 GMT
+
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:40:482 GMT+0530 (IST) -- Writing 189 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:40:485 GMT+0530 (IST) -- Writing 357 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:40:500 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:40:501 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800352] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:40:501 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:40:502 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:40:503 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800351] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:40:503 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:40:505 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:40:505 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:40:505 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:40:506 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:40:507 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:40:507 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800353] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:40:507 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:40:508 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:40:509 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:40:515 GMT+0530 (IST) -- [PARSING REQUEST][11][24800352] GET /assets/a11y-warning.svg HTTP/1.1
+Host: localhost:8765
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:8765/accessibility.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:40:518 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800352] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:40 GMT
+Content-type: image/svg+xml
+Content-Length: 381
+Last-Modified: Mon, 26 Oct 2026 07:38:19 GMT
+
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:40:518 GMT+0530 (IST) -- Writing 189 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:40:519 GMT+0530 (IST) -- Writing 381 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:40:533 GMT+0530 (IST) -- [PARSING REQUEST][11][24800353] GET /assets/a11y-divider.svg HTTP/1.1
+Host: localhost:8765
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:8765/accessibility.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:40:534 GMT+0530 (IST) -- [PARSING REQUEST][11][24800351] GET /assets/a11y-photo.svg HTTP/1.1
+Host: localhost:8765
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:8765/accessibility.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:40:537 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800351] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:40 GMT
+Content-type: image/svg+xml
+Content-Length: 542
+Last-Modified: Mon, 26 Oct 2026 07:38:13 GMT
+
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bfdbfe"/>
+      <stop offset="1" stop-color="#eff6ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="160" height="160" FROM localhost:8765
+Mon Oct 26 2026 13:09:40:538 GMT+0530 (IST) -- Writing 731 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:40:539 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800353] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:40 GMT
+Content-type: image/svg+xml
+Content-Length: 381
+Last-Modified: Mon, 26 Oct 2026 07:38:25 GMT
+
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+  <rect width="160" height="160" rx="12" fill="#ecfdf5"/>
+  <path d="M20 80 C50 40, 70 120, 100 80 S140 60, 140 80" fill="none" stroke="#059669" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="20" cy="80" r="7" fill FROM localhost:8765
+Mon Oct 26 2026 13:09:40:539 GMT+0530 (IST) -- Writing 570 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:41:50 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:41:50 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800361] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:41:50 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:41:52 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:41:53 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:41:84 GMT+0530 (IST) -- [PARSING REQUEST][11][24800361] GET /favicon.ico HTTP/1.1
+Host: localhost:8765
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:8765/accessibility.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:41:87 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800361] HTTP/1.0 404 File not found
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:41 GMT
+Connection: close
+Content-Type: text/html;charset=utf-8
+Content-Length: 469
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <title>Error response</title>
+    </head>
+    <body>
+        <h1>Error response</h1>
+        <p>Error code: 404</p>
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:41:87 GMT+0530 (IST) -- Writing 653 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:42:354 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:42:354 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800387] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:42:356 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:42:357 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:42:358 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:42:368 GMT+0530 (IST) -- [PARSING REQUEST][11][24800387] HEAD /accessibility.html HTTP/1.1
+Host: localhost:8765
+Accept: */*
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:30.0) Gecko/20100101 Firefox/30.0
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:42:369 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800387] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:42 GMT
+Content-type: text/html
+Content-Length: 10600
+Last-Modified: Mon, 26 Oct 2026 07:38:37 GMT
+
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:42:369 GMT+0530 (IST) -- Writing 187 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:51:5 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:51:6 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800519] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:51:7 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:51:8 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:51:9 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:51:27 GMT+0530 (IST) -- [PARSING REQUEST][11][24800519] GET /accessibility.html HTTP/1.1
+Host: localhost:8765
+sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+If-Modified-Since: Mon, 26 Oct 2026 07:38:37 GMT
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:51:31 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800519] HTTP/1.0 304 Not Modified
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:51 GMT
+
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:51:31 GMT+0530 (IST) -- Writing 103 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:51:220 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:51:221 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800523] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:51:221 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:51:223 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:51:223 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:51:236 GMT+0530 (IST) -- [PARSING REQUEST][11][24800523] GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1
+Host: localhost:8765
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: empty
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:51:239 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800523] HTTP/1.0 404 File not found
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:51 GMT
+Connection: close
+Content-Type: text/html;charset=utf-8
+Content-Length: 469
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <title>Error response</title>
+    </head>
+    <body>
+        <h1>Error response</h1>
+        <p>Error code: 404</p>
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:51:239 GMT+0530 (IST) -- Writing 653 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:51:254 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:51:254 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800524] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:51:255 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:51:257 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:51:258 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:51:269 GMT+0530 (IST) -- [PARSING REQUEST][11][24800524] GET /assets/a11y-warning.svg HTTP/1.1
+Host: localhost:8765
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+If-Modified-Since: Mon, 26 Oct 2026 07:38:19 GMT
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:8765/accessibility.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:51:271 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800524] HTTP/1.0 304 Not Modified
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:51 GMT
+
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:51:271 GMT+0530 (IST) -- Writing 103 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:51:276 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:51:276 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800525] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:51:276 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:51:278 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:51:278 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:51:294 GMT+0530 (IST) -- [PARSING REQUEST][11][24800525] GET /assets/a11y-photo.svg HTTP/1.1
+Host: localhost:8765
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+If-Modified-Since: Mon, 26 Oct 2026 07:38:13 GMT
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:8765/accessibility.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:51:302 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800525] HTTP/1.0 304 Not Modified
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:51 GMT
+
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:51:302 GMT+0530 (IST) -- Writing 103 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:51:305 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:51:305 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800526] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:51:305 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:51:307 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:51:307 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:51:322 GMT+0530 (IST) -- [PARSING REQUEST][11][24800526] GET /assets/a11y-divider.svg HTTP/1.1
+Host: localhost:8765
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+If-Modified-Since: Mon, 26 Oct 2026 07:38:25 GMT
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:8765/accessibility.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:51:325 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800526] HTTP/1.0 304 Not Modified
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:51 GMT
+
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:51:325 GMT+0530 (IST) -- Writing 103 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:52:206 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:52:207 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800545] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:52:207 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:52:209 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:52:211 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:52:221 GMT+0530 (IST) -- [PARSING REQUEST][11][24800545] GET /favicon.ico HTTP/1.1
+Host: localhost:8765
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+sec-ch-ua-mobile: ?0
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Sec-Fetch-Storage-Access: active
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:52:223 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800545] HTTP/1.0 404 File not found
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:52 GMT
+Connection: close
+Content-Type: text/html;charset=utf-8
+Content-Length: 469
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <title>Error response</title>
+    </head>
+    <body>
+        <h1>Error response</h1>
+        <p>Error code: 404</p>
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:52:223 GMT+0530 (IST) -- Writing 653 bytes response from: localhost:8765
+Mon Oct 26 2026 13:09:53:175 GMT+0530 (IST) -- Request to: localhost:8765
+Mon Oct 26 2026 13:09:53:175 GMT+0530 (IST) -- [PARSING HANDSHAKE][11][24800565] Handshake request to localhost:8765
+Mon Oct 26 2026 13:09:53:176 GMT+0530 (IST) -- Connecting to: localhost:8765
+Mon Oct 26 2026 13:09:53:177 GMT+0530 (IST) -- localhost:8765 socket connected.
+Mon Oct 26 2026 13:09:53:178 GMT+0530 (IST) -- Connected to: 127.0.0.1
+Mon Oct 26 2026 13:09:53:198 GMT+0530 (IST) -- [PARSING REQUEST][11][24800565] HEAD /accessibility.html HTTP/1.1
+Host: localhost:8765
+Accept: */*
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:30.0) Gecko/20100101 Firefox/30.0
+Connection: keep-alive
+
+
+Mon Oct 26 2026 13:09:53:201 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800565] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Mon, 26 Oct 2026 07:39:53 GMT
+Content-type: text/html
+Content-Length: 10600
+Last-Modified: Mon, 26 Oct 2026 07:38:37 GMT
+
+ FROM localhost:8765
+Mon Oct 26 2026 13:09:53:202 GMT+0530 (IST) -- Writing 187 bytes response from: localhost:8765
