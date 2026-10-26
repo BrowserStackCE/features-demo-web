@@ -23,6 +23,7 @@ jobs:
         working-directory: web-tests
     steps:
       - name: Hide workflow inputs
+        working-directory: ${{ github.workspace }}
         run: |
           username=$(jq -r '.inputs.username // empty' "$GITHUB_EVENT_PATH")
           access_key=$(jq -r '.inputs.accessKey // empty' "$GITHUB_EVENT_PATH")
