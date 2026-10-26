@@ -22,6 +22,12 @@ jobs:
       run:
         working-directory: web-tests
     steps:
+      - name: Hide workflow inputs
+        run: |
+          username=$(jq -r '.inputs.username // empty' "$GITHUB_EVENT_PATH")
+          access_key=$(jq -r '.inputs.accessKey // empty' "$GITHUB_EVENT_PATH")
+          if [ -n "$username" ]; then printf '%s\n' "::add-mask::$username"; fi
+          if [ -n "$access_key" ]; then printf '%s\n' "::add-mask::$access_key"; fi
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
