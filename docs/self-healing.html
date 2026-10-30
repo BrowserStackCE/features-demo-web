@@ -20,7 +20,7 @@
     <div class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center shrink-0">
       <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
     </div>
-    <div><h1 class="text-2xl font-bold text-gray-900">Self-Healing Selectors Demo</h1><p class="text-gray-500 text-sm">Toggle between Mode X (stable IDs) and Mode Y (changed data-qa attrs) to simulate a DOM refactor</p></div>
+    <div><h1 class="text-2xl font-bold text-gray-900">Self-Healing Selectors Demo</h1><p class="text-gray-500 text-sm">Toggle between Mode X (stable IDs) and Mode Y (renamed IDs) to simulate a DOM refactor</p></div>
   </div>
 
   <!-- Mode toggle banner -->
@@ -28,7 +28,7 @@
     <div class="flex items-center gap-3">
       <span id="mode-x-label" class="mode-x-label text-sm font-semibold px-3 py-1 rounded-full bg-violet-100 text-violet-700">Mode X — Stable IDs</span>
       <span class="text-gray-400 text-sm">→</span>
-      <span id="mode-y-label" class="mode-y-label text-sm font-semibold px-3 py-1 rounded-full bg-gray-100 text-gray-400">Mode Y — Changed attrs</span>
+      <span id="mode-y-label" class="mode-y-label text-sm font-semibold px-3 py-1 rounded-full bg-gray-100 text-gray-400">Mode Y — Renamed IDs</span>
     </div>
     <button id="mode-toggle" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-xl text-sm">Switch to Mode Y</button>
   </div>
@@ -39,13 +39,13 @@
       <h2 class="font-semibold text-gray-900">Login Form</h2>
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
-        <input id="username" data-qa="user-field" type="text" placeholder="Enter username" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-transparent"/>
+        <input id="username" type="text" placeholder="Enter username" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-transparent"/>
       </div>
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-        <input id="password" data-qa="pass-field" type="password" placeholder="Enter password" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-transparent"/>
+        <input id="password" type="password" placeholder="Enter password" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-transparent"/>
       </div>
-      <button id="login-btn" data-qa="submit-btn" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 rounded-xl">Sign In</button>
+      <button id="login-btn" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 rounded-xl">Sign In</button>
       <div id="login-result" class="hidden text-sm text-center py-2 rounded-xl"></div>
     </div>
 
@@ -61,9 +61,9 @@
           <div class="code-mode-x"><span class="text-blue-300">page</span><span class="text-gray-300">.locator(</span><span class="text-yellow-300">'#password'</span><span class="text-gray-300">)</span></div>
           <div class="code-mode-x"><span class="text-blue-300">page</span><span class="text-gray-300">.locator(</span><span class="text-yellow-300">'#login-btn'</span><span class="text-gray-300">)</span></div>
           <div class="code-mode-y hidden"><span class="text-red-400">// Mode Y — broken without self-healing</span></div>
-          <div class="code-mode-y hidden"><span class="text-red-400 line-through">'#username'</span><span class="text-gray-400"> → </span><span class="text-green-400">'[data-qa="user-field"]'</span></div>
-          <div class="code-mode-y hidden"><span class="text-red-400 line-through">'#password'</span><span class="text-gray-400"> → </span><span class="text-green-400">'[data-qa="pass-field"]'</span></div>
-          <div class="code-mode-y hidden"><span class="text-red-400 line-through">'#login-btn'</span><span class="text-gray-400"> → </span><span class="text-green-400">'[data-qa="submit-btn"]'</span></div>
+          <div class="code-mode-y hidden"><span class="text-red-400 line-through">'#username'</span><span class="text-gray-400"> → </span><span class="text-green-400">'#user-name'</span></div>
+          <div class="code-mode-y hidden"><span class="text-red-400 line-through">'#password'</span><span class="text-gray-400"> → </span><span class="text-green-400">'#user-password'</span></div>
+          <div class="code-mode-y hidden"><span class="text-red-400 line-through">'#login-btn'</span><span class="text-gray-400"> → </span><span class="text-green-400">'#sign-in'</span></div>
         </div>
       </div>
     </div>
@@ -72,14 +72,26 @@
   </div>
 <script>
 let modeX=true;
-document.getElementById('mode-toggle').addEventListener('click',()=>{
-  modeX=!modeX;
+const formFields=[
+  {el:document.getElementById('username'),modeXId:'username',modeYId:'user-name'},
+  {el:document.getElementById('password'),modeXId:'password',modeYId:'user-password'},
+  {el:document.getElementById('login-btn'),modeXId:'login-btn',modeYId:'sign-in'}
+];
+
+function applySelectorMode(){
   const banner=document.getElementById('selector-mode-banner');
   const toggle=document.getElementById('mode-toggle');
   const xl=document.getElementById('mode-x-label');
   const yl=document.getElementById('mode-y-label');
   document.querySelectorAll('.code-mode-x').forEach(el=>el.classList.toggle('hidden',!modeX));
   document.querySelectorAll('.code-mode-y').forEach(el=>el.classList.toggle('hidden',modeX));
+
+  // Mode Y renames stable ids so #username / #password / #login-btn break.
+  // BrowserStack Self-Heal recovers the same elements from the new ids.
+  formFields.forEach(({el,modeXId,modeYId})=>{
+    el.id=modeX?modeXId:modeYId;
+  });
+
   if(modeX){
     banner.className='rounded-2xl border-2 border-violet-200 bg-violet-50 px-6 py-4 flex items-center justify-between';
     xl.className='mode-x-label text-sm font-semibold px-3 py-1 rounded-full bg-violet-100 text-violet-700';
@@ -91,10 +103,16 @@ document.getElementById('mode-toggle').addEventListener('click',()=>{
     yl.className='mode-y-label text-sm font-semibold px-3 py-1 rounded-full bg-orange-100 text-orange-700';
     toggle.textContent='Switch to Mode X';toggle.className='bg-violet-600 hover:bg-violet-700 text-white font-semibold px-4 py-2 rounded-xl text-sm';
   }
+}
+
+document.getElementById('mode-toggle').addEventListener('click',()=>{
+  modeX=!modeX;
+  applySelectorMode();
 });
-document.getElementById('login-btn').addEventListener('click',()=>{
-  const u=document.getElementById('username').value;
-  const p=document.getElementById('password').value;
+
+formFields[2].el.addEventListener('click',()=>{
+  const u=formFields[0].el.value;
+  const p=formFields[1].el.value;
   const r=document.getElementById('login-result');
   r.classList.remove('hidden');
   if(u&&p){r.textContent='✓ Login successful (demo)';r.className='text-sm text-center py-2 rounded-xl bg-green-50 text-green-700';}

@@ -1,7 +1,8 @@
 node_modules/
 .env
-node_modules/
-.env
+api/.env
+web-tests/node_modules/
+web-tests/.env
 
 # Test Companion onboarding (local, per-machine)
 .test-companion/
@@ -9,5 +10,7 @@ node_modules/
 web-tests/node_modules/
 web-tests/.env
 web-tests/log
+web-tests/.percy-baseline-build-id
 browserstack.err
 local.log
+.cursor

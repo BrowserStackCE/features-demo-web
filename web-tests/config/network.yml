@@ -1,11 +1,13 @@
 # Network Speed — uses BrowserStack networkProfile capability for throttling
-# Run: npx browserstack-node-sdk jest --config-file config/network.yml --testPathPattern="tests/network-speed"
+# Run: npm run test:network
+# Docs: https://www.browserstack.com/docs/automate/selenium/simulate-network-conditions
+# networkProfile is supported on Android/iOS real devices only (not desktop).
 
 userName: ${BROWSERSTACK_USERNAME}
 accessKey: ${BROWSERSTACK_ACCESS_KEY}
 
-projectName: demo-pipeline
-buildName: jest-bstack-network
+projectName: BrowserStack Demo
+buildName: Network Simulation Demo
 buildIdentifier: "#${BUILD_NUMBER}"
 
 platforms:
@@ -13,9 +15,17 @@ platforms:
     browser_version: latest
     os: Windows
     os_version: 10
-    capabilities:
-      networkProfile: 4g-lte-advanced-good
+  - browserName: chrome
+    osVersion: 15.0
+    deviceName: Samsung Galaxy *
+  - browserName: safari
+    osVersion: 16
+    deviceName: iPhone *
+
+
+# 4g-lte-advanced-good: 25000 kbps down / 18000 kbps up / 80 ms latency
+networkProfile: 4g-lte-advanced-good
 
 parallelsPerPlatform: 1
-browserstackLocal: false
+browserstackLocal: ${BROWSERSTACK_LOCAL}
 idleTimeout: 300

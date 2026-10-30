@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Visual Regression — Percy Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif']},colors:{brand:{50:'#f5f3ff',600:'#7c3aed',700:'#6d28d9'}}}}}</script>
+<link rel="stylesheet" href="style.css"/>
+<style>
+  /* Percy-only styles — applied only in Percy's rendering environment */
+  @media only percy {
+    .hide-in-percy { visibility: hidden !important; }
+    #dynamic-clock { visibility: hidden !important; }
+  }
+
+  #hero-panel {
+    transition: background 200ms ease, color 200ms ease;
+  }
+  body[data-diff="on"] #hero-panel {
+    background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+  }
+  body[data-diff="on"] #hero-panel .hero-kicker { color: #99f6e4; }
+  body[data-diff="on"] #hero-panel .hero-title { color: #ffffff; }
+  body[data-diff="on"] #hero-panel .hero-sub { color: #ccfbf1; }
+  body[data-diff="off"] #hero-panel {
+    background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+  }
+
+  body[data-diff="on"] #cta-btn {
+    background: #f59e0b;
+    border-radius: 9999px;
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.35);
+  }
+  body[data-diff="off"] #cta-btn {
+    background: #ffffff;
+    color: #5b21b6;
+  }
+  body[data-diff="on"] #cta-btn { color: #111827; }
+
+  body[data-diff="on"] #promo-strip { display: flex; }
+  body[data-diff="off"] #promo-strip { display: none; }
+
+  body[data-diff="on"] #layout-grid {
+    gap: 1.5rem;
+    flex-direction: column-reverse;
+  }
+  body[data-diff="off"] #layout-grid {
+    gap: 1rem;
+  }
+
+  body[data-diff="on"] #product-swatch {
+    filter: hue-rotate(120deg) saturate(1.2);
+  }
+
+  body[data-diff="on"] #scoped-card {
+    border-color: #f59e0b;
+    box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.25);
+  }
+  body[data-diff="on"] #scoped-price {
+    color: #b45309;
+    font-size: 1.75rem;
+  }
+
+  @keyframes slidePulse {
+    0% { transform: translateX(-8px); opacity: 0.55; }
+    50% { transform: translateX(8px); opacity: 1; }
+    100% { transform: translateX(-8px); opacity: 0.55; }
+  }
+  #animated-banner .pulse-bar {
+    animation: slidePulse 1.6s ease-in-out infinite;
+  }
+  /* Final state hint for Percy when animations are disabled */
+  #animated-banner.settled .pulse-bar {
+    transform: none;
+    opacity: 1;
+  }
+</style>
+</head>
+<body class="bg-gray-50 font-sans antialiased" data-diff="off">
+
+<nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-6 h-16 flex items-center gap-3">
+    <a href="index.html" class="text-gray-500 hover:text-gray-700 text-sm flex items-center gap-1">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      All demos
+    </a>
+    <span class="text-gray-300">|</span>
+    <span class="font-semibold text-gray-900 text-sm">Visual Regression</span>
+    <span class="ml-auto text-xs font-medium text-gray-400">Percy feature showcase</span>
+  </div>
+</nav>
+
+<div class="max-w-5xl mx-auto px-6 py-10 space-y-6">
+
+  <div class="flex items-center gap-4">
+    <div class="w-12 h-12 bg-fuchsia-600 rounded-xl flex items-center justify-center shrink-0">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+    </div>
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">Visual Regression Demo</h1>
+      <p class="text-gray-500 text-sm">Toggle visual differences, then snapshot with Percy — ignore regions, scope, widths, percyCSS, and more.</p>
+    </div>
+  </div>
+
+  <!-- Diff toggle -->
+  <div id="diff-mode-banner" class="rounded-2xl border-2 border-violet-200 bg-violet-50 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div class="flex items-center gap-3 flex-wrap">
+      <span id="diff-off-label" class="text-sm font-semibold px-3 py-1 rounded-full bg-violet-100 text-violet-700">Baseline — diff off</span>
+      <span class="text-gray-400 text-sm">→</span>
+      <span id="diff-on-label" class="text-sm font-semibold px-3 py-1 rounded-full bg-gray-100 text-gray-400">Changed — diff on</span>
+    </div>
+    <button id="diff-toggle" type="button" class="bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-semibold px-4 py-2 rounded-xl text-sm shrink-0">
+      Turn visual diffs on
+    </button>
+  </div>
+
+  <!-- Promo strip (only when diff=on) -->
+  <div id="promo-strip" class="items-center justify-between gap-3 rounded-xl bg-amber-400 text-amber-950 px-5 py-3 text-sm font-semibold">
+    <span>Limited offer — 20% off Pro plans this week</span>
+    <span class="text-xs font-medium opacity-80">Appears only when diff is on</span>
+  </div>
+
+  <!-- Hero — full-page / responsive widths target -->
+  <section id="hero-panel" class="rounded-2xl px-8 py-10 text-white" data-percy-feature="fullPage, widths, responsiveSnapshotCapture">
+    <p class="hero-kicker text-sm font-semibold uppercase tracking-wide text-violet-200 mb-2">Percy · Product hero</p>
+    <h2 id="hero-title" class="hero-title text-3xl sm:text-4xl font-extrabold tracking-tight mb-3">Ship UI with confidence</h2>
+    <p id="hero-sub" class="hero-sub text-violet-100 max-w-xl mb-6">Baseline mode shows the approved design. Flip the toggle to introduce intentional visual changes for Percy review.</p>
+    <button id="cta-btn" type="button" class="font-semibold px-5 py-2.5 rounded-lg text-sm">Start free trial</button>
+  </section>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- Scoped card — scope screenshot -->
+    <section id="scoped-card" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4" data-percy-feature="scope">
+      <div class="flex items-center justify-between">
+        <h2 class="font-semibold text-gray-900">Scoped product card</h2>
+        <span class="text-xs bg-fuchsia-50 text-fuchsia-700 border border-fuchsia-200 px-2 py-0.5 rounded-full">scope</span>
+      </div>
+      <p class="text-sm text-gray-500">Percy can capture only this element via the <code class="text-xs bg-gray-100 px-1 rounded">scope</code> option.</p>
+      <div class="flex items-center gap-4">
+        <img id="product-swatch" alt="Product swatch" width="72" height="72" class="rounded-xl"
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%237c3aed'/%3E%3Cstop offset='1' stop-color='%23db2777'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='72' height='72' rx='12' fill='url(%23g)'/%3E%3C/svg%3E"/>
+        <div>
+          <p id="scoped-name" class="font-semibold text-gray-900">Aurora Plan</p>
+          <p id="scoped-price" class="text-2xl font-bold text-brand-600">$29<span class="text-sm font-medium text-gray-400">/mo</span></p>
+        </div>
+      </div>
+      <ul class="text-sm text-gray-600 space-y-1">
+        <li>• Unlimited visual builds</li>
+        <li>• Cross-browser snapshots</li>
+        <li>• PR status checks</li>
+      </ul>
+    </section>
+
+    <!-- Dynamic clock — ignore regions / percyCSS -->
+    <section class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4" data-percy-feature="ignore-regions, percyCSS">
+      <div class="flex items-center justify-between">
+        <h2 class="font-semibold text-gray-900">Dynamic content</h2>
+        <span class="text-xs bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full">ignore / percyCSS</span>
+      </div>
+      <p class="text-sm text-gray-500">This clock updates every second — ignore it in Percy so it does not create false diffs.</p>
+      <div id="dynamic-clock" class="font-mono text-3xl font-bold text-gray-900 tracking-wider bg-gray-50 border border-gray-200 rounded-xl px-4 py-6 text-center">
+        --:--:--
+      </div>
+      <div class="hide-in-percy text-xs text-gray-400 border border-dashed border-gray-200 rounded-lg px-3 py-2">
+        Noise badge (hidden via <code>@media only percy</code>)
+      </div>
+    </section>
+  </div>
+
+  <!-- Layout grid — responsive / layout regions -->
+  <section class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4" data-percy-feature="widths, regions">
+    <div class="flex items-center justify-between">
+      <h2 class="font-semibold text-gray-900">Responsive layout grid</h2>
+      <span class="text-xs bg-cyan-50 text-cyan-700 border border-cyan-200 px-2 py-0.5 rounded-full">widths · regions</span>
+    </div>
+    <p class="text-sm text-gray-500">Captured at multiple widths. Diff mode reverses card order and increases gap.</p>
+    <div id="layout-grid" class="flex flex-col sm:flex-row">
+      <div class="flex-1 rounded-xl bg-violet-50 border border-violet-100 p-4">
+        <p class="text-xs font-semibold text-violet-700 mb-1">Card A</p>
+        <p class="text-sm text-gray-700">Mobile-first column that stacks under 640px.</p>
+      </div>
+      <div class="flex-1 rounded-xl bg-fuchsia-50 border border-fuchsia-100 p-4">
+        <p class="text-xs font-semibold text-fuchsia-700 mb-1">Card B</p>
+        <p class="text-sm text-gray-700">Side-by-side on tablet and desktop breakpoints.</p>
+      </div>
+      <div class="flex-1 rounded-xl bg-indigo-50 border border-indigo-100 p-4">
+        <p class="text-xs font-semibold text-indigo-700 mb-1">Card C</p>
+        <p class="text-sm text-gray-700">Use layout algorithm regions for structural diffs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ad banner — ignore region -->
+  <aside id="ad-banner" class="rounded-2xl border border-dashed border-gray-300 bg-gray-100 px-6 py-4 flex items-center justify-between gap-4" data-percy-feature="ignore-regions">
+    <div>
+      <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Sponsored</p>
+      <p class="text-sm text-gray-700">Ad creative rotates — mark as ignore region in Percy.</p>
+    </div>
+    <canvas id="ad-canvas" width="120" height="40" class="rounded-lg bg-white border border-gray-200" aria-hidden="true"></canvas>
+  </aside>
+
+  <!-- Animated banner — enableJavaScript -->
+  <section id="animated-banner" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4" data-percy-feature="enableJavaScript">
+    <div class="flex items-center justify-between">
+      <h2 class="font-semibold text-gray-900">Animated banner</h2>
+      <span class="text-xs bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded-full">enableJavaScript</span>
+    </div>
+    <p class="text-sm text-gray-500">Percy disables JS by default in its renderer. Snapshot with <code class="text-xs bg-gray-100 px-1 rounded">enableJavaScript</code> or stabilize with percyCSS.</p>
+    <div class="h-12 rounded-xl bg-gradient-to-r from-brand-600 to-fuchsia-500 overflow-hidden flex items-center px-4">
+      <div class="pulse-bar w-24 h-6 bg-white/80 rounded-md"></div>
+    </div>
+  </section>
+
+  <p class="text-xs text-gray-400 text-center pb-4">
+    Tip: open with <code class="bg-gray-100 px-1 rounded">?diff=on</code> or <code class="bg-gray-100 px-1 rounded">?diff=off</code> for automated runs.
+  </p>
+</div>
+
+<script>
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const initial = (params.get('diff') === 'on') ? 'on' : 'off';
+
+  function applyDiff(mode) {
+    document.body.dataset.diff = mode;
+    const banner = document.getElementById('diff-mode-banner');
+    const toggle = document.getElementById('diff-toggle');
+    const offLabel = document.getElementById('diff-off-label');
+    const onLabel = document.getElementById('diff-on-label');
+    const title = document.getElementById('hero-title');
+    const sub = document.getElementById('hero-sub');
+    const scopedName = document.getElementById('scoped-name');
+    const scopedPrice = document.getElementById('scoped-price');
+
+    if (mode === 'on') {
+      banner.className = 'rounded-2xl border-2 border-amber-200 bg-amber-50 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3';
+      offLabel.className = 'text-sm font-semibold px-3 py-1 rounded-full bg-gray-100 text-gray-400';
+      onLabel.className = 'text-sm font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-800';
+      toggle.textContent = 'Turn visual diffs off';
+      toggle.className = 'bg-violet-600 hover:bg-violet-700 text-white font-semibold px-4 py-2 rounded-xl text-sm shrink-0';
+      title.textContent = 'Redesigned hero for Q2';
+      sub.textContent = 'Diff mode changes colors, copy, CTA shape, card order, and adds a promo strip for Percy to flag.';
+      scopedName.textContent = 'Nova Plan';
+      scopedPrice.innerHTML = '$39<span class="text-sm font-medium text-gray-400">/mo</span>';
+    } else {
+      banner.className = 'rounded-2xl border-2 border-violet-200 bg-violet-50 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3';
+      offLabel.className = 'text-sm font-semibold px-3 py-1 rounded-full bg-violet-100 text-violet-700';
+      onLabel.className = 'text-sm font-semibold px-3 py-1 rounded-full bg-gray-100 text-gray-400';
+      toggle.textContent = 'Turn visual diffs on';
+      toggle.className = 'bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-semibold px-4 py-2 rounded-xl text-sm shrink-0';
+      title.textContent = 'Ship UI with confidence';
+      sub.textContent = 'Baseline mode shows the approved design. Flip the toggle to introduce intentional visual changes for Percy review.';
+      scopedName.textContent = 'Aurora Plan';
+      scopedPrice.innerHTML = '$29<span class="text-sm font-medium text-gray-400">/mo</span>';
+    }
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('diff', mode);
+    window.history.replaceState({}, '', url);
+  }
+
+  document.getElementById('diff-toggle').addEventListener('click', function () {
+    applyDiff(document.body.dataset.diff === 'on' ? 'off' : 'on');
+  });
+
+  applyDiff(initial);
+
+  // Live clock for ignore-region demos
+  function tick() {
+    const el = document.getElementById('dynamic-clock');
+    if (el) el.textContent = new Date().toLocaleTimeString('en-US', { hour12: false });
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // Simple canvas ad stub
+  const canvas = document.getElementById('ad-canvas');
+  if (canvas && canvas.getContext) {
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#7c3aed';
+    ctx.fillRect(0, 0, 120, 40);
+    ctx.fillStyle = '#fff';
+    ctx.font = '12px Inter, sans-serif';
+    ctx.fillText('Ad ' + Math.floor(Math.random() * 90 + 10), 36, 25);
+  }
+})();
+</script>
+</body>
+</html>

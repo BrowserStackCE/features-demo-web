@@ -1,1 +1,2 @@
-BrowserStack test fixture file
+BrowserStack File Upload Demo
+This is a sample text file used by the File Upload test.

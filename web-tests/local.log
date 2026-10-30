@@ -52,6 +52,51 @@ sec-ch-ua-platform: "Windows"
 Upgrade-Insecure-Requests: 1
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Tue Oct 13 2026 14:23:08:390 GMT+0530 (IST) -- Binary semantic version is v8.9.22
+Tue Oct 13 2026 14:23:08:391 GMT+0530 (IST) -- Setting output as extra verbose with request parsing
+Tue Oct 13 2026 14:23:08:392 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:49464
+Tue Oct 13 2026 14:23:08:394 GMT+0530 (IST) -- Proxy is configured
+Tue Oct 13 2026 14:23:09:46 GMT+0530 (IST) -- Starting configuration console on http://localhost:45454
+Tue Oct 13 2026 14:23:11:120 GMT+0530 (IST) -- [SUCCESS] You can now access your local server(s) in our remote browser
+
+Tue Oct 13 2026 14:23:11:359 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:49464
+Tue Oct 13 2026 14:23:11:373 GMT+0530 (IST) -- Proxy is configured
+Tue Oct 13 2026 14:23:11:372 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:49464
+Tue Oct 13 2026 14:23:11:385 GMT+0530 (IST) -- Proxy is configured
+Tue Oct 13 2026 14:23:11:386 GMT+0530 (IST) -- Setting up proxy connection to 127.0.0.1:49464
+Tue Oct 13 2026 14:23:11:399 GMT+0530 (IST) -- Proxy is configured
+Tue Oct 13 2026 14:23:12:757 GMT+0530 (IST) -- Error in establishing connection.
+Tue Oct 13 2026 14:23:12:758 GMT+0530 (IST) -- unexpected server response (502)
+Tue Oct 13 2026 14:23:12:798 GMT+0530 (IST) -- Error in establishing connection.
+Tue Oct 13 2026 14:23:12:798 GMT+0530 (IST) -- unexpected server response (502)
+Tue Oct 13 2026 14:23:13:78 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Tue Oct 13 2026 14:23:13:79 GMT+0530 (IST) -- Platform supports WebSocket connections.
+
+Tue Oct 13 2026 14:23:14:935 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Tue Oct 13 2026 14:23:14:936 GMT+0530 (IST) -- Platform supports WebSocket connections.
+
+Tue Oct 13 2026 14:23:15:950 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Tue Oct 13 2026 14:23:15:951 GMT+0530 (IST) -- Platform supports WebSocket connections.
+
+Tue Oct 13 2026 14:23:16:382 GMT+0530 (IST) -- Connecting to BrowserStack using WebSocket protocol...
+Tue Oct 13 2026 14:23:16:385 GMT+0530 (IST) -- Press Ctrl-C to exit
+
+
+Tue Oct 13 2026 14:23:16:383 GMT+0530 (IST) -- Platform supports WebSocket connections.
+
+Tue Oct 13 2026 14:23:35:573 GMT+0530 (IST) -- ID-1 Request to: localhost:3000
+Tue Oct 13 2026 14:23:35:581 GMT+0530 (IST) -- ID-1 [PARSING HANDSHAKE][9][8879171] Handshake request to localhost:3000
+Tue Oct 13 2026 14:23:35:582 GMT+0530 (IST) -- ID-1 Connecting to: localhost:3000
+Tue Oct 13 2026 14:23:35:603 GMT+0530 (IST) -- localhost:3000 socket connected.
+Tue Oct 13 2026 14:23:35:608 GMT+0530 (IST) -- ID-1 Connected to: 127.0.0.1
+Tue Oct 13 2026 14:23:35:629 GMT+0530 (IST) -- ID-1 [PARSING REQUEST][9][8879171] GET /visual-regression.html?diff=off HTTP/1.1
+Host: localhost:3000
+sec-ch-ua: "Google Chrome";v="155", "Chromium";v="155", "Not(A:Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/jxl,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
 Sec-Fetch-Site: none
 Sec-Fetch-Mode: navigate
 Sec-Fetch-User: ?1
@@ -116,12 +161,33 @@ Host: localhost:8765
 sec-ch-ua-platform: "Windows"
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
 sec-ch-ua: "Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"
+Tue Oct 13 2026 14:23:35:639 GMT+0530 (IST) -- ID-1 [PARSING RESPONSE (500chars)][9][8879171] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Tue, 13 Oct 2026 08:53:35 GMT
+Content-type: text/html
+Content-Length: 15063
+Last-Modified: Tue, 13 Oct 2026 08:23:42 GMT
+
+ FROM localhost:3000
+Tue Oct 13 2026 14:23:35:639 GMT+0530 (IST) -- ID-1 Writing 187 bytes response from: localhost:3000
+Tue Oct 13 2026 14:23:35:661 GMT+0530 (IST) -- ID-1 Writing 15063 bytes response from: localhost:3000
+Tue Oct 13 2026 14:23:35:723 GMT+0530 (IST) -- ID-1 Request to: localhost:3000
+Tue Oct 13 2026 14:23:35:724 GMT+0530 (IST) -- ID-1 [PARSING HANDSHAKE][9][8879175] Handshake request to localhost:3000
+Tue Oct 13 2026 14:23:35:724 GMT+0530 (IST) -- ID-1 Connecting to: localhost:3000
+Tue Oct 13 2026 14:23:35:728 GMT+0530 (IST) -- localhost:3000 socket connected.
+Tue Oct 13 2026 14:23:35:728 GMT+0530 (IST) -- ID-1 Connected to: 127.0.0.1
+Tue Oct 13 2026 14:23:35:741 GMT+0530 (IST) -- ID-1 [PARSING REQUEST][9][8879175] GET /style.css HTTP/1.1
+Host: localhost:3000
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+sec-ch-ua: "Google Chrome";v="155", "Chromium";v="155", "Not(A:Brand";v="24"
 sec-ch-ua-mobile: ?0
 Accept: text/css,*/*;q=0.1
 Sec-Fetch-Site: same-origin
 Sec-Fetch-Mode: no-cors
 Sec-Fetch-Dest: style
 Referer: http://localhost:8765/accessibility.html
+Referer: http://localhost:3000/visual-regression.html?diff=off
 Accept-Encoding: gzip, deflate, br, zstd
 Accept-Language: en-US,en;q=0.9
 Connection: keep-alive
@@ -525,6 +591,32 @@ Sec-Fetch-Site: none
 Sec-Fetch-Mode: cors
 Sec-Fetch-Dest: empty
 Sec-Fetch-Storage-Access: active
+Tue Oct 13 2026 14:23:35:742 GMT+0530 (IST) -- ID-1 [PARSING RESPONSE (500chars)][9][8879175] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Tue, 13 Oct 2026 08:53:35 GMT
+Content-type: text/css
+Content-Length: 2679
+Last-Modified: Fri, 25 Sep 2026 17:04:08 GMT
+
+ FROM localhost:3000
+Tue Oct 13 2026 14:23:35:742 GMT+0530 (IST) -- ID-1 Writing 185 bytes response from: localhost:3000
+Tue Oct 13 2026 14:23:35:743 GMT+0530 (IST) -- ID-1 Writing 2679 bytes response from: localhost:3000
+Tue Oct 13 2026 14:23:36:251 GMT+0530 (IST) -- ID-1 Request to: localhost:3000
+Tue Oct 13 2026 14:23:36:252 GMT+0530 (IST) -- ID-1 [PARSING HANDSHAKE][9][8879204] Handshake request to localhost:3000
+Tue Oct 13 2026 14:23:36:252 GMT+0530 (IST) -- ID-1 Connecting to: localhost:3000
+Tue Oct 13 2026 14:23:36:254 GMT+0530 (IST) -- localhost:3000 socket connected.
+Tue Oct 13 2026 14:23:36:254 GMT+0530 (IST) -- ID-1 Connected to: 127.0.0.1
+Tue Oct 13 2026 14:23:36:268 GMT+0530 (IST) -- ID-1 [PARSING REQUEST][9][8879204] GET /favicon.ico HTTP/1.1
+Host: localhost:3000
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+sec-ch-ua: "Google Chrome";v="155", "Chromium";v="155", "Not(A:Brand";v="24"
+sec-ch-ua-mobile: ?0
+Accept: image/jxl,image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:3000/visual-regression.html?diff=off
 Accept-Encoding: gzip, deflate, br, zstd
 Accept-Language: en-US,en;q=0.9
 Connection: keep-alive
@@ -533,6 +625,9 @@ Connection: keep-alive
 Mon Oct 26 2026 13:09:52:223 GMT+0530 (IST) -- [PARSING RESPONSE (500chars)][11][24800545] HTTP/1.0 404 File not found
 Server: SimpleHTTP/0.6 Python/3.9.6
 Date: Mon, 26 Oct 2026 07:39:52 GMT
+Tue Oct 13 2026 14:23:36:270 GMT+0530 (IST) -- ID-1 [PARSING RESPONSE (500chars)][9][8879204] HTTP/1.0 404 File not found
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Tue, 13 Oct 2026 08:53:36 GMT
 Connection: close
 Content-Type: text/html;charset=utf-8
 Content-Length: 469
@@ -556,6 +651,15 @@ Mon Oct 26 2026 13:09:53:177 GMT+0530 (IST) -- localhost:8765 socket connected.
 Mon Oct 26 2026 13:09:53:178 GMT+0530 (IST) -- Connected to: 127.0.0.1
 Mon Oct 26 2026 13:09:53:198 GMT+0530 (IST) -- [PARSING REQUEST][11][24800565] HEAD /accessibility.html HTTP/1.1
 Host: localhost:8765
+ FROM localhost:3000
+Tue Oct 13 2026 14:23:36:270 GMT+0530 (IST) -- ID-1 Writing 653 bytes response from: localhost:3000
+Tue Oct 13 2026 14:23:38:54 GMT+0530 (IST) -- ID-1 Request to: localhost:3000
+Tue Oct 13 2026 14:23:38:54 GMT+0530 (IST) -- ID-1 [PARSING HANDSHAKE][9][8879265] Handshake request to localhost:3000
+Tue Oct 13 2026 14:23:38:54 GMT+0530 (IST) -- ID-1 Connecting to: localhost:3000
+Tue Oct 13 2026 14:23:38:55 GMT+0530 (IST) -- localhost:3000 socket connected.
+Tue Oct 13 2026 14:23:38:56 GMT+0530 (IST) -- ID-1 Connected to: 127.0.0.1
+Tue Oct 13 2026 14:23:38:80 GMT+0530 (IST) -- ID-1 [PARSING REQUEST][9][8879265] HEAD /visual-regression.html?diff=off HTTP/1.1
+Host: localhost:3000
 Accept: */*
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:30.0) Gecko/20100101 Firefox/30.0
 Connection: keep-alive
@@ -570,3 +674,12 @@ Last-Modified: Mon, 26 Oct 2026 07:38:37 GMT
 
  FROM localhost:8765
 Mon Oct 26 2026 13:09:53:202 GMT+0530 (IST) -- Writing 187 bytes response from: localhost:8765
+Tue Oct 13 2026 14:23:38:81 GMT+0530 (IST) -- ID-1 [PARSING RESPONSE (500chars)][9][8879265] HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Tue, 13 Oct 2026 08:53:38 GMT
+Content-type: text/html
+Content-Length: 15063
+Last-Modified: Tue, 13 Oct 2026 08:23:42 GMT
+
+ FROM localhost:3000
+Tue Oct 13 2026 14:23:38:81 GMT+0530 (IST) -- ID-1 Writing 187 bytes response from: localhost:3000
