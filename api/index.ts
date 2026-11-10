@@ -1,7 +1,10 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import {
+  APP_ANDROID_FEATURES,
+  APP_ANDROID_WORKFLOW_FILE,
   dispatchWorkflow,
+  dispatchWorkflowFile,
   getWorkflowRun,
   listAllowedWorkflows,
   resolveWorkflowFile,
@@ -21,9 +24,12 @@ app.use(
 type TriggerBody = {
   workflow?: string;
   workflows?: string[];
+  features?: string[];
   username?: string;
   accessKey?: string;
   localTesting?: boolean;
+  product?: "automate" | "app-automate";
+  platform?: "android" | "ios";
   ref?: string;
 };
 
@@ -83,6 +89,78 @@ app.post("/trigger", async (c) => {
   const accessKey = body.accessKey?.trim();
   if (!username || !accessKey) {
     return c.json({ error: "username and accessKey are required" }, 400);
+  }
+
+  const product = body.product ?? "automate";
+  if (product !== "automate" && product !== "app-automate") {
+    return c.json({ error: `Unknown product: ${product}` }, 400);
+  }
+
+  if (product === "app-automate") {
+    if (body.platform !== "android" && body.platform !== "ios") {
+      return c.json(
+        { error: "platform must be 'android' or 'ios' for app-automate" },
+        400
+      );
+    }
+    if (body.platform === "ios") {
+      return c.json({ error: "iOS App Automate is not available yet" }, 501);
+    }
+
+    const features = [
+      ...new Set(
+        (Array.isArray(body.features) ? body.features : [])
+          .filter((f): f is string => typeof f === "string")
+          .map((f) => f.trim())
+          .filter(Boolean)
+      ),
+    ];
+    const unknownFeatures = features.filter(
+      (f) => !APP_ANDROID_FEATURES.includes(f)
+    );
+    if (unknownFeatures.length > 0) {
+      return c.json(
+        {
+          error: `Unknown feature(s): ${unknownFeatures.join(", ")}`,
+          allowed: APP_ANDROID_FEATURES,
+        },
+        400
+      );
+    }
+    if (!process.env.GITHUB_TOKEN) {
+      return c.json({ error: "GITHUB_TOKEN is not configured" }, 500);
+    }
+
+    // No features selected => empty input => the workflow runs the full flow.
+    const label = features.length > 0 ? features.join(",") : "app-android-full";
+    try {
+      const dispatched = await dispatchWorkflowFile(
+        APP_ANDROID_WORKFLOW_FILE,
+        {
+          username,
+          accessKey,
+          localTesting: Boolean(body.localTesting),
+          features: features.join(","),
+        },
+        body.ref?.trim() || "main"
+      );
+      const token = mintPollToken({
+        runId: dispatched.workflowRunId,
+        workflow: label,
+      });
+      return c.json({
+        runs: [{ workflow: label, token, htmlUrl: dispatched.htmlUrl }],
+      });
+    } catch (err) {
+      return c.json({
+        runs: [
+          {
+            workflow: label,
+            error: err instanceof Error ? err.message : String(err),
+          },
+        ],
+      });
+    }
   }
 
   const workflows = normalizeWorkflows(body);

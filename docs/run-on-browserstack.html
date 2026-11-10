@@ -48,6 +48,76 @@
   </div>
 
   <div class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <h2 class="font-semibold text-gray-900">Product</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="product-list">
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="radio" name="product" value="automate" checked class="border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        Automate (web browsers)
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="radio" name="product" value="app-automate" class="border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        App Automate (mobile apps)
+      </label>
+    </div>
+    <div id="platform-section" class="hidden space-y-2">
+      <h3 class="text-sm font-medium text-gray-700">Mobile platform</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="platform-list">
+        <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+          <input type="radio" name="platform" value="android" checked class="border-gray-300 text-brand-600 focus:ring-brand-600"/>
+          Android
+        </label>
+        <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+          <input type="radio" name="platform" value="ios" class="border-gray-300 text-brand-600 focus:ring-brand-600"/>
+          iOS
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div id="app-features-card" class="hidden bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+    <h2 class="font-semibold text-gray-900">App Features (Android)</h2>
+    <p class="text-sm text-gray-500">Select one or more features to run. Leave all unselected to run the full flow.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="app-workflow-list">
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="app-feature" value="image-injection" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        Image Injection
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="app-feature" value="biometric" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        Biometric
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="app-feature" value="video-injection" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        Video Injection
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="app-feature" value="file-upload-download" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        File Upload &amp; Download
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="app-feature" value="audio-injection" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        Audio Injection
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="app-feature" value="ip-geolocation" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        IP Geolocation
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="app-feature" value="network" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        Network
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="app-feature" value="gps" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        GPS
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="app-feature" value="otp" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        OTP
+      </label>
+    </div>
+  </div>
+
+  <div id="features-card" class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
     <h2 class="font-semibold text-gray-900">Features</h2>
     <p class="text-sm text-gray-500">Select one or more features to dispatch.</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="workflow-list">
@@ -118,7 +188,9 @@
 
 <script>
 (function () {
-  const API_BASE = 'https://features-demo-api.vercel.app';
+  // Defaults to the deployed API. To test against a local API (cd api && npm run dev), open this
+  // page with ?api=http://localhost:8787
+  const API_BASE = new URLSearchParams(window.location.search).get('api') || 'https://features-demo-api.vercel.app';
   const POLL_MS = 4000;
 
   const usernameEl = document.getElementById('username');
@@ -130,10 +202,43 @@
   const runList = document.getElementById('run-list');
   const pollBadge = document.getElementById('poll-badge');
 
+  const platformSection = document.getElementById('platform-section');
+  const featuresCard = document.getElementById('features-card');
+  const appFeaturesCard = document.getElementById('app-features-card');
+  const viewBsBtn = document.getElementById('view-bs-btn');
+  const DASHBOARD_URLS = {
+    'automate': 'https://automate.browserstack.com/projects/BrowserStack+Demo',
+    'app-automate': 'https://app-automate.browserstack.com/'
+  };
+
   let pollTimer = null;
 
+  function selectedProduct() {
+    return document.querySelector('input[name="product"]:checked').value;
+  }
+
+  function selectedPlatform() {
+    return selectedProduct() === 'app-automate'
+      ? document.querySelector('input[name="platform"]:checked').value
+      : null;
+  }
+
+  function syncProduct() {
+    var isApp = selectedProduct() === 'app-automate';
+    platformSection.classList.toggle('hidden', !isApp);
+    featuresCard.classList.toggle('hidden', isApp);
+    appFeaturesCard.classList.toggle('hidden', !isApp || selectedPlatform() !== 'android');
+    viewBsBtn.href = DASHBOARD_URLS[selectedProduct()];
+  }
+
+  document.querySelectorAll('input[name="product"], input[name="platform"]').forEach(function (el) {
+    el.addEventListener('change', syncProduct);
+  });
+  syncProduct();
+
   function selectedWorkflows() {
-    return Array.from(document.querySelectorAll('input[name="workflow"]:checked')).map(function (el) {
+    var name = selectedProduct() === 'app-automate' ? 'app-feature' : 'workflow';
+    return Array.from(document.querySelectorAll('input[name="' + name + '"]:checked')).map(function (el) {
       return el.value;
     });
   }
@@ -249,12 +354,19 @@
     var username = usernameEl.value.trim();
     var accessKey = accessKeyEl.value.trim();
     var workflows = selectedWorkflows();
+    var product = selectedProduct();
+    var platform = selectedPlatform();
 
     if (!username || !accessKey) {
       showError('Username and access key are required.');
       return;
     }
-    if (workflows.length === 0) {
+    if (product === 'app-automate' && platform !== 'android') {
+      showError('iOS App Automate features are not available yet.');
+      return;
+    }
+    // App Automate with nothing selected runs the full flow; Automate needs a selection.
+    if (workflows.length === 0 && product !== 'app-automate') {
       showError('Select at least one pipeline.');
       return;
     }
@@ -271,10 +383,13 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          workflows: workflows,
+          workflows: product === 'app-automate' ? [] : workflows,
+          features: product === 'app-automate' ? workflows : [],
           username: username,
           accessKey: accessKey,
           localTesting: localTestingEl.checked,
+          product: product,
+          platform: platform,
           ref: 'main'
         })
       });

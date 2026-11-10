@@ -15,10 +15,27 @@ export const WORKFLOW_FILES: Record<string, string> = {
   permissions: "test-permissions.yml",
 };
 
+// One workflow runs all App Automate Android features; the selection is passed as a
+// comma-separated `features` input (empty string = run the full flow).
+export const APP_ANDROID_WORKFLOW_FILE = "test-app-android.yml";
+
+export const APP_ANDROID_FEATURES = [
+  "image-injection",
+  "biometric",
+  "video-injection",
+  "file-upload-download",
+  "audio-injection",
+  "ip-geolocation",
+  "network",
+  "gps",
+  "otp",
+];
+
 export type DispatchInputs = {
   username: string;
   accessKey: string;
   localTesting?: boolean;
+  features?: string;
 };
 
 export type DispatchResult = {
@@ -74,7 +91,14 @@ export async function dispatchWorkflow(
   if (!file) {
     throw new Error(`Unknown workflow: ${alias}`);
   }
+  return dispatchWorkflowFile(file, inputs, ref);
+}
 
+export async function dispatchWorkflowFile(
+  file: string,
+  inputs: DispatchInputs,
+  ref = "main"
+): Promise<DispatchResult> {
   const { token, owner, repo } = getConfig();
   const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${file}/dispatches`;
 
@@ -88,6 +112,7 @@ export async function dispatchWorkflow(
         username: inputs.username,
         accessKey: inputs.accessKey,
         localTesting: String(inputs.localTesting ?? false),
+        ...(inputs.features !== undefined ? { features: inputs.features } : {}),
       },
     }),
   });
