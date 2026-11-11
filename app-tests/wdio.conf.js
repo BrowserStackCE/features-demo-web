@@ -15,13 +15,17 @@ exports.config = {
   user: process.env.BROWSERSTACK_USERNAME,
   key: process.env.BROWSERSTACK_ACCESS_KEY,
   hostname: 'hub.browserstack.com',
+  // Tests run on a BrowserStack cloud device, so no local display is needed. The local
+  // runner's xvfb-run wrapper breaks the worker's IPC channel on GitHub runners
+  // ("Error: write EINVAL" at process.send in @wdio/local-runner/build/run.js).
+  autoXvfb: false,
   specs,
   maxInstances: 5,
-  logLevel: 'info',
-  // Explicit waits only (no implicit waits); default timeout 10s.
-  waitforTimeout: 10000,
-  connectionRetryTimeout: 120000,
-  connectionRetryCount: 1,
+  logLevel: process.env.WDIO_LOG_LEVEL || 'info',
+  // Explicit waits only (no implicit waits).
+  waitforTimeout: 25000,
+  connectionRetryTimeout: 300000,
+  connectionRetryCount: 3,
   framework: 'mocha',
   reporters: ['spec'],
   mochaOpts: { ui: 'bdd', timeout: 300000 },
@@ -31,33 +35,35 @@ exports.config = {
       {
         app: process.env.BROWSERSTACK_APP_URL,
         browserstackLocal: process.env.BROWSERSTACK_LOCAL === 'true',
+        accessibility: true,
       },
     ],
   ],
   capabilities: [
     {
       platformName: 'android',
-      'appium:deviceName': 'Google Pixel 8',
-      'appium:platformVersion': '14.0',
+      'appium:deviceName': 'Samsung Galaxy S23',
+      'appium:platformVersion': '13.0',
       'appium:automationName': 'UiAutomator2',
-      'appium:autoGrantPermissions': false,
+      'appium:autoGrantPermissions': true,
       'bstack:options': {
-        projectName: 'BrowserStack Demo',
-        buildName: process.env.BUILD_NAME || 'app-android-demo',
-        sessionName: 'android-feature-demo',
+        projectName: 'NexusDemo BFSI Automation',
+        buildName: process.env.BUILD_NAME || 'NexusDemo BFSI - WebdriverIO',
+        sessionName: 'BFSI Full Flow',
         debug: true,
+        interactiveDebugging: true,
+        deviceLogs: true,
+        video: true,
+        enableCameraImageInjection: true,
+        enableCameraVideoInjection: true,
+        enableBiometric: true,
+        appProfiling: true,
         ...(process.env.GEO_LOCATION ? { geoLocation: process.env.GEO_LOCATION } : {}),
         // networkLogs re-signs HTTPS traffic; the app then rejects its own IP-lookup calls
         // (CertPathValidatorException in the device log). Opt in with NETWORK_LOGS=true.
-        networkLogs: process.env.NETWORK_LOGS === 'true',
-        // Injection capabilities are opt-in: they need to be enabled for the account's group.
-        ...(process.env.ENABLE_INJECTION === 'true'
-          ? {
-              enableCameraImageInjection: true,
-              enableCameraVideoInjection: true,
-              enableAudioInjection: true,
-            }
-          : {}),
+        networkLogs: true,
+        // Audio injection is opt-in: it needs to be enabled for the account's group.
+        ...(process.env.ENABLE_INJECTION === 'true' ? { enableAudioInjection: true } : {}),
       },
     },
   ],

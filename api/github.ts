@@ -15,21 +15,24 @@ export const WORKFLOW_FILES: Record<string, string> = {
   permissions: "test-permissions.yml",
 };
 
-// One workflow runs all App Automate Android features; the selection is passed as a
-// comma-separated `features` input (empty string = run the full flow).
-export const APP_ANDROID_WORKFLOW_FILE = "test-app-android.yml";
+// One workflow per App Automate Android feature (android-<feature>.yml).
+export const APP_ANDROID_WORKFLOW_FILES: Record<string, string> = {
+  "image-injection": "android-image-injection.yml",
+  biometric: "android-biometric.yml",
+  "video-injection": "android-video-injection.yml",
+  "file-upload-download": "android-file-upload-download.yml",
+  "audio-injection": "android-audio-injection.yml",
+  network: "android-network.yml",
+  gps: "android-gps.yml",
+  otp: "android-otp.yml",
+  // Full BFSI onboarding flow end to end (specs/full-flow.spec.js).
+  e2e: "android-e2e.yml",
+};
 
-export const APP_ANDROID_FEATURES = [
-  "image-injection",
-  "biometric",
-  "video-injection",
-  "file-upload-download",
-  "audio-injection",
-  "ip-geolocation",
-  "network",
-  "gps",
-  "otp",
-];
+export const APP_ANDROID_FEATURES = Object.keys(APP_ANDROID_WORKFLOW_FILES);
+
+// What "run everything" dispatches when no feature is selected: the individual features, not the e2e flow.
+export const APP_ANDROID_DEFAULT_FEATURES = APP_ANDROID_FEATURES.filter((f) => f !== "e2e");
 
 export type DispatchInputs = {
   username: string;

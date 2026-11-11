@@ -82,3 +82,48 @@ cd api
 npm install
 npm run dev
 ```
+
+## App Automate (Android)
+
+[`app-tests/`](app-tests/) holds WebdriverIO + BrowserStack App Automate tests for the NexusDemo Android app (`docs/assets/NexusDemo-v2.9.10.apk`). Locators are kept in page objects under `app-tests/pages/`, and test data comes from the environment, not from the specs.
+
+Each feature has its own spec and its own `workflow_dispatch` workflow (`.github/workflows/android-*.yml`). The "Upload APK" step uploads the APK and passes its `bs://` id to the tests as `BROWSERSTACK_APP_URL`.
+
+| Feature | Spec | Workflow |
+|---------|------|----------|
+| E2E flow (full BFSI onboarding) | `full-flow.spec.js` | `android-e2e.yml` |
+| Image injection | `image-injection.spec.js` | `android-image-injection.yml` |
+| Video injection | `video-injection.spec.js` | `android-video-injection.yml` |
+| Audio injection | `audio-injection.spec.js` | `android-audio-injection.yml` |
+| Biometric | `biometric.spec.js` | `android-biometric.yml` |
+| File upload & download | `file-upload-download.spec.js` | `android-file-upload-download.yml` |
+| Network | `network.spec.js` | `android-network.yml` |
+| GPS | `gps.spec.js` | `android-gps.yml` |
+| OTP | `otp.spec.js` | `android-otp.yml` |
+
+### E2E flow
+
+The E2E flow runs `full-flow.spec.js` through the BFSI onboarding: domain selection, registration, profile photo (camera image injection), KYC document upload, phone number, OTP, the remaining BFSI screens, GPS, and finally a switch to the no-network profile. The test passes when BrowserStack accepts the no-network profile.
+
+- Registration name, email, password and phone number are random unless `REGISTER_NAME`, `REGISTER_EMAIL`, `REGISTER_PASSWORD` or `PHONE_NUMBER` is set. The OTP defaults to `1234` unless `OTP_VALUE` is set.
+- Every click, text entry and Back press waits for the screen to settle before the next step.
+
+### Run from the page
+
+[`docs/run-on-browserstack.html`](docs/run-on-browserstack.html) can start these runs. Pick **App Automate** and **Android**, then choose features under **App Features (Android)**:
+
+- **Select all** ticks every feature except E2E; with nothing selected, all features except E2E run.
+- **Run E2E flow** is one of the options in the list. While it is ticked, the other options are disabled, and it dispatches `android-e2e.yml`.
+
+The trigger API accepts `product: "app-automate"`, `platform: "android"` and a `features` list (`e2e`, `image-injection`, `biometric`, `video-injection`, `file-upload-download`, `audio-injection`, `network`, `gps`, `otp`), and starts one workflow per feature. When the page is not served by the hosted API, open it with `?api=http://localhost:8787` to use a local `npm run dev` of [`api/`](api/).
+
+### Run locally
+
+```bash
+cd app-tests
+cp .env.example .env   # fill in the BrowserStack credentials and BROWSERSTACK_APP_URL (bs://...)
+npm ci
+FEATURES=gps,network npm test   # a comma-separated list; leave empty to run the E2E flow
+```
+
+The optional test data (`REGISTER_*`, `PHONE_NUMBER`, `OTP_VALUE`) can be supplied through the GitHub secrets `APP_REGISTER_NAME`, `APP_REGISTER_EMAIL`, `APP_REGISTER_PASSWORD`, `APP_PHONE_NUMBER` and `APP_OTP_VALUE` in CI.

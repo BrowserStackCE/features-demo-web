@@ -1,8 +1,9 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import {
+  APP_ANDROID_DEFAULT_FEATURES,
   APP_ANDROID_FEATURES,
-  APP_ANDROID_WORKFLOW_FILE,
+  APP_ANDROID_WORKFLOW_FILES,
   dispatchWorkflow,
   dispatchWorkflowFile,
   getWorkflowRun,
@@ -91,7 +92,11 @@ app.post("/trigger", async (c) => {
     return c.json({ error: "username and accessKey are required" }, 400);
   }
 
-  const product = body.product ?? "automate";
+  const product =
+    body.product ??
+    (body.platform === "android" || body.platform === "ios"
+      ? "app-automate"
+      : "automate");
   if (product !== "automate" && product !== "app-automate") {
     return c.json({ error: `Unknown product: ${product}` }, 400);
   }
@@ -131,36 +136,31 @@ app.post("/trigger", async (c) => {
       return c.json({ error: "GITHUB_TOKEN is not configured" }, 500);
     }
 
-    // No features selected => empty input => the workflow runs the full flow.
-    const label = features.length > 0 ? features.join(",") : "app-android-full";
-    try {
-      const dispatched = await dispatchWorkflowFile(
-        APP_ANDROID_WORKFLOW_FILE,
-        {
-          username,
-          accessKey,
-          localTesting: Boolean(body.localTesting),
-          features: features.join(","),
-        },
-        body.ref?.trim() || "main"
-      );
-      const token = mintPollToken({
-        runId: dispatched.workflowRunId,
-        workflow: label,
-      });
-      return c.json({
-        runs: [{ workflow: label, token, htmlUrl: dispatched.htmlUrl }],
-      });
-    } catch (err) {
-      return c.json({
-        runs: [
-          {
-            workflow: label,
+    // No features selected => run every Android feature workflow.
+    const selected = features.length > 0 ? features : APP_ANDROID_DEFAULT_FEATURES;
+    const appRuns = await Promise.all(
+      selected.map(async (feature) => {
+        const workflow = `app-android-${feature}`;
+        try {
+          const dispatched = await dispatchWorkflowFile(
+            APP_ANDROID_WORKFLOW_FILES[feature],
+            { username, accessKey, localTesting: Boolean(body.localTesting) },
+            body.ref?.trim() || "main"
+          );
+          const token = mintPollToken({
+            runId: dispatched.workflowRunId,
+            workflow,
+          });
+          return { workflow, token, htmlUrl: dispatched.htmlUrl };
+        } catch (err) {
+          return {
+            workflow,
             error: err instanceof Error ? err.message : String(err),
-          },
-        ],
-      });
-    }
+          };
+        }
+      })
+    );
+    return c.json({ runs: appRuns });
   }
 
   const workflows = normalizeWorkflows(body);

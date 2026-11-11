@@ -99,9 +99,25 @@ class OnboardingPage extends BasePage {
     await this.typeWhenReady(await driver.$('class name:android.widget.EditText'), '10');
     await this.clickButton(0);
     await this.clickButton(1);
-    await driver.pressKeyCode(4);
-    await driver.pressKeyCode(4);
+    await this.pressBackAndWaitForChange();
+    await this.pressBackAndWaitForChange();
     await this.clickButton(3);
+  }
+
+  // Android BACK that only returns once the screen has actually changed, so the next
+  // press is not swallowed by the previous transition (e.g. the share-receipt sheet).
+  async pressBackAndWaitForChange(timeout = 10000) {
+    const before = await driver.getPageSource();
+    try {
+      await driver.execute("mobile: pressKey", { keycode: 4 });
+    } catch (e) {
+      await driver.back();
+    }
+    await driver.waitUntil(async () => (await driver.getPageSource()) !== before, {
+      timeout,
+      timeoutMsg: "Screen did not change after pressing Android BACK",
+    });
+    await this.waitForScreenToSettle();
   }
 }
 

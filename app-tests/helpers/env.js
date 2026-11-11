@@ -1,14 +1,17 @@
 // Test data comes from the environment (.env locally, workflow secrets/inputs in CI).
-function required(name) {
-  const value = process.env[name];
-  if (!value) throw new Error(`${name} is not set. Add it to app-tests/.env or the workflow environment.`);
-  return value;
+// When a value is not provided, random test data is generated instead.
+const randomDigits = (count) =>
+  Array.from({ length: count }, () => Math.floor(Math.random() * 10)).join('');
+const suffix = () => `${Date.now().toString(36)}${randomDigits(3)}`;
+
+function optional(name, generate) {
+  return process.env[name] || generate();
 }
 
 module.exports = {
-  registerName: () => required('REGISTER_NAME'),
-  registerEmail: () => required('REGISTER_EMAIL'),
-  registerPassword: () => required('REGISTER_PASSWORD'),
-  phoneNumber: () => required('PHONE_NUMBER'),
-  otp: () => required('OTP_VALUE'),
+  registerName: () => optional('REGISTER_NAME', () => `user${suffix()}`),
+  registerEmail: () => optional('REGISTER_EMAIL', () => `user${suffix()}@example.com`),
+  registerPassword: () => optional('REGISTER_PASSWORD', () => `Pw!${suffix()}`),
+  phoneNumber: () => optional('PHONE_NUMBER', () => `9${randomDigits(9)}`),
+  otp: () => optional('OTP_VALUE', () => '1234'),
 };

@@ -1,5 +1,5 @@
-# Android - IP Geolocation
-name: App Automate - Android - IP Geolocation
+# Android - E2E (full BFSI onboarding flow)
+name: App Automate - Android - E2E
 
 on:
   workflow_dispatch:
@@ -16,13 +16,13 @@ on:
         default: "false"
 
 jobs:
-  android-ip-geolocation:
+  android-e2e:
     runs-on: ubuntu-latest
     env:
       BROWSERSTACK_USERNAME: ${{ inputs.username }}
       BROWSERSTACK_ACCESS_KEY: ${{ inputs.accessKey }}
       BROWSERSTACK_LOCAL: ${{ inputs.localTesting }}
-      FEATURES: ip-geolocation
+      FEATURES: ""
       REGISTER_NAME: ${{ secrets.APP_REGISTER_NAME }}
       REGISTER_EMAIL: ${{ secrets.APP_REGISTER_EMAIL }}
       REGISTER_PASSWORD: ${{ secrets.APP_REGISTER_PASSWORD }}
@@ -82,7 +82,7 @@ jobs:
         working-directory: app-tests
         run: npm ci
 
-      - name: Run App Automate tests (ip-geolocation)
+      - name: Run App Automate tests (e2e)
         working-directory: app-tests
         env:
           BROWSERSTACK_APP_URL: ${{ steps.upload.outputs.APP_ID }}

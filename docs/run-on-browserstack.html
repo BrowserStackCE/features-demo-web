@@ -77,7 +77,15 @@
   <div id="app-features-card" class="hidden bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
     <h2 class="font-semibold text-gray-900">App Features (Android)</h2>
     <p class="text-sm text-gray-500">Select one or more features to run. Leave all unselected to run the full flow.</p>
+    <label class="flex items-center gap-2 text-sm font-semibold text-gray-900 cursor-pointer">
+      <input type="checkbox" id="app-select-all" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+      Select all
+    </label>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="app-workflow-list">
+      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
+        <input type="checkbox" name="app-feature" id="app-e2e" value="e2e" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        Run E2E flow
+      </label>
       <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
         <input type="checkbox" name="app-feature" value="image-injection" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
         Image Injection
@@ -97,10 +105,6 @@
       <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
         <input type="checkbox" name="app-feature" value="audio-injection" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
         Audio Injection
-      </label>
-      <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
-        <input type="checkbox" name="app-feature" value="ip-geolocation" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
-        IP Geolocation
       </label>
       <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
         <input type="checkbox" name="app-feature" value="network" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
@@ -235,6 +239,39 @@
     el.addEventListener('change', syncProduct);
   });
   syncProduct();
+
+  var selectAllEl = document.getElementById('app-select-all');
+  var e2eEl = document.getElementById('app-e2e');
+  // The individual feature boxes: every app-feature box except the E2E one.
+  function appFeatureBoxes() {
+    return Array.from(document.querySelectorAll('input[name="app-feature"]')).filter(function (el) {
+      return el !== e2eEl;
+    });
+  }
+  // E2E runs the whole flow on its own, so while it is ticked every other option is disabled.
+  function syncE2e() {
+    var on = e2eEl.checked;
+    if (on) {
+      appFeatureBoxes().forEach(function (el) { el.checked = false; });
+      selectAllEl.checked = false;
+      selectAllEl.indeterminate = false;
+    }
+    appFeatureBoxes().concat([selectAllEl]).forEach(function (el) { el.disabled = on; });
+  }
+  e2eEl.addEventListener('change', syncE2e);
+  function syncSelectAll() {
+    var boxes = appFeatureBoxes();
+    var checked = boxes.filter(function (el) { return el.checked; }).length;
+    selectAllEl.checked = boxes.length > 0 && checked === boxes.length;
+    selectAllEl.indeterminate = checked > 0 && checked < boxes.length;
+  }
+  selectAllEl.addEventListener('change', function () {
+    appFeatureBoxes().forEach(function (el) { el.checked = selectAllEl.checked; });
+    selectAllEl.indeterminate = false;
+  });
+  appFeatureBoxes().forEach(function (el) {
+    el.addEventListener('change', syncSelectAll);
+  });
 
   function selectedWorkflows() {
     var name = selectedProduct() === 'app-automate' ? 'app-feature' : 'workflow';
