@@ -101,6 +101,7 @@ class OnboardingPage extends BasePage {
     await this.clickButton(1);
     await this.pressBackAndWaitForChange();
     await this.pressBackAndWaitForChange();
+    await this.pressBackAndWaitForChange();
     await this.clickButton(3);
   }
 

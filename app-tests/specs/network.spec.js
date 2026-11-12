@@ -5,10 +5,9 @@ describe('Network', () => {
   const standalone = new StandalonePage();
 
   it('should show the offline dialog after switching the session to no-network', async () => {
-    const standaloneCard = await standalone.byId('domain_card_standalone');
-    await standaloneCard.waitForDisplayed({
-      timeout: 20000,
-      timeoutMsg: 'Expected the domain selector to load before changing the network profile',
+    const standaloneCard = await standalone.scrollToStandaloneCard();
+    await expect(standaloneCard).toBeDisplayed({
+      message: 'Expected the domain selector to load before changing the network profile',
     });
 
     await setNetworkProfile('no-network');

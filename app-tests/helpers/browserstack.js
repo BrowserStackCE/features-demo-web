@@ -63,7 +63,8 @@ async function injectCameraVideo(fileName, customId) {
 
 async function injectAudio(fileName, customId) {
   const audioUrl = await uploadMedia(fileName, customId);
-  await executor('audioInjection', { audioUrl });
+  // "injectAudio" is the action BrowserStack accepts (the web tests use it too); "audioInjection" is rejected.
+  await executor('injectAudio', { audioUrl });
 }
 
 async function pushFileToDevice(fileName, devicePath) {
