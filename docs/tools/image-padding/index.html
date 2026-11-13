@@ -1,0 +1,869 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>PadFit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: control rail on the left, four inspection views (screen, image, output, check) on the right; stacks on phones. */
+:root {
+  --bg: #f3f5f2; --panel: #ffffff; --fg: #18201b; --muted: #5b665e; --line: #d8ddd7;
+  --accent: #16824a; --accent-ink: #ffffff; --guide: #19c25c; --warn: #b4560e; --warn-bg: #fff1e3; --well: #e7ebe6;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121614; --panel: #1a201c; --fg: #e5ebe6; --muted: #98a59c; --line: #2c352f;
+  --accent: #3fc77a; --accent-ink: #08130c; --guide: #3fe07f; --warn: #f0a35e; --warn-bg: #3a2614; --well: #0d100e; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121614; --panel: #1a201c; --fg: #e5ebe6; --muted: #98a59c; --line: #2c352f;
+  --accent: #3fc77a; --accent-ink: #08130c; --guide: #3fe07f; --warn: #f0a35e; --warn-bg: #3a2614; --well: #0d100e; color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--body) }
+.wrap { max-width: 1440px; margin: 0 auto; padding-inline: 20px; padding-block: 20px 40px; display: grid; gap: 18px }
+header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px }
+h1 { font: 800 28px/1.1 var(--display); letter-spacing: -0.01em; margin: 0 }
+.tag { color: var(--muted); margin: 0; max-width: 70ch }
+.engine { margin-left: auto; font: 500 12px var(--mono); color: var(--muted); display: flex; align-items: center; gap: 8px }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warn) }
+.engine.ready .dot { background: var(--accent) }
+.main { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 18px; align-items: start }
+@media (max-width: 900px) { .main { grid-template-columns: 1fr } }
+.rail { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 18px }
+.group { display: grid; gap: 8px }
+.label { font: 600 11px var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted) }
+.drop { display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: center; border: 1px dashed var(--line); border-radius: 8px; padding: 8px; cursor: pointer; background: var(--bg) }
+.drop:hover, .drop.over, .drop:focus-visible { border-color: var(--accent); outline: none }
+.drop img { width: 52px; height: 52px; object-fit: cover; border-radius: 4px; background: var(--well) }
+.drop b { display: block; font-weight: 600 }
+.drop span { font-size: 12px; color: var(--muted); overflow-wrap: anywhere }
+.chips { display: flex; flex-wrap: wrap; gap: 6px }
+.chip { font: 500 12px var(--body); border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 999px; padding: 4px 10px; cursor: pointer }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent) }
+.chip:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+.row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center }
+button { font: 600 13px var(--body); border-radius: 7px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); padding: 7px 11px; cursor: pointer }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); width: 100% }
+button:disabled { opacity: 0.5; cursor: default }
+input[type=range] { width: 100%; accent-color: var(--accent) }
+.val { font: 500 12px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums }
+.hint { font-size: 12px; color: var(--muted); margin: 0 }
+.views { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px }
+@media (max-width: 1200px) { .views { grid-template-columns: repeat(2, minmax(0, 1fr)) } }
+@media (max-width: 520px) { .views { grid-template-columns: 1fr } }
+figure { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px; display: grid; gap: 8px; min-width: 0; align-content: start }
+figcaption { display: grid; gap: 2px }
+figcaption b { font: 600 13px var(--body) }
+figcaption span { font-size: 12px; color: var(--muted) }
+.well { background: var(--well); border-radius: 6px; display: grid; place-items: center; height: min(62vh, 560px); overflow: hidden; position: relative }
+.well canvas { max-width: 100%; max-height: 100%; display: block; touch-action: none }
+#checkView canvas { cursor: grab }
+#checkView canvas.dragging { cursor: grabbing }
+#imageView canvas { cursor: crosshair }
+.status { display: flex; flex-wrap: wrap; gap: 8px }
+.pill { font: 500 12px var(--mono); border-radius: 999px; padding: 3px 10px; background: var(--panel); border: 1px solid var(--line) }
+.pill.ok { border-color: var(--accent); color: var(--accent) }
+.pill.warn { border-color: var(--warn); color: var(--warn); background: var(--warn-bg) }
+.example { font: 600 11px var(--body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--warn) }
+.msg { font-size: 13px; color: var(--warn); margin: 0; min-height: 1.2em }
+@media (prefers-reduced-motion: no-preference) { .pill, .chip, button { transition: background .15s, border-color .15s } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>PadFit</h1>
+    <p class="tag">Fit an image into an app's camera viewfinder, from one screenshot. The output has the screenshot's size, ready for image injection. Images stay in this browser.</p>
+    <div class="engine" id="engine"><span class="dot"></span><span id="engineText">Loading engine…</span></div>
+  </header>
+
+  <div class="main">
+    <aside class="rail">
+      <div class="group">
+        <div class="label">Inputs</div>
+        <label class="drop" id="dropShot" tabindex="0">
+          <img id="thumbShot" alt="">
+          <div><b>App screenshot</b><span id="nameShot">Camera screen open</span></div>
+          <input type="file" id="fileShot" accept="image/*" hidden>
+        </label>
+        <label class="drop" id="dropImg" tabindex="0">
+          <img id="thumbImg" alt="">
+          <div><b>Image to inject</b><span id="nameImg">Document, face, QR, anything</span></div>
+          <input type="file" id="fileImg" accept="image/*" hidden>
+        </label>
+        <span class="example" id="exampleTag" hidden>Example inputs loaded</span>
+      </div>
+
+      <div class="group">
+        <div class="label">Subject</div>
+        <div class="chips" id="subjects"></div>
+        <div class="row"><span class="hint">Draw on the image view:</span>
+          <button class="chip" type="button" id="modeBox" aria-pressed="true">Box</button>
+          <button class="chip" type="button" id="modeOval" aria-pressed="false">Oval</button>
+          <button class="chip" type="button" id="modeFree" aria-pressed="false">Free shape</button></div>
+      </div>
+
+      <div class="group">
+        <div class="label">Turn</div>
+        <div class="row">
+          <button id="rotL" title="Turn 90° counter-clockwise">↺ 90°</button>
+          <button id="rotR" title="Turn 90° clockwise">↻ 90°</button>
+          <span class="val" id="angleVal">0°</span>
+        </div>
+        <input type="range" id="fine" min="-45" max="45" step="0.5" value="0" aria-label="Fine angle">
+      </div>
+
+      <div class="group">
+        <div class="label">Size</div>
+        <input type="range" id="size" min="10" max="150" step="1" value="92" aria-label="Size, percent of the largest fit">
+        <span class="val" id="sizeVal">92% of largest fit</span>
+        <p class="hint">Drag on the check view to move. Scroll to resize.</p>
+      </div>
+
+      <div class="group">
+        <div class="row"><button id="fit">Fit to viewfinder</button><button id="reset">Reset all</button></div>
+        <button class="primary" id="save" disabled>Save output PNG</button>
+        <p class="msg" id="msg" role="status"></p>
+      </div>
+    </aside>
+
+    <section class="group">
+      <div class="status" id="status"></div>
+      <div class="views">
+        <figure id="shotView"><figcaption><b>1 · Screenshot</b><span>Green line = viewfinder found</span></figcaption><div class="well"><canvas id="cShot"></canvas></div></figure>
+        <figure id="imageView"><figcaption><b>2 · Image to inject</b><span>Green line = subject. Drag to draw. Drag inside your shape to move it, scroll to resize</span></figcaption><div class="well"><canvas id="cImg"></canvas></div></figure>
+        <figure id="outView"><figcaption><b>3 · Output</b><span>Same size as the screenshot. Grey = padding</span></figcaption><div class="well"><canvas id="cOut"></canvas></div></figure>
+        <figure id="checkView"><figcaption><b>4 · Check</b><span>Output over the screenshot. Drag to move</span></figcaption><div class="well"><canvas id="cCheck"></canvas></div></figure>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.17.3/dist/ort.wasm.min.js" integrity="sha384-IIbXcAhgJQi54B2BSFW89jOHuticITcB+QZcTVdOax8V9g6V4t9a3y6VoS0Psk+A" crossorigin="anonymous"></script>
+<script>
+// PadFit core: viewfinder from one screenshot, subject from the image, padded output.
+// Port of scripts/single.py, scripts/subject.py and scripts/padfit.py. Images are RGBA cv.Mat.
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory;
+  else root.PadFitCore = factory;
+})(typeof self !== 'undefined' ? self : this, function (cv, ort, modelBytes, provider = 'wasm') {
+  const keep = [];
+  const M = (m) => (keep.push(m), m);
+  const free = () => { while (keep.length) { const m = keep.pop(); if (m && !m.isDeleted()) m.delete(); } };
+
+  function box(r) { return cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(2 * r + 1, 2 * r + 1)); }
+  function dilate(src, r) {
+    const k = box(r), d = new cv.Mat();
+    cv.dilate(src, d, k, new cv.Point(-1, -1), 1, cv.BORDER_CONSTANT, new cv.Scalar(0));
+    k.delete(); return d;
+  }
+  function erode(src, r) {
+    const k = box(r), d = new cv.Mat();
+    cv.erode(src, d, k, new cv.Point(-1, -1), 1, cv.BORDER_CONSTANT, new cv.Scalar(255));
+    k.delete(); return d;
+  }
+  function not(src) { const d = new cv.Mat(); cv.bitwise_not(src, d); return d; }
+  function meanIn(mask, region) { return cv.countNonZero(region) ? cv.mean(mask, region)[0] / 255 : 0; }
+
+  function shapeKind(fill) {
+    return fill > 0.97 ? 'rectangle' : fill > 0.86 ? 'rounded-rectangle' : fill > 0.74 ? 'oval' : 'free-shape';
+  }
+
+  // ---------- viewfinder from one screenshot ----------
+  function marks(gray) {
+    const med = M(new cv.Mat()), diff = M(new cv.Mat()), m = new cv.Mat();
+    cv.medianBlur(gray, med, 31);
+    cv.absdiff(gray, med, diff);
+    cv.threshold(diff, m, 35, 255, cv.THRESH_BINARY);
+    return m;
+  }
+
+  function ringSupport(region, m, r) {
+    const outer = M(dilate(region, r)), inner = M(erode(region, r)), ring = M(new cv.Mat());
+    cv.subtract(outer, inner, ring);
+    if (!cv.countNonZero(ring)) return 0;
+    const md = M(dilate(m, 2));
+    return meanIn(md, ring);
+  }
+
+  function components(mask, conn) {
+    const lab = new cv.Mat(), st = new cv.Mat(), ce = new cv.Mat();
+    const n = cv.connectedComponentsWithStats(mask, lab, st, ce, conn, cv.CV_32S);
+    const out = [];
+    for (let i = 1; i < n; i++) {
+      out.push({ id: i, x: st.intAt(i, 0), y: st.intAt(i, 1), w: st.intAt(i, 2), h: st.intAt(i, 3), n: st.intAt(i, 4) });
+    }
+    st.delete(); ce.delete();
+    return { lab, comps: out };
+  }
+
+  function brackets3(ui, w) {
+    const { lab, comps } = components(ui, 4);
+    const L = lab.data32S, W = lab.cols;
+    const cand = [];
+    for (const c of comps) {
+      const bw = c.w, bh = c.h;
+      if (Math.min(bw, bh) < 0.04 * w || Math.max(bw, bh) > 0.3 * w || !(bw / bh > 0.5 && bw / bh < 2) || c.n / (bw * bh) > 0.45) continue;
+      const q = [0, 0, 0, 0], hx = Math.floor(bw / 2), hy = Math.floor(bh / 2);
+      for (let y = 0; y < bh; y++) for (let x = 0; x < bw; x++) {
+        if (L[(c.y + y) * W + c.x + x] === c.id) q[(y < hy ? 0 : 2) + (x < hx ? 0 : 1)]++;
+      }
+      const k = q.indexOf(Math.max(...q));
+      const x0 = c.x, y0 = c.y, x1 = c.x + bw - 1, y1 = c.y + bh - 1;
+      cand.push([k, k === 0 ? [x0, y0] : k === 1 ? [x1, y0] : k === 2 ? [x0, y1] : [x1, y1]]);
+    }
+    lab.delete();
+    const tol = 0.03 * w;
+    let best = null;
+    for (let i = 0; i < cand.length; i++) for (let j = i + 1; j < cand.length; j++) {
+      const two = [cand[i], cand[j]];
+      const pick = (ks, f, axis) => { const v = two.filter(([k]) => ks.includes(k)).map(([, p]) => p[axis]); return v.length ? f(...v) : null; };
+      const Lx = pick([0, 2], Math.min, 0), Rx = pick([1, 3], Math.max, 0), Ty = pick([0, 1], Math.min, 1), By = pick([2, 3], Math.max, 1);
+      if ([Lx, Rx, Ty, By].includes(null) || Rx - Lx < 0.2 * w || By - Ty < 0.1 * w) continue;
+      const want = { 0: [Lx, Ty], 1: [Rx, Ty], 2: [Lx, By], 3: [Rx, By] };
+      const hit = new Set(cand.filter(([k, p]) => Math.abs(p[0] - want[k][0]) < tol && Math.abs(p[1] - want[k][1]) < tol).map(([k]) => k));
+      if (hit.size >= 3) {
+        const area = (Rx - Lx) * (By - Ty);
+        if (!best || hit.size > best.hits || (hit.size === best.hits && area > best.area)) best = { r: [Lx, Ty, Rx, By], hits: hit.size, area };
+      }
+    }
+    return best;
+  }
+
+  // returns {result, mask} where mask is a full-resolution 8U viewfinder mask (convex)
+  function viewfinder(rgba) {
+    const step = 2;
+    const full = M(new cv.Mat());
+    cv.cvtColor(rgba, full, cv.COLOR_RGBA2GRAY);
+    const gray = M(new cv.Mat());
+    cv.resize(full, gray, new cv.Size(Math.ceil(full.cols / step), Math.ceil(full.rows / step)), 0, 0, cv.INTER_NEAREST);
+    const h = gray.rows, w = gray.cols;
+    const m = M(marks(gray));
+    const r = Math.max(2, Math.floor(w / 40));
+    const free_ = M(not(M(dilate(m, r))));
+    const { lab, comps } = components(free_, 4);
+    M(lab);
+    const cands = [];
+    for (const c of comps) {
+      if (c.x <= 2 || c.y <= 2 || c.x + c.w >= w - 2 || c.y + c.h >= h - 2) continue;
+      if (Math.min(c.w, c.h) <= 0.12 * w || c.n < 0.01 * w * h) continue;
+      const hole = M(new cv.Mat());
+      const lo = M(new cv.Mat(h, w, cv.CV_32S, new cv.Scalar(c.id))), hi = lo;
+      cv.inRange(lab, lo, hi, hole);
+      const cs = M(new cv.MatVector()), hier = M(new cv.Mat());
+      cv.findContours(hole, cs, hier, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE);
+      const filled = M(cv.Mat.zeros(h, w, cv.CV_8U));
+      cv.drawContours(filled, cs, -1, new cv.Scalar(255), -1);
+      const reg = dilate(filled, r);
+      const cx = (c.x + c.w / 2) / w - 0.5, cy = (c.y + c.h / 2) / h - 0.5;
+      const sup = ringSupport(reg, m, 3);
+      cands.push({ score: cv.countNonZero(reg) * (1 - 0.8 * Math.hypot(cx, cy)) * sup ** 3, reg, sup });
+    }
+    let mode, win, conf = 0;
+    if (cands.length) {
+      cands.sort((a, b) => b.score - a.score);
+      win = cands[0].reg; conf = cands[0].sup; mode = 'enclosed-guide';
+      cands.slice(1).forEach((c) => c.reg.delete());
+    } else {
+      const ui = M(m.clone());
+      ui.roi(new cv.Rect(0, 0, w, Math.floor(0.06 * h))).setTo(new cv.Scalar(0));
+      const bb = brackets3(ui, w);
+      win = cv.Mat.zeros(h, w, cv.CV_8U);
+      if (bb) {
+        const [x0, y0, x1, y1] = bb.r;
+        cv.rectangle(win, new cv.Point(x0, y0), new cv.Point(x1, y1), new cv.Scalar(255), -1);
+        mode = 'corner-brackets'; conf = bb.hits === 4 ? 0.8 : 0.6;
+      } else {
+        win.setTo(new cv.Scalar(255)); mode = 'no-guide-found';
+      }
+    }
+    M(win);
+    const br = cv.boundingRect(win);
+    const fill = cv.countNonZero(win) / (br.width * br.height);
+    const result = { mode, shape: shapeKind(fill), confidence: Math.round(conf * 100) / 100,
+      window_px: [br.x * step, br.y * step, br.width * step, br.height * step] };
+    const up = new cv.Mat();
+    cv.resize(win, up, new cv.Size(full.cols, full.rows), 0, 0, cv.INTER_NEAREST);
+    const cs = M(new cv.MatVector()), hier = M(new cv.Mat());
+    cv.findContours(up, cs, hier, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+    const all = M(new cv.Mat());
+    const pts = [];
+    for (let i = 0; i < cs.size(); i++) { const d = cs.get(i).data32S; for (let k = 0; k < d.length; k++) pts.push(d[k]); }
+    const ptsMat = M(cv.matFromArray(pts.length / 2, 1, cv.CV_32SC2, pts));
+    cv.convexHull(ptsMat, all, false, true);
+    up.setTo(new cv.Scalar(0));
+    const hv = M(new cv.MatVector()); hv.push_back(all);
+    cv.drawContours(up, hv, 0, new cv.Scalar(255), -1);
+    const hull = Array.from(all.data32S);
+    free();
+    return { result, mask: up, hull };
+  }
+
+  // ---------- subject in the image to inject ----------
+  let session = null;
+  async function foregroundMask(rgba) {
+    if (!session) session = await ort.InferenceSession.create(modelBytes, { executionProviders: [provider] });
+    const s = M(new cv.Mat());
+    cv.resize(rgba, s, new cv.Size(320, 320), 0, 0, cv.INTER_LINEAR);
+    const d = s.data, x = new Float32Array(3 * 320 * 320);
+    const mean = [0.485, 0.456, 0.406], std = [0.229, 0.224, 0.225];
+    for (let i = 0; i < 320 * 320; i++) for (let c = 0; c < 3; c++) x[c * 320 * 320 + i] = (d[i * 4 + c] / 255 - mean[c]) / std[c];
+    const feeds = {}; feeds[session.inputNames[0]] = new ort.Tensor('float32', x, [1, 3, 320, 320]);
+    const out = (await session.run(feeds))[session.outputNames[0]].data;
+    let lo = Infinity, hi = -Infinity;
+    for (const v of out) { if (v < lo) lo = v; if (v > hi) hi = v; }
+    const small = M(cv.matFromArray(320, 320, cv.CV_32F, Array.from(out, (v) => (v - lo) / Math.max(1e-6, hi - lo))));
+    const big = M(new cv.Mat()), mask = new cv.Mat();
+    cv.resize(small, big, new cv.Size(rgba.cols, rgba.rows), 0, 0, cv.INTER_LINEAR);
+    cv.threshold(big, big, 0.5, 255, cv.THRESH_BINARY);
+    big.convertTo(mask, cv.CV_8U);
+    free();
+    return mask;
+  }
+
+  // spectral residual saliency (cv.saliency is not in OpenCV.js)
+  function saliencyMask(rgba) {
+    const g = M(new cv.Mat()), s = M(new cv.Mat());
+    cv.cvtColor(rgba, g, cv.COLOR_RGBA2GRAY);
+    cv.resize(g, s, new cv.Size(64, 64), 0, 0, cv.INTER_AREA);
+    const f = M(new cv.Mat()); s.convertTo(f, cv.CV_32F);
+    const planes = M(new cv.MatVector()); planes.push_back(f); planes.push_back(M(cv.Mat.zeros(64, 64, cv.CV_32F)));
+    const cx = M(new cv.Mat()); cv.merge(planes, cx); cv.dft(cx, cx);
+    const sp = M(new cv.MatVector()); cv.split(cx, sp);
+    const re = sp.get(0), im = sp.get(1);
+    const mag = M(new cv.Mat()), ph = M(new cv.Mat()); cv.cartToPolar(re, im, mag, ph);
+    re.delete(); im.delete();
+    const one = M(new cv.Mat(64, 64, cv.CV_32F, new cv.Scalar(1)));
+    const lm = M(new cv.Mat()); cv.add(mag, one, lm); cv.log(lm, lm);
+    const av = M(new cv.Mat()); cv.blur(lm, av, new cv.Size(3, 3));
+    const sr = M(new cv.Mat()); cv.subtract(lm, av, sr); cv.exp(sr, sr);
+    const nr = M(new cv.Mat()), ni = M(new cv.Mat()); cv.polarToCart(sr, ph, nr, ni);
+    const p2 = M(new cv.MatVector()); p2.push_back(nr); p2.push_back(ni);
+    const c2 = M(new cv.Mat()); cv.merge(p2, c2); cv.dft(c2, c2, cv.DFT_INVERSE | cv.DFT_SCALE);
+    const sp2 = M(new cv.MatVector()); cv.split(c2, sp2);
+    const a = sp2.get(0), b = sp2.get(1);
+    const sal = M(new cv.Mat()); cv.magnitude(a, b, sal); a.delete(); b.delete();
+    cv.multiply(sal, sal, sal);
+    cv.GaussianBlur(sal, sal, new cv.Size(0, 0), 2.5);
+    cv.normalize(sal, sal, 0, 255, cv.NORM_MINMAX);
+    const s8 = M(new cv.Mat()); sal.convertTo(s8, cv.CV_8U);
+    const big = M(new cv.Mat()); cv.resize(s8, big, new cv.Size(rgba.cols, rgba.rows), 0, 0, cv.INTER_LINEAR);
+    const t = new cv.Mat(); cv.threshold(big, t, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU);
+    const k = M(cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(25, 25)));
+    cv.morphologyEx(t, t, cv.MORPH_CLOSE, k);
+    free();
+    return t;
+  }
+
+  function boxesOf(mask, kind, minFrac = 0.01) {
+    const W = mask.cols, H = mask.rows;
+    const { lab, comps } = components(mask, 8);
+    lab.delete();
+    return comps.filter((c) => c.n >= minFrac * W * H)
+      .map((c) => ({ kind, x: c.x / W, y: c.y / H, w: c.w / W, h: c.h / H, score: c.n / (W * H) }));
+  }
+
+  function documentBox(rgba) {
+    const H = rgba.rows, W = rgba.cols, k = 800 / Math.max(H, W);
+    const sm = M(new cv.Mat()), g = M(new cv.Mat());
+    cv.resize(rgba, sm, new cv.Size(Math.round(W * k), Math.round(H * k)), 0, 0, cv.INTER_LINEAR);
+    cv.cvtColor(sm, g, cv.COLOR_RGBA2GRAY);
+    cv.GaussianBlur(g, g, new cv.Size(5, 5), 0);
+    const e = M(new cv.Mat()); cv.Canny(g, e, 30, 90);
+    const k3 = M(cv.Mat.ones(3, 3, cv.CV_8U)); cv.dilate(e, e, k3);
+    const cs = M(new cv.MatVector()), hier = M(new cv.Mat());
+    cv.findContours(e, cs, hier, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
+    const size = g.rows * g.cols;
+    let best = null;
+    for (let i = 0; i < cs.size(); i++) {
+      const c = cs.get(i), hull = new cv.Mat();
+      cv.convexHull(c, hull, false, true);
+      const a = cv.contourArea(hull);
+      if (a >= 0.05 * size && a <= 0.98 * size) {
+        const q = new cv.Mat();
+        cv.approxPolyDP(hull, q, 0.02 * cv.arcLength(hull, true), true);
+        if (q.rows === 4) {
+          const fit = cv.contourArea(q) / a;
+          if (!best || a > best.a) best = { a, q: Array.from(q.data32S).map((v) => v / k), fit };
+        }
+        q.delete();
+      }
+      hull.delete(); c.delete();
+    }
+    free();
+    if (!best) return null;
+    const xs = [0, 2, 4, 6].map((i) => best.q[i]), ys = [1, 3, 5, 7].map((i) => best.q[i]);
+    const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+    return { kind: 'document', x: x0 / W, y: y0 / H, w: (x1 - x0) / W, h: (y1 - y0) / H, score: Math.round(best.fit * 1000) / 1000,
+      corners: [0, 1, 2, 3].map((i) => [best.q[2 * i], best.q[2 * i + 1]]) };
+  }
+
+  const weight = (b) => b.w * b.h * (1 - 0.8 * Math.hypot(b.x + b.w / 2 - 0.5, b.y + b.h / 2 - 0.5));
+  function iou(p, q) {
+    const iw = Math.max(0, Math.min(p.x + p.w, q.x + q.w) - Math.max(p.x, q.x));
+    const ih = Math.max(0, Math.min(p.y + p.h, q.y + q.h) - Math.max(p.y, q.y));
+    const i = iw * ih; return i / (p.w * p.h + q.w * q.h - i);
+  }
+
+  async function subject(rgba) {
+    const fm = await foregroundMask(rgba), sm = saliencyMask(rgba);
+    const found = boxesOf(fm, 'foreground').concat(boxesOf(sm, 'saliency'));
+    fm.delete(); sm.delete();
+    const d = documentBox(rgba);
+    const docs = d && d.score > 0.9 ? [d] : [];
+    if (d) found.push(d);
+    const cands = found.filter((b) => b.kind !== 'document').concat(docs);
+    if (!cands.length) return { chosen: null, sure: { sources: 0, confidence: 0, verdict: 'unsure' }, found };
+    let c = cands.reduce((a, b) => (weight(b) > weight(a) ? b : a));
+    for (const dd of docs) {
+      if (dd.x >= c.x - 0.02 && dd.y >= c.y - 0.02 && dd.x + dd.w <= c.x + c.w + 0.02 && dd.y + dd.h <= c.y + c.h + 0.02 && dd.w * dd.h >= 0.6 * c.w * c.h) c = dd;
+    }
+    const hits = [];
+    for (const k of ['foreground', 'saliency', 'document']) {
+      const v = found.filter((b) => b.kind === k && (k !== 'document' || docs.includes(b))).map((b) => iou(b, c));
+      if (v.length) hits.push(Math.max(...v));
+    }
+    const agree = hits.reduce((a, b) => a + b, 0) / hits.length;
+    const sizeOk = c.w * c.h > 0.02 && c.w * c.h < 0.9;
+    const conf = sizeOk && hits.length >= 2 ? agree : 0;
+    return { chosen: c, sure: { sources: hits.length, agreement: Math.round(agree * 100) / 100, size_ok: sizeOk,
+      confidence: Math.round(conf * 100) / 100, verdict: conf >= 0.6 ? 'sure' : 'unsure' }, found };
+  }
+
+  function orderCorners(q) {
+    const s = q.map((p) => p[0] + p[1]), d = q.map((p) => p[1] - p[0]);
+    const idx = (arr, f) => arr.indexOf(f(...arr));
+    return [q[idx(s, Math.min)], q[idx(d, Math.min)], q[idx(s, Math.max)], q[idx(d, Math.max)]];
+  }
+
+  function cropTo(rgba, c, margin = 0.05) {
+    const H = rgba.rows, W = rgba.cols;
+    if (c.kind === 'document') {
+      const [tl, tr, br, bl] = orderCorners(c.corners);
+      const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+      const w = Math.round(Math.max(dist(tr, tl), dist(br, bl))), h = Math.round(Math.max(dist(bl, tl), dist(br, tr)));
+      const src = cv.matFromArray(4, 1, cv.CV_32FC2, [].concat(tl, tr, br, bl));
+      const dst = cv.matFromArray(4, 1, cv.CV_32FC2, [0, 0, w, 0, w, h, 0, h]);
+      const T = cv.getPerspectiveTransform(src, dst), out = new cv.Mat();
+      cv.warpPerspective(rgba, out, T, new cv.Size(w, h), cv.INTER_LINEAR);
+      src.delete(); dst.delete(); T.delete();
+      return out;
+    }
+    const x0 = Math.max(0, Math.floor((c.x - margin * c.w) * W)), y0 = Math.max(0, Math.floor((c.y - margin * c.h) * H));
+    const x1 = Math.min(W, Math.floor((c.x + c.w * (1 + margin)) * W)), y1 = Math.min(H, Math.floor((c.y + c.h * (1 + margin)) * H));
+    return rgba.roi(new cv.Rect(x0, y0, x1 - x0, y1 - y0)).clone();
+  }
+
+  // ---------- placement and output ----------
+  function place(mask, iw, ih, fill) {
+    const sum = new cv.Mat(); cv.integral(mask, sum, cv.CV_64F);
+    const S = sum.data64F, SW = sum.cols, H = mask.rows, W = mask.cols;
+    const rectMean = (x0, y0, x1, y1) => (S[y1 * SW + x1] - S[y0 * SW + x1] - S[y1 * SW + x0] + S[y0 * SW + x0]) / 255 / ((x1 - x0) * (y1 - y0));
+    const m = cv.moments(mask, true);
+    const cx = m.m10 / m.m00, cy = m.m01 / m.m00;
+    let lo = 0, hi = 4 * Math.max(W, H) / Math.max(iw, ih);
+    for (let i = 0; i < 30; i++) {
+      const s = (lo + hi) / 2, w = iw * s, h = ih * s;
+      const x0 = Math.round(cx - w / 2), y0 = Math.round(cy - h / 2), x1 = Math.round(cx + w / 2), y1 = Math.round(cy + h / 2);
+      const inside = x0 >= 0 && y0 >= 0 && x1 <= W && y1 <= H && x1 > x0 && y1 > y0 && rectMean(x0, y0, x1, y1) >= 0.995;
+      if (inside) lo = s; else hi = s;
+    }
+    sum.delete();
+    return { cx, cy, s: lo * fill };
+  }
+
+  // shot, image: RGBA cv.Mat. Returns {output: RGBA cv.Mat (caller deletes), report}
+  async function padfit(shot, image, opts = {}) {
+    const fill = opts.fill ?? 0.92, rotate = opts.rotate ?? 0, cropMode = opts.crop ?? 'auto', pad = opts.pad ?? [128, 128, 128, 255];
+    const vf = viewfinder(shot);
+    let img = image.clone(), subj = null, chosen = null;
+    if (cropMode === 'auto') {
+      const s = await subject(image);
+      subj = { kind: s.chosen && s.chosen.kind, ...s.sure };
+      chosen = s.chosen;
+      if (s.chosen && s.sure.verdict === 'sure') { const c = cropTo(image, s.chosen); img.delete(); img = c; }
+    }
+    const turn = { 90: cv.ROTATE_90_CLOCKWISE, 180: cv.ROTATE_180, 270: cv.ROTATE_90_COUNTERCLOCKWISE };
+    if (turn[rotate] !== undefined) { const t = new cv.Mat(); cv.rotate(img, t, turn[rotate]); img.delete(); img = t; }
+    const { cx, cy, s } = place(vf.mask, img.cols, img.rows, fill);
+    const w = Math.max(1, Math.round(img.cols * s)), h = Math.max(1, Math.round(img.rows * s));
+    const x0 = Math.round(cx - w / 2), y0 = Math.round(cy - h / 2);
+    const out = new cv.Mat(shot.rows, shot.cols, cv.CV_8UC4, new cv.Scalar(...pad));
+    const small = new cv.Mat(); cv.resize(img, small, new cv.Size(w, h), 0, 0, cv.INTER_AREA);
+    small.copyTo(out.roi(new cv.Rect(x0, y0, w, h)));
+    small.delete(); img.delete(); vf.mask.delete();
+    return { output: out, report: { ...vf.result, screenshot_size: [shot.cols, shot.rows], placed_px: [x0, y0, w, h],
+      scale: Math.round(s * 10000) / 10000, subject: subj, subject_box: chosen, rotated_deg: rotate } };
+  }
+
+  return { viewfinder, subject, cropTo, place, padfit, iou };
+});
+
+</script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const PAD = [128, 128, 128];
+  const S = { cv: null, core: null, shot: null, img: null, vf: null, subj: null, cands: [], sel: 0, crop: null,
+    rot90: 0, fine: 0, size: 0.92, cx: 0, cy: 0, base: 1, names: {}, mode: 'box', poly: null };
+
+  const setMsg = (t) => { $('msg').textContent = t || ''; };
+  const engine = (t, ok) => { $('engineText').textContent = t; $('engine').classList.toggle('ready', !!ok); };
+
+  function loadScript(src) {
+    return new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.integrity = 'sha384-XsTfGA62I8LzqS3D7IcgiSOCrJuECWLcg4s1M0AnrkDCcJ8lXX+j+qdg+o6t7KZa'; s.crossOrigin = 'anonymous'; s.onload = res; s.onerror = () => rej(new Error('Could not load ' + src)); document.head.appendChild(s); });
+  }
+
+  async function boot() {
+    try {
+      engine('Loading OpenCV (10 MB)…');
+      await loadScript('https://cdn.jsdelivr.net/npm/@techstark/opencv-js@4.10.0-release.1/dist/opencv.js');
+      let cv = window.cv; if (cv instanceof Promise) cv = await cv;
+      for (let i = 0; !(cv && cv.Mat) && i < 600; i++) { await new Promise((r) => setTimeout(r, 50)); cv = window.cv instanceof Promise ? await window.cv : window.cv; }
+      if (!cv || !cv.Mat) throw new Error('OpenCV did not start');
+      engine('Loading subject model…');
+      ort.env.wasm.numThreads = 1; ort.env.wasm.proxy = false;
+      ort.env.wasm.wasmPaths = new URL('./', location.href).href;
+      const b64 = (await (await fetch('u2netp.onnx.b64.txt')).text()).trim(); const bin = atob(b64); const model = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) model[i] = bin.charCodeAt(i);
+      S.cv = cv; S.core = PadFitCore(cv, ort, model);
+      engine('Ready', true);
+      await loadExample();
+    } catch (e) { engine('Engine failed'); setMsg(e.message + '. Reload the page to try again.'); }
+  }
+
+  // ---------- inputs ----------
+  async function toCanvas(blob, maxSide) {
+    const bmp = await createImageBitmap(blob, { imageOrientation: 'from-image' });
+    const k = maxSide ? Math.min(1, maxSide / Math.max(bmp.width, bmp.height)) : 1;
+    const c = document.createElement('canvas'); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+    c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height); bmp.close && bmp.close();
+    return c;
+  }
+  async function setInput(kind, blob, name, isExample) {
+    let c;
+    try { c = await toCanvas(blob, kind === 'img' ? 2560 : 0); }
+    catch { setMsg('That file is not an image this browser can read. Use PNG or JPEG.'); return; }
+    const url = c.toDataURL('image/jpeg', 0.6);
+    if (kind === 'shot') { S.shot = c; $('thumbShot').src = url; $('nameShot').textContent = name; }
+    else { S.img = c; $('thumbImg').src = url; $('nameImg').textContent = name; }
+    if (!isExample) $('exampleTag').hidden = true;
+    setMsg('');
+    await analyse(kind);
+  }
+  async function loadExample() {
+    const [a, b] = await Promise.all(['example-screen.png', 'example-image.png'].map(async (f) => (await fetch(f)).blob()));
+    $('exampleTag').hidden = false;
+    await setInput('shot', a, 'Example: test app, tint window', true);
+    await setInput('img', b, 'Example: QR on a desk', true);
+  }
+  for (const [k, drop, file] of [['shot', 'dropShot', 'fileShot'], ['img', 'dropImg', 'fileImg']]) {
+    const d = $(drop), f = $(file);
+    f.addEventListener('change', () => f.files[0] && setInput(k, f.files[0], f.files[0].name));
+    d.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); f.click(); } });
+    d.addEventListener('dragover', (e) => { e.preventDefault(); d.classList.add('over'); });
+    d.addEventListener('dragleave', () => d.classList.remove('over'));
+    d.addEventListener('drop', (e) => { e.preventDefault(); d.classList.remove('over'); const x = e.dataTransfer.files[0]; if (x) setInput(k, x, x.name); });
+  }
+
+  // ---------- analysis ----------
+  async function analyse(kind) {
+    if (!S.core) return;
+    const cv = S.cv;
+    try {
+      if ((kind === 'shot' || !S.vf) && S.shot) {
+        if (S.vf) S.vf.mask.delete();
+        const m = cv.imread(S.shot); S.vf = S.core.viewfinder(m); m.delete();
+      }
+      if ((kind === 'img' || !S.subj) && S.img) {
+        engine('Finding subject…');
+        const m = cv.imread(S.img); const s = await S.core.subject(m); m.delete();
+        engine('Ready', true);
+        S.subj = s;
+        const W = S.img.width, H = S.img.height;
+        const seen = []; S.cands = [];
+        const add = (b, label) => { if (seen.some((x) => S.core.iou(x, b) > 0.9)) return; seen.push(b); S.cands.push({ b, label }); };
+        if (s.chosen) add(s.chosen, 'Auto · ' + nice(s.chosen.kind));
+        for (const b of s.found) add(b, nice(b.kind));
+        S.cands.push({ b: { kind: 'whole', x: 0, y: 0, w: 1, h: 1 }, label: 'Whole image' });
+        S.sel = s.chosen && s.sure.verdict === 'sure' ? 0 : S.cands.length - 1;
+        buildChips(); makeCrop();
+        S.rot90 = 0; S.fine = 0; S.size = 0.92; syncControls();
+      }
+      if (S.shot && S.img) autoFit();
+    } catch (e) { engine('Ready', true); setMsg('Analysis failed: ' + e.message); }
+    renderAll();
+  }
+  const nice = (k) => ({ foreground: 'Foreground', saliency: 'Salient area', document: 'Document', manual: 'Your box', lasso: 'Your shape', whole: 'Whole image' }[k] || k);
+
+  function buildChips() {
+    const box = $('subjects'); box.textContent = '';
+    S.cands.forEach((c, i) => {
+      const b = document.createElement('button'); b.className = 'chip'; b.type = 'button'; b.textContent = c.label;
+      b.setAttribute('aria-pressed', String(i === S.sel));
+      b.addEventListener('click', () => { S.sel = i; buildChips(); makeCrop(); autoFit(); renderAll(); });
+      box.appendChild(b);
+    });
+  }
+
+  function makeCrop() {
+    const cv = S.cv, c = S.cands[S.sel].b;
+    S.poly = null;
+    if (c.kind === 'lasso') {
+      const W = S.img.width, H = S.img.height, pts = c.pts.map(([x, y]) => [x * W, y * H]);
+      const x0 = Math.floor(Math.min(...pts.map((p) => p[0]))), y0 = Math.floor(Math.min(...pts.map((p) => p[1])));
+      const x1 = Math.ceil(Math.max(...pts.map((p) => p[0]))), y1 = Math.ceil(Math.max(...pts.map((p) => p[1])));
+      const cnv = document.createElement('canvas'); cnv.width = x1 - x0; cnv.height = y1 - y0;
+      const ctx = cnv.getContext('2d'); S.poly = pts.map(([x, y]) => [x - x0, y - y0]);
+      ctx.beginPath(); S.poly.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.clip();
+      ctx.drawImage(S.img, -x0, -y0); S.crop = cnv; return;
+    }
+    const m = cv.imread(S.img);
+    let out;
+    if (c.kind === 'whole') out = m.clone();
+    else out = S.core.cropTo(m, c, c.kind === 'manual' ? 0 : 0.05);
+    const cnv = document.createElement('canvas'); cv.imshow(cnv, out);
+    m.delete(); out.delete();
+    S.crop = cnv;
+  }
+
+  // ---------- placement ----------
+  const angle = () => S.rot90 * 90 + S.fine;
+  function bbox(w, h, deg) { const a = deg * Math.PI / 180, c = Math.abs(Math.cos(a)), s = Math.abs(Math.sin(a)); return [w * c + h * s, w * s + h * c]; }
+  function autoFit() {
+    if (!S.vf || !S.crop) return;
+    const [bw, bh] = bbox(S.crop.width, S.crop.height, angle());
+    const p = S.core.place(S.vf.mask, bw, bh, 1);
+    S.cx = p.cx; S.cy = p.cy; S.base = p.s;
+    if (S.poly) {
+      const size = S.size; S.size = 1; let lo = p.s, hi = p.s * 4;
+      for (let i = 0; i < 20; i++) { S.base = (lo + hi) / 2; if (insideViewfinder()) lo = S.base; else hi = S.base; }
+      S.base = lo; S.size = size;
+    }
+  }
+  function corners() {
+    const w = S.crop.width * S.base * S.size, h = S.crop.height * S.base * S.size, a = angle() * Math.PI / 180;
+    return [[-w / 2, -h / 2], [w / 2, -h / 2], [w / 2, h / 2], [-w / 2, h / 2]].map(([x, y]) => [S.cx + x * Math.cos(a) - y * Math.sin(a), S.cy + x * Math.sin(a) + y * Math.cos(a)]);
+  }
+  function shapePts() {
+    if (!S.poly) return corners();
+    const k = S.base * S.size, a = angle() * Math.PI / 180, hw = S.crop.width / 2, hh = S.crop.height / 2;
+    return S.poly.map(([px, py]) => { const x = (px - hw) * k, y = (py - hh) * k; return [S.cx + x * Math.cos(a) - y * Math.sin(a), S.cy + x * Math.sin(a) + y * Math.cos(a)]; });
+  }
+  function insideViewfinder() {
+    const m = S.vf.mask, W = m.cols, H = m.rows, d = m.data, pts = shapePts(), n = pts.length, step = n > 4 ? 1 / 4 : 1 / 24;
+    for (let i = 0; i < n; i++) {
+      const [x0, y0] = pts[i], [x1, y1] = pts[(i + 1) % n];
+      for (let t = 0; t <= 1; t += step) {
+        const x = Math.round(x0 + (x1 - x0) * t), y = Math.round(y0 + (y1 - y0) * t);
+        if (x < 0 || y < 0 || x >= W || y >= H || !d[y * W + x]) return false;
+      }
+    }
+    return true;
+  }
+
+  // ---------- rendering ----------
+  function drawSubject(ctx, alpha) {
+    const w = S.crop.width * S.base * S.size, h = S.crop.height * S.base * S.size;
+    ctx.save(); ctx.globalAlpha = alpha; ctx.translate(S.cx, S.cy); ctx.rotate(angle() * Math.PI / 180);
+    ctx.imageSmoothingQuality = 'high'; ctx.drawImage(S.crop, -w / 2, -h / 2, w, h); ctx.restore();
+  }
+  function outline(ctx, lw) {
+    const h = S.vf.hull; if (!h || h.length < 6) return;
+    ctx.save(); ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--guide').trim() || '#19c25c';
+    ctx.lineWidth = lw; ctx.beginPath(); ctx.moveTo(h[0], h[1]);
+    for (let i = 2; i < h.length; i += 2) ctx.lineTo(h[i], h[i + 1]);
+    ctx.closePath(); ctx.stroke(); ctx.restore();
+  }
+  function renderOutput(c) {
+    c.width = S.shot.width; c.height = S.shot.height;
+    const ctx = c.getContext('2d'); ctx.fillStyle = `rgb(${PAD.join(',')})`; ctx.fillRect(0, 0, c.width, c.height);
+    if (S.crop) drawSubject(ctx, 1);
+  }
+  function renderAll() {
+    const lw = (c) => Math.max(3, c.width / 150);
+    const cs = $('cShot'), ci = $('cImg'), co = $('cOut'), cc = $('cCheck');
+    if (S.shot) {
+      cs.width = S.shot.width; cs.height = S.shot.height; const x = cs.getContext('2d'); x.drawImage(S.shot, 0, 0);
+      if (S.vf) outline(x, lw(cs));
+    }
+    if (S.img) {
+      ci.width = S.img.width; ci.height = S.img.height; const x = ci.getContext('2d'); x.drawImage(S.img, 0, 0);
+      const b = S.cands[S.sel] && S.cands[S.sel].b;
+      if (b && b.kind !== 'whole') {
+        x.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--guide').trim(); x.lineWidth = lw(ci);
+        if (b.pts) { x.beginPath(); b.pts.forEach(([px, py], i) => (i ? x.lineTo(px * ci.width, py * ci.height) : x.moveTo(px * ci.width, py * ci.height))); x.closePath(); x.stroke(); }
+        else if (b.corners) { x.beginPath(); b.corners.forEach(([px, py], i) => (i ? x.lineTo(px, py) : x.moveTo(px, py))); x.closePath(); x.stroke(); }
+        else x.strokeRect(b.x * ci.width, b.y * ci.height, b.w * ci.width, b.h * ci.height);
+      }
+      if (drawPath && drawPath.length > 1) { x.setLineDash([lw(ci) * 3, lw(ci) * 2]); x.strokeStyle = '#ffb000'; x.lineWidth = lw(ci); x.beginPath(); drawPath.forEach(([px, py], i) => (i ? x.lineTo(px, py) : x.moveTo(px, py))); x.stroke(); x.setLineDash([]); }
+      if (drawBox) { x.setLineDash([lw(ci) * 3, lw(ci) * 2]); x.strokeStyle = '#ffb000'; x.lineWidth = lw(ci); if (S.mode === 'oval') { x.beginPath(); x.ellipse(drawBox.x + drawBox.w / 2, drawBox.y + drawBox.h / 2, drawBox.w / 2, drawBox.h / 2, 0, 0, 2 * Math.PI); x.stroke(); } else x.strokeRect(drawBox.x, drawBox.y, drawBox.w, drawBox.h); x.setLineDash([]); }
+    }
+    if (S.shot && S.crop && S.vf) {
+      renderOutput(co);
+      cc.width = S.shot.width; cc.height = S.shot.height; const x = cc.getContext('2d');
+      x.drawImage(S.shot, 0, 0); drawSubject(x, 0.85); outline(x, lw(cc));
+      $('save').disabled = false;
+    }
+    status();
+  }
+  function status() {
+    const el = $('status'); el.textContent = '';
+    const pill = (t, cls) => { const s = document.createElement('span'); s.className = 'pill ' + (cls || ''); s.textContent = t; el.appendChild(s); };
+    if (S.vf) {
+      const r = S.vf.result, ok = r.confidence >= 0.6;
+      pill(`viewfinder: ${r.mode} · ${r.shape} · confidence ${r.confidence.toFixed(2)}`, ok ? 'ok' : 'warn');
+      if (!ok) pill('Low confidence: check the green line, or use the two-gradient method', 'warn');
+    }
+    if (S.subj) {
+      const s = S.subj.sure;
+      pill(`subject: ${S.subj.chosen ? nice(S.subj.chosen.kind) : 'none'} · confidence ${(s.confidence || 0).toFixed(2)}`, s.verdict === 'sure' ? 'ok' : 'warn');
+    }
+    if (S.vf && S.crop) {
+      const inside = insideViewfinder();
+      pill(inside ? 'subject inside the viewfinder' : 'subject goes outside the viewfinder', inside ? 'ok' : 'warn');
+      pill(`output ${S.shot.width} × ${S.shot.height}`);
+    }
+  }
+
+  // ---------- controls ----------
+  function syncControls() {
+    $('angleVal').textContent = `${(((angle() % 360) + 360) % 360).toFixed(1).replace(/\.0$/, '')}°`;
+    $('fine').value = S.fine; $('size').value = Math.round(S.size * 100);
+    $('sizeVal').textContent = `${Math.round(S.size * 100)}% of largest fit`;
+  }
+  const refit = () => { autoFit(); syncControls(); renderAll(); };
+  $('rotL').addEventListener('click', () => { S.rot90 = (S.rot90 + 3) % 4; refit(); });
+  $('rotR').addEventListener('click', () => { S.rot90 = (S.rot90 + 1) % 4; refit(); });
+  $('fine').addEventListener('input', (e) => { S.fine = +e.target.value; refit(); });
+  $('size').addEventListener('input', (e) => { S.size = +e.target.value / 100; syncControls(); renderAll(); });
+  $('fit').addEventListener('click', () => { S.size = 0.92; refit(); });
+  $('reset').addEventListener('click', () => {
+    if (!S.subj) return;
+    S.cands = S.cands.filter((c) => c.b.kind !== 'manual' && c.b.kind !== 'lasso');
+    S.sel = S.subj.chosen && S.subj.sure.verdict === 'sure' ? 0 : S.cands.length - 1;
+    S.rot90 = 0; S.fine = 0; S.size = 0.92; buildChips(); makeCrop(); refit();
+  });
+
+  const toCanvasXY = (c, e) => { const r = c.getBoundingClientRect(); return [(e.clientX - r.left) * c.width / r.width, (e.clientY - r.top) * c.height / r.height]; };
+
+  // move + resize on the check view
+  let drag = null;
+  const cc = $('cCheck');
+  cc.addEventListener('pointerdown', (e) => { if (!S.crop) return; const [x, y] = toCanvasXY(cc, e); drag = { x, y, cx: S.cx, cy: S.cy }; cc.setPointerCapture(e.pointerId); cc.classList.add('dragging'); });
+  cc.addEventListener('pointermove', (e) => { if (!drag) return; const [x, y] = toCanvasXY(cc, e); S.cx = drag.cx + x - drag.x; S.cy = drag.cy + y - drag.y; requestAnimationFrame(renderAll); });
+  const endDrag = () => { drag = null; cc.classList.remove('dragging'); };
+  cc.addEventListener('pointerup', endDrag); cc.addEventListener('pointercancel', endDrag);
+  cc.addEventListener('wheel', (e) => { if (!S.crop) return; e.preventDefault(); S.size = Math.min(1.5, Math.max(0.1, S.size * (e.deltaY < 0 ? 1.04 : 1 / 1.04))); syncControls(); renderAll(); }, { passive: false });
+
+  // move or resize the drawn subject on the image view
+  const ci = $('cImg');
+  const selPts = (b) => b.pts || [[b.x, b.y], [b.x + b.w, b.y], [b.x + b.w, b.y + b.h], [b.x, b.y + b.h]];
+  const editable = () => { const b = S.cands[S.sel] && S.cands[S.sel].b; return b && (b.kind === 'manual' || b.kind === 'lasso') ? b : null; };
+  function hit(b, nx, ny) {
+    const p = selPts(b); let inside = false;
+    for (let i = 0, j = p.length - 1; i < p.length; j = i++) {
+      const [xi, yi] = p[i], [xj, yj] = p[j];
+      if ((yi > ny) !== (yj > ny) && nx < (xj - xi) * (ny - yi) / (yj - yi) + xi) inside = !inside;
+    }
+    return inside;
+  }
+  function setSel(b) {
+    const c = S.cands[S.sel];
+    c.b = b.pts ? { kind: 'lasso', pts: b.pts } : { kind: 'manual', x: b.x, y: b.y, w: b.w, h: b.h };
+  }
+  function shifted(b, dx, dy) {
+    const p = selPts(b), xs = p.map((q) => q[0]), ys = p.map((q) => q[1]);
+    dx = Math.min(1 - Math.max(...xs), Math.max(-Math.min(...xs), dx)); dy = Math.min(1 - Math.max(...ys), Math.max(-Math.min(...ys), dy));
+    return b.pts ? { pts: b.pts.map(([x, y]) => [x + dx, y + dy]) } : { x: b.x + dx, y: b.y + dy, w: b.w, h: b.h };
+  }
+  function scaled(b, k) {
+    const p = selPts(b), xs = p.map((q) => q[0]), ys = p.map((q) => q[1]);
+    const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+    const f = ([x, y]) => [Math.min(1, Math.max(0, cx + (x - cx) * k)), Math.min(1, Math.max(0, cy + (y - cy) * k))];
+    if (b.pts) return { pts: b.pts.map(f) };
+    const [x0, y0] = f([b.x, b.y]), [x1, y1] = f([b.x + b.w, b.y + b.h]); return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+  }
+  let moveSel = null, selTimer = null;
+  const nxy = (e) => { const [x, y] = toCanvasXY(ci, e); return [x / ci.width, y / ci.height]; };
+  const commitSel = () => { makeCrop(); refit(); };
+  ci.addEventListener('pointerdown', (e) => {
+    const b = editable(); if (!b) return; const [nx, ny] = nxy(e);
+    if (!hit(b, nx, ny)) return;
+    e.stopImmediatePropagation(); moveSel = { start: [nx, ny], orig: JSON.parse(JSON.stringify(b)) }; ci.setPointerCapture(e.pointerId);
+  });
+  ci.addEventListener('pointermove', (e) => {
+    const [nx, ny] = nxy(e);
+    if (!moveSel) { const b = editable(); ci.style.cursor = b && hit(b, nx, ny) ? 'move' : 'crosshair'; return; }
+    e.stopImmediatePropagation();
+    setSel(shifted(moveSel.orig, nx - moveSel.start[0], ny - moveSel.start[1])); requestAnimationFrame(renderAll);
+  });
+  ci.addEventListener('pointerup', (e) => { if (!moveSel) return; e.stopImmediatePropagation(); moveSel = null; commitSel(); });
+  ci.addEventListener('wheel', (e) => {
+    const b = editable(); if (!b || !hit(b, ...nxy(e))) return;
+    e.preventDefault(); setSel(scaled(b, e.deltaY < 0 ? 1.04 : 1 / 1.04)); renderAll();
+    clearTimeout(selTimer); selTimer = setTimeout(commitSel, 150);
+  }, { passive: false });
+
+  // draw a subject box or free shape on the image view
+  let drawBox = null, drawStart = null, drawPath = null;
+  const setMode = (m) => { S.mode = m; $('modeBox').setAttribute('aria-pressed', String(m === 'box')); $('modeOval').setAttribute('aria-pressed', String(m === 'oval')); $('modeFree').setAttribute('aria-pressed', String(m === 'free')); };
+  $('modeOval').addEventListener('click', () => setMode('oval'));
+  $('modeBox').addEventListener('click', () => setMode('box'));
+  $('modeFree').addEventListener('click', () => setMode('free'));
+  ci.addEventListener('pointerdown', (e) => {
+    if (!S.img || S.mode !== 'free') return;
+    drawPath = [toCanvasXY(ci, e)]; ci.setPointerCapture(e.pointerId);
+  });
+  ci.addEventListener('pointermove', (e) => {
+    if (!drawPath) return; const p = toCanvasXY(ci, e), q = drawPath[drawPath.length - 1];
+    if (Math.hypot(p[0] - q[0], p[1] - q[1]) < ci.width / 300) return;
+    drawPath.push(p); requestAnimationFrame(renderAll);
+  });
+  ci.addEventListener('pointerup', () => {
+    if (!drawPath) return; const path = drawPath; drawPath = null;
+    const W = S.img.width, H = S.img.height;
+    const pts = path.map(([x, y]) => [Math.min(W, Math.max(0, x)) / W, Math.min(H, Math.max(0, y)) / H]);
+    const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+    if (pts.length < 6 || (Math.max(...xs) - Math.min(...xs)) * W < 12 || (Math.max(...ys) - Math.min(...ys)) * H < 12) { renderAll(); return; }
+    S.cands = S.cands.filter((c) => c.b.kind !== 'manual' && c.b.kind !== 'lasso');
+    S.cands.push({ b: { kind: 'lasso', pts }, label: 'Your shape' }); S.sel = S.cands.length - 1;
+    buildChips(); makeCrop(); refit();
+  });
+  ci.addEventListener('pointerdown', (e) => { if (!S.img || S.mode === 'free') return; drawStart = toCanvasXY(ci, e); drawBox = { x: drawStart[0], y: drawStart[1], w: 0, h: 0 }; ci.setPointerCapture(e.pointerId); });
+  ci.addEventListener('pointermove', (e) => {
+    if (!drawStart) return; const [x, y] = toCanvasXY(ci, e);
+    drawBox = { x: Math.min(x, drawStart[0]), y: Math.min(y, drawStart[1]), w: Math.abs(x - drawStart[0]), h: Math.abs(y - drawStart[1]) };
+    requestAnimationFrame(renderAll);
+  });
+  ci.addEventListener('pointerup', () => {
+    if (!drawStart) return; const b = drawBox; drawStart = null; drawBox = null;
+    if (!b || b.w < 12 || b.h < 12) { renderAll(); return; }
+    const W = S.img.width, H = S.img.height;
+    const x = Math.max(0, b.x), y = Math.max(0, b.y);
+    if (S.mode === 'oval') {
+      const pts = []; for (let i = 0; i < 64; i++) { const t = i / 64 * 2 * Math.PI; pts.push([Math.min(W, Math.max(0, b.x + b.w / 2 + b.w / 2 * Math.cos(t))) / W, Math.min(H, Math.max(0, b.y + b.h / 2 + b.h / 2 * Math.sin(t))) / H]); }
+      S.cands = S.cands.filter((c) => c.b.kind !== 'manual' && c.b.kind !== 'lasso');
+      S.cands.push({ b: { kind: 'lasso', pts }, label: 'Your oval' }); S.sel = S.cands.length - 1;
+      buildChips(); makeCrop(); refit(); return;
+    }
+    const man = { kind: 'manual', x: x / W, y: y / H, w: Math.min(W - x, b.w) / W, h: Math.min(H - y, b.h) / H };
+    S.cands = S.cands.filter((c) => c.b.kind !== 'manual' && c.b.kind !== 'lasso');
+    S.cands.push({ b: man, label: 'Your box' }); S.sel = S.cands.length - 1;
+    buildChips(); makeCrop(); refit();
+  });
+
+  // save
+  $('save').addEventListener('click', async () => {
+    const c = document.createElement('canvas'); renderOutput(c);
+    const blob = await new Promise((r) => c.toBlob(r, 'image/png'));
+    const base = (S.img && $('nameImg').textContent.replace(/^Example: /, '').replace(/\.[a-z0-9]+$/i, '').replace(/[^\w-]+/g, '_')) || 'image';
+    const dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null;
+    if (!dl) { setMsg('Saving is not available here. Right-click the output view and choose "Save image as".'); return; }
+    try { await dl.save({ filename: `padfit_${base}_${c.width}x${c.height}.png`, data: blob }); setMsg('Saved.'); }
+    catch (e) { setMsg(e && e.code === 'declined' ? '' : 'Save failed: ' + (e && e.message || e)); }
+  });
+
+  syncControls();
+  boot();
+})();
+</script>
+
+</body></html>
