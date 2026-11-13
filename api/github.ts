@@ -17,10 +17,30 @@ export const WORKFLOW_FILES: Record<string, string> = {
   accessibility: "test-accessibility.yml",
 };
 
+// One workflow per App Automate Android feature (android-<feature>.yml).
+export const APP_ANDROID_WORKFLOW_FILES: Record<string, string> = {
+  "image-injection": "android-image-injection.yml",
+  biometric: "android-biometric.yml",
+  "video-injection": "android-video-injection.yml",
+  "file-upload-download": "android-file-upload-download.yml",
+  "audio-injection": "android-audio-injection.yml",
+  network: "android-network.yml",
+  gps: "android-gps.yml",
+  otp: "android-otp.yml",
+  // Full BFSI onboarding flow end to end (specs/full-flow.spec.js).
+  e2e: "android-e2e.yml",
+};
+
+export const APP_ANDROID_FEATURES = Object.keys(APP_ANDROID_WORKFLOW_FILES);
+
+// What "run everything" dispatches when no feature is selected: the individual features, not the e2e flow.
+export const APP_ANDROID_DEFAULT_FEATURES = APP_ANDROID_FEATURES.filter((f) => f !== "e2e");
+
 export type DispatchInputs = {
   username: string;
   accessKey: string;
   localTesting?: boolean;
+  features?: string;
 };
 
 export type DispatchResult = {
@@ -76,7 +96,14 @@ export async function dispatchWorkflow(
   if (!file) {
     throw new Error(`Unknown workflow: ${alias}`);
   }
+  return dispatchWorkflowFile(file, inputs, ref);
+}
 
+export async function dispatchWorkflowFile(
+  file: string,
+  inputs: DispatchInputs,
+  ref = "main"
+): Promise<DispatchResult> {
   const { token, owner, repo } = getConfig();
   const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${file}/dispatches`;
 
@@ -90,6 +117,7 @@ export async function dispatchWorkflow(
         username: inputs.username,
         accessKey: inputs.accessKey,
         localTesting: String(inputs.localTesting ?? false),
+        ...(inputs.features !== undefined ? { features: inputs.features } : {}),
       },
     }),
   });
