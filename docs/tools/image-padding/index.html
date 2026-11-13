@@ -1,48 +1,59 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="en"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>PadFit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: control rail on the left, four inspection views (screen, image, output, check) on the right; stacks on phones. */
 :root {
-  --bg: #f3f5f2; --panel: #ffffff; --fg: #18201b; --muted: #5b665e; --line: #d8ddd7;
-  --accent: #16824a; --accent-ink: #ffffff; --guide: #19c25c; --warn: #b4560e; --warn-bg: #fff1e3; --well: #e7ebe6;
-  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  /* Matches the demo site theme: Inter, gray-50 page, white cards, violet-600 accent */
+  --bg: #f9fafb; --panel: #ffffff; --fg: #111827; --muted: #6b7280; --line: #e5e7eb;
+  --accent: #7c3aed; --accent-hover: #6d28d9; --accent-soft: #f5f3ff; --accent-ink: #ffffff; --guide: #19c25c; --warn: #b45309; --warn-bg: #fffbeb; --well: #f3f4f6;
+  --display: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #121614; --panel: #1a201c; --fg: #e5ebe6; --muted: #98a59c; --line: #2c352f;
-  --accent: #3fc77a; --accent-ink: #08130c; --guide: #3fe07f; --warn: #f0a35e; --warn-bg: #3a2614; --well: #0d100e; color-scheme: dark } }
+  --bg: #111827; --panel: #1f2937; --fg: #f3f4f6; --muted: #9ca3af; --line: #374151;
+  --accent: #a78bfa; --accent-hover: #c4b5fd; --accent-soft: #2e2150; --accent-ink: #1e1b4b; --guide: #3fe07f; --warn: #fbbf24; --warn-bg: #3a2e10; --well: #0b1220; color-scheme: dark } }
 :root[data-theme="dark"] {
-  --bg: #121614; --panel: #1a201c; --fg: #e5ebe6; --muted: #98a59c; --line: #2c352f;
-  --accent: #3fc77a; --accent-ink: #08130c; --guide: #3fe07f; --warn: #f0a35e; --warn-bg: #3a2614; --well: #0d100e; color-scheme: dark }
+  --bg: #111827; --panel: #1f2937; --fg: #f3f4f6; --muted: #9ca3af; --line: #374151;
+  --accent: #a78bfa; --accent-hover: #c4b5fd; --accent-soft: #2e2150; --accent-ink: #1e1b4b; --guide: #3fe07f; --warn: #fbbf24; --warn-bg: #3a2e10; --well: #0b1220; color-scheme: dark }
 * { box-sizing: border-box }
-body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--body) }
-.wrap { max-width: 1440px; margin: 0 auto; padding-inline: 20px; padding-block: 20px 40px; display: grid; gap: 18px }
-header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px }
-h1 { font: 800 28px/1.1 var(--display); letter-spacing: -0.01em; margin: 0 }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--body); -webkit-font-smoothing: antialiased }
+.topnav { background: var(--panel); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50 }
+.topnav div { max-width: 1480px; margin: 0 auto; padding: 0 40px; height: 64px; display: flex; align-items: center; gap: 12px; font-size: 14px }
+.topnav a { color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 4px }
+.topnav a:hover { color: var(--fg) }
+.topnav .sep { color: var(--line) }
+.topnav b { font-weight: 600 }
+.topnav img { width: 24px; height: 24px; display: block }
+.wrap { max-width: 1440px; margin: 0 auto; padding-inline: 20px; padding-block: 32px 40px; display: grid; gap: 18px }
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px }
+h1 { font: 700 24px/1.2 var(--display); margin: 0 }
 .tag { color: var(--muted); margin: 0; max-width: 70ch }
 .engine { margin-left: auto; font: 500 12px var(--mono); color: var(--muted); display: flex; align-items: center; gap: 8px }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warn) }
 .engine.ready .dot { background: var(--accent) }
 .main { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 18px; align-items: start }
 @media (max-width: 900px) { .main { grid-template-columns: 1fr } }
-.rail { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 18px }
+.rail { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px; display: grid; gap: 18px }
 .group { display: grid; gap: 8px }
 .label { font: 600 11px var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted) }
-.drop { display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: center; border: 1px dashed var(--line); border-radius: 8px; padding: 8px; cursor: pointer; background: var(--bg) }
+.drop { display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: center; border: 2px dashed var(--line); border-radius: 12px; padding: 8px; cursor: pointer; background: var(--bg) }
 .drop:hover, .drop.over, .drop:focus-visible { border-color: var(--accent); outline: none }
 .drop img { width: 52px; height: 52px; object-fit: cover; border-radius: 4px; background: var(--well) }
 .drop b { display: block; font-weight: 600 }
 .drop span { font-size: 12px; color: var(--muted); overflow-wrap: anywhere }
 .chips { display: flex; flex-wrap: wrap; gap: 6px }
 .chip { font: 500 12px var(--body); border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 999px; padding: 4px 10px; cursor: pointer }
+.chip:hover { border-color: var(--accent) }
 .chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent) }
 .chip:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
 .row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center }
-button { font: 600 13px var(--body); border-radius: 7px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); padding: 7px 11px; cursor: pointer }
-button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); width: 100% }
+button { font: 600 13px var(--body); border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); padding: 8px 12px; cursor: pointer }
+button:hover:not(:disabled) { background: var(--well) }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); width: 100%; padding: 10px 12px }
+button.primary:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover) }
 button:disabled { opacity: 0.5; cursor: default }
 input[type=range] { width: 100%; accent-color: var(--accent) }
 .val { font: 500 12px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums }
@@ -50,11 +61,11 @@ input[type=range] { width: 100%; accent-color: var(--accent) }
 .views { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px }
 @media (max-width: 1200px) { .views { grid-template-columns: repeat(2, minmax(0, 1fr)) } }
 @media (max-width: 520px) { .views { grid-template-columns: 1fr } }
-figure { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px; display: grid; gap: 8px; min-width: 0; align-content: start }
+figure { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 12px; display: grid; gap: 8px; min-width: 0; align-content: start }
 figcaption { display: grid; gap: 2px }
 figcaption b { font: 600 13px var(--body) }
 figcaption span { font-size: 12px; color: var(--muted) }
-.well { background: var(--well); border-radius: 6px; display: grid; place-items: center; height: min(62vh, 560px); overflow: hidden; position: relative }
+.well { background: var(--well); border-radius: 12px; display: grid; place-items: center; height: min(62vh, 560px); overflow: hidden; position: relative }
 .well canvas { max-width: 100%; max-height: 100%; display: block; touch-action: none }
 #checkView canvas { cursor: grab }
 #checkView canvas.dragging { cursor: grabbing }
@@ -68,12 +79,20 @@ figcaption span { font-size: 12px; color: var(--muted) }
 @media (prefers-reduced-motion: no-preference) { .pill, .chip, button { transition: background .15s, border-color .15s } }
 </style>
 
+<nav class="topnav">
+  <div>
+    <img src="../../assets/bstack_logo.svg" alt="BrowserStack logo">
+    <a href="../../index.html"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>All demos</a>
+    <span class="sep">|</span>
+    <b>PadFit · Image Padding</b>
+  </div>
+</nav>
 <div class="wrap">
-  <header>
+  <!-- <header>
     <h1>PadFit</h1>
     <p class="tag">Fit an image into an app's camera viewfinder, from one screenshot. The output has the screenshot's size, ready for image injection. Images stay in this browser.</p>
     <div class="engine" id="engine"><span class="dot"></span><span id="engineText">Loading engine…</span></div>
-  </header>
+  </header> -->
 
   <div class="main">
     <aside class="rail">
@@ -108,12 +127,12 @@ figcaption span { font-size: 12px; color: var(--muted) }
           <button id="rotR" title="Turn 90° clockwise">↻ 90°</button>
           <span class="val" id="angleVal">0°</span>
         </div>
-        <input type="range" id="fine" min="-45" max="45" step="0.5" value="0" aria-label="Fine angle">
+        <input type="range" id="fine" min="-45" max="45" step="0.5" value="0" autocomplete="off" aria-label="Fine angle">
       </div>
 
       <div class="group">
         <div class="label">Size</div>
-        <input type="range" id="size" min="10" max="150" step="1" value="92" aria-label="Size, percent of the largest fit">
+        <input type="range" id="size" min="10" max="150" step="1" value="92" autocomplete="off" aria-label="Size, percent of the largest fit">
         <span class="val" id="sizeVal">92% of largest fit</span>
         <p class="hint">Drag on the check view to move. Scroll to resize.</p>
       </div>
@@ -855,10 +874,15 @@ figcaption span { font-size: 12px; color: var(--muted) }
     const c = document.createElement('canvas'); renderOutput(c);
     const blob = await new Promise((r) => c.toBlob(r, 'image/png'));
     const base = (S.img && $('nameImg').textContent.replace(/^Example: /, '').replace(/\.[a-z0-9]+$/i, '').replace(/[^\w-]+/g, '_')) || 'image';
-    const dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null;
-    if (!dl) { setMsg('Saving is not available here. Right-click the output view and choose "Save image as".'); return; }
-    try { await dl.save({ filename: `padfit_${base}_${c.width}x${c.height}.png`, data: blob }); setMsg('Saved.'); }
-    catch (e) { setMsg(e && e.code === 'declined' ? '' : 'Save failed: ' + (e && e.message || e)); }
+    if (!blob) { setMsg('Save failed: could not create the PNG.'); return; }
+    const filename = `padfit_${base}_${c.width}x${c.height}.png`;
+    try {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = filename; a.style.display = 'none';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+      setMsg('Saved ' + filename);
+    } catch (e) { setMsg('Save failed: ' + (e && e.message || e)); }
   });
 
   syncControls();

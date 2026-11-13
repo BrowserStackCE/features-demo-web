@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BrowserStack Automate — Feature Demos</title>
+  <title>BrowserStack — Feature Demos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -28,10 +28,8 @@
   <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        </div>
-        <span class="font-semibold text-gray-900">BrowserStack Automate</span>
+        <img src="assets/bstack_logo.svg" alt="BrowserStack logo" class="w-8 h-8" />
+        <span class="font-semibold text-gray-900">BrowserStack</span>
         <span class="text-gray-300">|</span>
         <span class="text-sm text-gray-500">Feature Demos</span>
       </div>
@@ -50,7 +48,7 @@
         Static HTML · 13 Live Demos
       </span>
       <h1 class="text-5xl font-extrabold text-gray-900 tracking-tight mb-4">
-        BrowserStack Automate<br/>
+        BrowserStack<br/>
         <span class="text-brand-600">Feature Showcase</span>
       </h1>
       <p class="text-xl text-gray-500 max-w-2xl mx-auto mb-10">
@@ -246,10 +244,37 @@
     </div>
   </section>
 
+  <!-- Tools -->
+  <section id="tools" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <div class="mb-10">
+      <h2 class="text-2xl font-bold text-gray-900">Tools</h2>
+      <p class="text-gray-500 mt-1">Utilities to help prepare assets for your BrowserStack tests.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- PadFit -->
+      <a href="tools/image-padding/index.html" class="feature-card bg-white rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 hover:border-brand-300 cursor-pointer no-underline">
+        <div class="w-12 h-12 bg-brand-600 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2m8-16h2a2 2 0 012 2v2m-4 12h2a2 2 0 002-2v-2M9 9h6v6H9z"/></svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <h3 class="font-semibold text-gray-900">PadFit — Image Padding</h3>
+            <span class="text-xs bg-brand-50 text-brand-700 border border-brand-200 px-2 py-0.5 rounded-full">Tool</span>
+          </div>
+          <p class="text-sm text-gray-500">Fit an image into an app's camera viewfinder from one screenshot, ready for camera image injection.</p>
+        </div>
+        <span class="mt-auto text-sm font-medium text-brand-600 flex items-center gap-1">Open tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+      </a>
+
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="border-t border-gray-200 bg-white mt-8">
     <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p class="text-sm text-gray-500">BrowserStack Automate Feature Demos — Static HTML showcase</p>
+      <p class="text-sm text-gray-500">BrowserStack Feature Demos — Static HTML showcase</p>
       <a href="https://www.browserstack.com/automate" target="_blank" class="text-sm font-medium text-brand-600 hover:text-brand-700">browserstack.com/automate →</a>
     </div>
   </footer>
