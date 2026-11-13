@@ -121,9 +121,29 @@ The trigger API accepts `product: "app-automate"`, `platform: "android"` and a `
 
 ```bash
 cd app-tests
-cp .env.example .env   # fill in the BrowserStack credentials and BROWSERSTACK_APP_URL (bs://...)
 npm ci
-FEATURES=gps,network npm test   # a comma-separated list; leave empty to run the E2E flow
+npm run test:gps   # one feature, see the table below
 ```
+
+Before running, provide the BrowserStack credentials and the app id (`bs://...` of the uploaded APK) in one of two ways:
+
+- **Create `app-tests/.env`** (git-ignored; start from `cp .env.example .env`) with `BROWSERSTACK_USERNAME`, `BROWSERSTACK_ACCESS_KEY` and `BROWSERSTACK_APP_URL`.
+- **Or update the config directly** (`user`, `key` and the `app` option of the `browserstack` service): `app-tests/config/base.conf.js` for the `npm run test:<feature>` commands, `app-tests/wdio.conf.js` for `npm test`. Don't commit real credentials.
+
+Each feature has its own WebdriverIO config in `app-tests/config/` (`<feature>.conf.js`), built on the shared `base.conf.js` (device, capabilities, BrowserStack service). A config only sets its own spec, session name and build name.
+
+| Script | Config | Feature |
+|--------|--------|---------|
+| `npm run test:full-flow` | `config/full-flow.conf.js` | E2E flow (full BFSI onboarding) |
+| `npm run test:image-injection` | `config/image-injection.conf.js` | Camera image injection |
+| `npm run test:video-injection` | `config/video-injection.conf.js` | Camera video injection |
+| `npm run test:audio-injection` | `config/audio-injection.conf.js` | Audio injection |
+| `npm run test:biometric` | `config/biometric.conf.js` | Biometric |
+| `npm run test:file-upload-download` | `config/file-upload-download.conf.js` | File upload and download |
+| `npm run test:network` | `config/network.conf.js` | Network throttling |
+| `npm run test:gps` | `config/gps.conf.js` | GPS location |
+| `npm run test:otp` | `config/otp.conf.js` | OTP |
+
+`npm test` still uses `wdio.conf.js` (used by CI): `FEATURES=gps,network npm test` runs a comma-separated list, and an empty `FEATURES` runs the E2E flow.
 
 The optional test data (`REGISTER_*`, `PHONE_NUMBER`, `OTP_VALUE`) can be supplied through the GitHub secrets `APP_REGISTER_NAME`, `APP_REGISTER_EMAIL`, `APP_REGISTER_PASSWORD`, `APP_PHONE_NUMBER` and `APP_OTP_VALUE` in CI.

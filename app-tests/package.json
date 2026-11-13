@@ -4,7 +4,16 @@
   "description": "WebdriverIO + BrowserStack App Automate (Android) feature demos",
   "scripts": {
     "test": "wdio run wdio.conf.js",
-    "test:android": "wdio run wdio.conf.js"
+    "test:android": "wdio run wdio.conf.js",
+    "test:full-flow": "wdio run config/full-flow.conf.js",
+    "test:gps": "wdio run config/gps.conf.js",
+    "test:network": "wdio run config/network.conf.js",
+    "test:otp": "wdio run config/otp.conf.js",
+    "test:biometric": "wdio run config/biometric.conf.js",
+    "test:audio-injection": "wdio run config/audio-injection.conf.js",
+    "test:image-injection": "wdio run config/image-injection.conf.js",
+    "test:video-injection": "wdio run config/video-injection.conf.js",
+    "test:file-upload-download": "wdio run config/file-upload-download.conf.js"
   },
   "devDependencies": {
     "@wdio/browserstack-service": "^9.0.0",

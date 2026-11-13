@@ -15,6 +15,7 @@ browserstack.err
 local.log
 .cursor
 app-tests/node_modules/
+app-tests/.env.example
 app-tests/.env
 app-tests/log
 app-tests/logs
