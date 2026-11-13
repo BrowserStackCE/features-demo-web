@@ -13,6 +13,8 @@ export const WORKFLOW_FILES: Record<string, string> = {
   timezone: "test-timezone.yml",
   iframe: "test-iframe.yml",
   permissions: "test-permissions.yml",
+  "visual-regression": "test-visual-regression.yml",
+  accessibility: "test-accessibility.yml",
 };
 
 export type DispatchInputs = {
