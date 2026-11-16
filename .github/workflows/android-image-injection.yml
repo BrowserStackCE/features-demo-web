@@ -1,0 +1,89 @@
+# Android - Image Injection
+name: App Automate - Android - Image Injection
+
+on:
+  workflow_dispatch:
+    inputs:
+      username:
+        description: BrowserStack username
+        required: true
+      accessKey:
+        description: BrowserStack access key
+        required: true
+      localTesting:
+        description: Use BrowserStack Local
+        required: false
+        default: "false"
+
+jobs:
+  android-image-injection:
+    runs-on: ubuntu-latest
+    env:
+      BROWSERSTACK_USERNAME: ${{ inputs.username }}
+      BROWSERSTACK_ACCESS_KEY: ${{ inputs.accessKey }}
+      BROWSERSTACK_LOCAL: ${{ inputs.localTesting }}
+      FEATURES: image-injection
+      REGISTER_NAME: ${{ secrets.APP_REGISTER_NAME }}
+      REGISTER_EMAIL: ${{ secrets.APP_REGISTER_EMAIL }}
+      REGISTER_PASSWORD: ${{ secrets.APP_REGISTER_PASSWORD }}
+      PHONE_NUMBER: ${{ secrets.APP_PHONE_NUMBER }}
+      OTP_VALUE: ${{ secrets.APP_OTP_VALUE }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Mask credentials
+        shell: bash
+        run: |
+          echo "::add-mask::${BROWSERSTACK_USERNAME}"
+          echo "::add-mask::${BROWSERSTACK_ACCESS_KEY}"
+
+      - name: Verify APK
+        shell: bash
+        run: |
+          set +x
+          APK_PATH="${{ github.workspace }}/docs/assets/NexusDemo-v2.9.10.apk"
+          if [ ! -f "$APK_PATH" ]; then
+            echo "APK not found:"
+            echo "$APK_PATH"
+            exit 1
+          fi
+          echo "APK verified successfully."
+
+      - name: Upload APK to BrowserStack
+        id: upload
+        shell: bash
+        run: |
+          set +x
+          APK_PATH="${{ github.workspace }}/docs/assets/NexusDemo-v2.9.10.apk"
+          RESPONSE=$(
+            curl -sS \
+              --user "${BROWSERSTACK_USERNAME}:${BROWSERSTACK_ACCESS_KEY}" \
+              --request POST \
+              "https://api-cloud.browserstack.com/app-automate/upload" \
+              --form "file=@${APK_PATH}" \
+              --form "custom_id=SampleApp"
+          )
+          APP_URL=$(printf '%s' "$RESPONSE" | jq -r '.app_url // empty')
+          if [ -z "$APP_URL" ]; then
+            echo "BrowserStack APK upload failed."
+            exit 1
+          fi
+          echo "::add-mask::$APP_URL"
+          echo "APP_ID=$APP_URL" >> "$GITHUB_OUTPUT"
+          echo "APK uploaded successfully."
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: app-tests/package-lock.json
+
+      - name: Install dependencies
+        working-directory: app-tests
+        run: npm ci
+
+      - name: Run App Automate tests (image-injection)
+        working-directory: app-tests
+        env:
+          BROWSERSTACK_APP_URL: ${{ steps.upload.outputs.APP_ID }}
+        run: npm test

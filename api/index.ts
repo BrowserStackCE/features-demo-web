@@ -1,7 +1,11 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import {
+  APP_ANDROID_DEFAULT_FEATURES,
+  APP_ANDROID_FEATURES,
+  APP_ANDROID_WORKFLOW_FILES,
   dispatchWorkflow,
+  dispatchWorkflowFile,
   getWorkflowRun,
   listAllowedWorkflows,
   resolveWorkflowFile,
@@ -21,9 +25,12 @@ app.use(
 type TriggerBody = {
   workflow?: string;
   workflows?: string[];
+  features?: string[];
   username?: string;
   accessKey?: string;
   localTesting?: boolean;
+  product?: "automate" | "app-automate";
+  platform?: "android" | "ios";
   ref?: string;
 };
 
@@ -83,6 +90,77 @@ app.post("/trigger", async (c) => {
   const accessKey = body.accessKey?.trim();
   if (!username || !accessKey) {
     return c.json({ error: "username and accessKey are required" }, 400);
+  }
+
+  const product =
+    body.product ??
+    (body.platform === "android" || body.platform === "ios"
+      ? "app-automate"
+      : "automate");
+  if (product !== "automate" && product !== "app-automate") {
+    return c.json({ error: `Unknown product: ${product}` }, 400);
+  }
+
+  if (product === "app-automate") {
+    if (body.platform !== "android" && body.platform !== "ios") {
+      return c.json(
+        { error: "platform must be 'android' or 'ios' for app-automate" },
+        400
+      );
+    }
+    if (body.platform === "ios") {
+      return c.json({ error: "iOS App Automate is not available yet" }, 501);
+    }
+
+    const features = [
+      ...new Set(
+        (Array.isArray(body.features) ? body.features : [])
+          .filter((f): f is string => typeof f === "string")
+          .map((f) => f.trim())
+          .filter(Boolean)
+      ),
+    ];
+    const unknownFeatures = features.filter(
+      (f) => !APP_ANDROID_FEATURES.includes(f)
+    );
+    if (unknownFeatures.length > 0) {
+      return c.json(
+        {
+          error: `Unknown feature(s): ${unknownFeatures.join(", ")}`,
+          allowed: APP_ANDROID_FEATURES,
+        },
+        400
+      );
+    }
+    if (!process.env.GITHUB_TOKEN) {
+      return c.json({ error: "GITHUB_TOKEN is not configured" }, 500);
+    }
+
+    // No features selected => run every Android feature workflow.
+    const selected = features.length > 0 ? features : APP_ANDROID_DEFAULT_FEATURES;
+    const appRuns = await Promise.all(
+      selected.map(async (feature) => {
+        const workflow = `app-android-${feature}`;
+        try {
+          const dispatched = await dispatchWorkflowFile(
+            APP_ANDROID_WORKFLOW_FILES[feature],
+            { username, accessKey, localTesting: Boolean(body.localTesting) },
+            body.ref?.trim() || "main"
+          );
+          const token = mintPollToken({
+            runId: dispatched.workflowRunId,
+            workflow,
+          });
+          return { workflow, token, htmlUrl: dispatched.htmlUrl };
+        } catch (err) {
+          return {
+            workflow,
+            error: err instanceof Error ? err.message : String(err),
+          };
+        }
+      })
+    );
+    return c.json({ runs: appRuns });
   }
 
   const workflows = normalizeWorkflows(body);
