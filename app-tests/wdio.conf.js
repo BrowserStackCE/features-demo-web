@@ -56,14 +56,14 @@ exports.config = {
         video: true,
         enableCameraImageInjection: true,
         enableCameraVideoInjection: true,
-        enableAudioInjection: true,
+        // enableAudioInjection is intentionally not set here: devices/groups without the feature
+        // reject the session. Audio injection runs only via config/audio-injection.conf.js.
         enableBiometric: true,
         appProfiling: true,
         ...(process.env.GEO_LOCATION ? { geoLocation: process.env.GEO_LOCATION } : {}),
         // networkLogs re-signs HTTPS traffic; the app then rejects its own IP-lookup calls
         // (CertPathValidatorException in the device log). Opt in with NETWORK_LOGS=true.
         networkLogs: true,
-        // Needed for the audio injection spec; the account's group must have the feature enabled.
       },
     },
   ],

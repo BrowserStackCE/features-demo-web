@@ -48,9 +48,8 @@ function buildConfig({ specs, sessionName, buildName, bstackOptions = {} }) {
           video: true,
           enableCameraImageInjection: true,
           enableCameraVideoInjection: true,
-          // Audio injection must be enabled for the account's group, otherwise every session is
-          // rejected (BROWSERSTACK_INVALID_ACTION_BY_GROUP). Only audio-injection.conf.js turns it on.
-          enableAudioInjection: false,
+          // enableAudioInjection is intentionally not set here: devices/groups without the feature
+          // reject the session (BROWSERSTACK_INVALID_ACTION_BY_GROUP). Only audio-injection.conf.js sets it.
           enableBiometric: true,
           appProfiling: true,
           ...(process.env.GEO_LOCATION ? { geoLocation: process.env.GEO_LOCATION } : {}),

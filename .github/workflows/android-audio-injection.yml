@@ -19,8 +19,6 @@ jobs:
   android-audio-injection:
     runs-on: ubuntu-latest
     env:
-      BROWSERSTACK_USERNAME: ${{ inputs.username }}
-      BROWSERSTACK_ACCESS_KEY: ${{ inputs.accessKey }}
       BROWSERSTACK_LOCAL: ${{ inputs.localTesting }}
       FEATURES: audio-injection
       REGISTER_NAME: ${{ secrets.APP_REGISTER_NAME }}
@@ -29,13 +27,38 @@ jobs:
       PHONE_NUMBER: ${{ secrets.APP_PHONE_NUMBER }}
       OTP_VALUE: ${{ secrets.APP_OTP_VALUE }}
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Mask credentials
+      # =========================================================
+      # Load & Mask BrowserStack Credentials
+      # Read from the event payload (not the inputs context) and mask
+      # before anything else runs, so they never appear in the logs.
+      # =========================================================
+      - name: Load BrowserStack credentials
         shell: bash
         run: |
-          echo "::add-mask::${BROWSERSTACK_USERNAME}"
-          echo "::add-mask::${BROWSERSTACK_ACCESS_KEY}"
+          set +x
+
+          BS_USER=$(jq -r '.inputs.username' "$GITHUB_EVENT_PATH")
+          BS_KEY=$(jq -r '.inputs.accessKey' "$GITHUB_EVENT_PATH")
+
+          if [ -z "$BS_USER" ] || [ "$BS_USER" = "null" ]; then
+            echo "BrowserStack username missing."
+            exit 1
+          fi
+
+          if [ -z "$BS_KEY" ] || [ "$BS_KEY" = "null" ]; then
+            echo "BrowserStack access key missing."
+            exit 1
+          fi
+
+          echo "::add-mask::$BS_USER"
+          echo "::add-mask::$BS_KEY"
+
+          echo "BROWSERSTACK_USERNAME=$BS_USER" >> "$GITHUB_ENV"
+          echo "BROWSERSTACK_ACCESS_KEY=$BS_KEY" >> "$GITHUB_ENV"
+
+          echo "BrowserStack credentials loaded successfully."
+
+      - uses: actions/checkout@v4
 
       - name: Verify APK
         shell: bash
@@ -86,4 +109,5 @@ jobs:
         working-directory: app-tests
         env:
           BROWSERSTACK_APP_URL: ${{ steps.upload.outputs.APP_ID }}
-        run: npm test
+        # Dedicated config: the only run that sets enableAudioInjection.
+        run: npm run test:audio-injection

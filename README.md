@@ -144,6 +144,6 @@ Each feature has its own WebdriverIO config in `app-tests/config/` (`<feature>.c
 | `npm run test:gps` | `config/gps.conf.js` | GPS location |
 | `npm run test:otp` | `config/otp.conf.js` | OTP |
 
-`npm test` still uses `wdio.conf.js` (used by CI): `FEATURES=gps,network npm test` runs a comma-separated list, and an empty `FEATURES` runs the E2E flow.
+`npm test` still uses `wdio.conf.js` (used by CI): `FEATURES=gps,network npm test` runs a comma-separated list, and an empty `FEATURES` runs the E2E flow. `wdio.conf.js` does not enable audio injection, so audio runs only through `npm run test:audio-injection` (which is what `android-audio-injection.yml` calls).
 
 The optional test data (`REGISTER_*`, `PHONE_NUMBER`, `OTP_VALUE`) can be supplied through the GitHub secrets `APP_REGISTER_NAME`, `APP_REGISTER_EMAIL`, `APP_REGISTER_PASSWORD`, `APP_PHONE_NUMBER` and `APP_OTP_VALUE` in CI.
