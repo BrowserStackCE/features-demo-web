@@ -36,6 +36,22 @@ export const APP_ANDROID_FEATURES = Object.keys(APP_ANDROID_WORKFLOW_FILES);
 // What "run everything" dispatches when no feature is selected: the individual features, not the e2e flow.
 export const APP_ANDROID_DEFAULT_FEATURES = APP_ANDROID_FEATURES.filter((f) => f !== "e2e");
 
+// One workflow per App Automate iOS feature (ios-<feature>.yml). No audio injection on iOS.
+export const APP_IOS_WORKFLOW_FILES: Record<string, string> = {
+  "image-injection": "ios-image-injection.yml",
+  biometric: "ios-biometric.yml",
+  "video-injection": "ios-video-injection.yml",
+  "file-upload-download": "ios-file-download.yml",
+  network: "ios-network.yml",
+  gps: "ios-gps.yml",
+  otp: "ios-otp.yml",
+  // Full BFSI onboarding flow end to end (specs/ios/full-flow.spec.js).
+  e2e: "ios-e2e.yml",
+};
+
+export const APP_IOS_FEATURES = Object.keys(APP_IOS_WORKFLOW_FILES);
+export const APP_IOS_DEFAULT_FEATURES = APP_IOS_FEATURES.filter((f) => f !== "e2e");
+
 export type DispatchInputs = {
   username: string;
   accessKey: string;

@@ -75,7 +75,7 @@
   </div>
 
   <div id="app-features-card" class="hidden bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
-    <h2 class="font-semibold text-gray-900">App Features (Android)</h2>
+    <h2 class="font-semibold text-gray-900">App Features (<span id="app-platform-label">Android</span>)</h2>
     <p class="text-sm text-gray-500">Select one or more features to run. Leave all unselected to run the full flow.</p>
     <label class="flex items-center gap-2 text-sm font-semibold text-gray-900 cursor-pointer">
       <input type="checkbox" id="app-select-all" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
@@ -103,7 +103,7 @@
         File Upload &amp; Download
       </label>
       <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
-        <input type="checkbox" name="app-feature" value="audio-injection" class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
+        <input type="checkbox" name="app-feature" value="audio-injection" data-android-only class="rounded border-gray-300 text-brand-600 focus:ring-brand-600"/>
         Audio Injection
       </label>
       <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer border border-gray-200 rounded-xl px-3 py-2.5 hover:border-brand-300">
@@ -202,7 +202,10 @@
 (function () {
   // Defaults to the deployed API. To test against a local API (cd api && npm run dev), open this
   // page with ?api=http://localhost:8787
-  const API_BASE = new URLSearchParams(window.location.search).get('api') || 'https://features-demo-api.vercel.app';
+  const PAGE_PARAMS = new URLSearchParams(window.location.search);
+  const API_BASE = PAGE_PARAMS.get('api') || 'https://features-demo-api.vercel.app';
+  // Branch the workflows are dispatched from; open the page with ?ref=<branch> to test before merging.
+  const WORKFLOW_REF = PAGE_PARAMS.get('ref') || 'main';
   const POLL_MS = 4000;
 
   const usernameEl = document.getElementById('username');
@@ -239,7 +242,16 @@
     var isApp = selectedProduct() === 'app-automate';
     platformSection.classList.toggle('hidden', !isApp);
     featuresCard.classList.toggle('hidden', isApp);
-    appFeaturesCard.classList.toggle('hidden', !isApp || selectedPlatform() !== 'android');
+    appFeaturesCard.classList.toggle('hidden', !isApp);
+    // Audio injection exists only on Android: hide and untick it on iOS.
+    var isIos = isApp && selectedPlatform() === 'ios';
+    document.getElementById('app-platform-label').textContent = isIos ? 'iOS' : 'Android';
+    document.querySelectorAll('input[data-android-only]').forEach(function (el) {
+      if (isIos) el.checked = false;
+      el.closest('label').classList.toggle('hidden', isIos);
+    });
+    // The select-all checkbox is wired up further down; skip it on the first call at load.
+    if (typeof syncSelectAll === 'function' && selectAllEl) syncSelectAll();
     viewBsBtn.href = DASHBOARD_URLS[selectedProduct()];
   }
 
@@ -268,13 +280,16 @@
   }
   e2eEl.addEventListener('change', syncE2e);
   function syncSelectAll() {
-    var boxes = appFeatureBoxes();
+    var boxes = appFeatureBoxes().filter(function (el) { return !el.hasAttribute('data-android-only') || selectedPlatform() !== 'ios'; });
     var checked = boxes.filter(function (el) { return el.checked; }).length;
     selectAllEl.checked = boxes.length > 0 && checked === boxes.length;
     selectAllEl.indeterminate = checked > 0 && checked < boxes.length;
   }
   selectAllEl.addEventListener('change', function () {
-    appFeatureBoxes().forEach(function (el) { el.checked = selectAllEl.checked; });
+    appFeatureBoxes().forEach(function (el) {
+      if (el.hasAttribute('data-android-only') && selectedPlatform() === 'ios') return;
+      el.checked = selectAllEl.checked;
+    });
     selectAllEl.indeterminate = false;
   });
   appFeatureBoxes().forEach(function (el) {
@@ -406,10 +421,6 @@
       showError('Username and access key are required.');
       return;
     }
-    if (product === 'app-automate' && platform !== 'android') {
-      showError('iOS App Automate features are not available yet.');
-      return;
-    }
     // App Automate with nothing selected runs the full flow; Automate needs a selection.
     if (workflows.length === 0 && product !== 'app-automate') {
       showError('Select at least one pipeline.');
@@ -435,7 +446,7 @@
           localTesting: localTestingEl.checked,
           product: product,
           platform: platform,
-          ref: 'main'
+          ref: WORKFLOW_REF
         })
       });
       var data = await res.json();

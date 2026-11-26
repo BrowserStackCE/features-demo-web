@@ -4,6 +4,9 @@ import {
   APP_ANDROID_DEFAULT_FEATURES,
   APP_ANDROID_FEATURES,
   APP_ANDROID_WORKFLOW_FILES,
+  APP_IOS_DEFAULT_FEATURES,
+  APP_IOS_FEATURES,
+  APP_IOS_WORKFLOW_FILES,
   dispatchWorkflow,
   dispatchWorkflowFile,
   getWorkflowRun,
@@ -108,9 +111,14 @@ app.post("/trigger", async (c) => {
         400
       );
     }
-    if (body.platform === "ios") {
-      return c.json({ error: "iOS App Automate is not available yet" }, 501);
-    }
+    const isIos = body.platform === "ios";
+    const allowedFeatures = isIos ? APP_IOS_FEATURES : APP_ANDROID_FEATURES;
+    const defaultFeatures = isIos
+      ? APP_IOS_DEFAULT_FEATURES
+      : APP_ANDROID_DEFAULT_FEATURES;
+    const workflowFiles = isIos
+      ? APP_IOS_WORKFLOW_FILES
+      : APP_ANDROID_WORKFLOW_FILES;
 
     const features = [
       ...new Set(
@@ -121,13 +129,13 @@ app.post("/trigger", async (c) => {
       ),
     ];
     const unknownFeatures = features.filter(
-      (f) => !APP_ANDROID_FEATURES.includes(f)
+      (f) => !allowedFeatures.includes(f)
     );
     if (unknownFeatures.length > 0) {
       return c.json(
         {
           error: `Unknown feature(s): ${unknownFeatures.join(", ")}`,
-          allowed: APP_ANDROID_FEATURES,
+          allowed: allowedFeatures,
         },
         400
       );
@@ -136,14 +144,14 @@ app.post("/trigger", async (c) => {
       return c.json({ error: "GITHUB_TOKEN is not configured" }, 500);
     }
 
-    // No features selected => run every Android feature workflow.
-    const selected = features.length > 0 ? features : APP_ANDROID_DEFAULT_FEATURES;
+    // No features selected => run every feature workflow for the platform.
+    const selected = features.length > 0 ? features : defaultFeatures;
     const appRuns = await Promise.all(
       selected.map(async (feature) => {
-        const workflow = `app-android-${feature}`;
+        const workflow = `app-${body.platform}-${feature}`;
         try {
           const dispatched = await dispatchWorkflowFile(
-            APP_ANDROID_WORKFLOW_FILES[feature],
+            workflowFiles[feature],
             { username, accessKey, localTesting: Boolean(body.localTesting) },
             body.ref?.trim() || "main"
           );
