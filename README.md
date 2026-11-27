@@ -117,6 +117,12 @@ The E2E flow runs `full-flow.spec.js` through the BFSI onboarding: domain select
 
 The trigger API accepts `product: "app-automate"`, `platform: "android"` and a `features` list (`e2e`, `image-injection`, `biometric`, `video-injection`, `file-upload-download`, `audio-injection`, `network`, `gps`, `otp`), and starts one workflow per feature. When the page is not served by the hosted API, open it with `?api=http://localhost:8787` to use a local `npm run dev` of [`api/`](api/).
 
+### iOS
+
+The same page, API and workflow pattern work for iOS. Pick **App Automate** and **iOS** on the page; the feature list drops audio injection (not available on iOS). The API dispatches one `.github/workflows/ios-<feature>.yml` per feature (`e2e`, `image-injection`, `biometric`, `video-injection`, `file-upload-download`, `network`, `gps`, `otp`). Each workflow uploads `docs/assets/nexus-demo.ipa`, sets `BROWSERSTACK_IOS_APP_URL` and runs `npm run test:ios`, which uses `app-tests/config/ios/ios.conf.js`. That config reads `FEATURES` (comma-separated spec names under `app-tests/specs/ios/`; a blank value runs `full-flow.spec.js`). `file-upload-download` maps to the `file-download` spec.
+
+Commit `nexus-demo.ipa` to `docs/assets/` before running the iOS workflows.
+
 ### Run locally
 
 ```bash
